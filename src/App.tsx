@@ -1,4 +1,5 @@
 import "./Fonts.css";
+import "./Themes.css";
 import "./App.css";
 
 import { PiTriangleDuotone } from "react-icons/pi";

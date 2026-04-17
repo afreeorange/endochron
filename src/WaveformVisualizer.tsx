@@ -1,3 +1,8 @@
+/**
+ * NOTE: Would use this in the Real World™
+ * https://github.com/samhirtarif/react-audio-visualize?tab=readme-ov-file
+ */
+
 import { useEffect, useRef } from "react";
 
 const BAR_W = 3;
@@ -50,7 +55,7 @@ export const WaveformVisualizer = ({
         const wave =
           0.28 * Math.sin(t * 4.1) +
           0.18 * Math.sin(t * 9.3) +
-          0.10 * Math.sin(t * 17.7);
+          0.1 * Math.sin(t * 17.7);
         const noise = (Math.random() - 0.5) * 0.18;
         const h = Math.max(0.04, Math.min(0.96, 0.48 + wave + noise));
         bars.push(h);

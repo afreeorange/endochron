@@ -2,6 +2,7 @@
 @plugin "daisyui" {
   themes: valentine;
 }
+
 html,
 body,
 #root {
