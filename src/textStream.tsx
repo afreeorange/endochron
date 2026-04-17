@@ -26,7 +26,7 @@ And God said, Let the waters under the heaven be gathered together unto one plac
 
   async function* generateStream() {
     for (const chunk of chunks) {
-      await new Promise((resolve) => setTimeout(resolve, Math.random() * 50));
+      await new Promise((resolve) => setTimeout(resolve, Math.random() * 25));
 
       yield chunk;
     }
@@ -58,5 +58,5 @@ export function useAnimatedText() {
     ></TypeIt>
   );
 
-  return [el, setText];
+  return [el, setText] as const;
 }

@@ -1,5 +1,4 @@
 import type { PropsWithChildren } from "react";
-import { SiGreptimedb } from "react-icons/si";
 import { PiMicrophoneDuotone } from "react-icons/pi";
 import { PiAsclepiusDuotone } from "react-icons/pi";
 import { PiPersonDuotone } from "react-icons/pi";
@@ -8,7 +7,8 @@ import { PiGearDuotone } from "react-icons/pi";
 export const Shell = ({ children }: PropsWithChildren) => (
   <div className="h-full">
     {children}
-    <div className="dock dock-md">
+
+    <div className="fixed dock dock-md">
       <button className="dock-active">
         <PiMicrophoneDuotone className="text-2xl" />
         <span className="dock-label">Record</span>

@@ -12,3 +12,10 @@ body,
 p {
   @apply text-pink-600;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
