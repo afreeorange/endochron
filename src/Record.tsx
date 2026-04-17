@@ -63,10 +63,10 @@ export const Record = () => {
               style={{ height: 48 }}
             ></div>
 
-            <div className="relative">
+            <div className="relative fkex">
               {isRecordingInProgress ? (
                 <>
-                  <div className="inline-flex absolute bg-pink-400 opacity-75 rounded-full w-fit h-full animate-ping" />
+                  <span className="inline-flex absolute bg-pink-400 opacity-75 rounded-full w-full h-full animate-ping" />
                   <div className="inline-flex relative bg-pink-500 rounded-full">
                     <button
                       className="block p-6 border border-pink-400 border-solid rounded-full cursor-pointer"
