@@ -85,7 +85,7 @@ export const Record = () => {
           <div className="relative">
             <div
               ref={scrollRef}
-              className="absolute opacity-25 mt-4 w-full h-[40vh] overflow-y-scroll no-scrollbar"
+              className="absolute opacity-25 mt-4 w-full h-[30vh] overflow-y-scroll no-scrollbar"
             >
               {animatedText}
             </div>
@@ -93,24 +93,30 @@ export const Record = () => {
 
           <div className="z-50 flex flex-col justify-end items-center gap-6 pb-[15%] w-full h-full grow">
             {phase === "done" ? (
-              <div className="z-40 bg-base-100 border w-full card">
+              <div className="z-40 bg-base-100 border border-pink-300 w-full card">
                 <div className="gap-3 p-4 card-body">
                   <div className="join join-horizontal">
-                    <button className="w-1/2 btn join-item" onClick={() => record(true)}>
+                    <button
+                      className="border-pink-200 w-1/2 btn btn-lg join-item"
+                      onClick={() => record(true)}
+                    >
                       <PiMicrophoneDuotone className="text-lg" /> Continue
                     </button>
                     <button
-                      className="border-pink-200 border-l-0 btn-outline w-1/2 btn join-item"
+                      className="border-pink-200 border-l-0 btn-outline w-1/2 btn btn-lg join-item"
                       onClick={reset}
                     >
                       <PiArrowCounterClockwise className="text-lg" /> Start over
                     </button>
                   </div>
-                  <button className="btn-block btn btn-primary">
-                    <PiAsclepiusDuotone className="text-2xl" /> Add to Diary
+                  <button className="btn-block btn btn-lg btn-primary">
+                    <PiAsclepiusDuotone className="text-2xl" /> Add
+                    to Diary
                   </button>
 
-                  <p className="opacity-50 text-xs text-center">You can edit or delete anything at any time.</p>
+                  <p className="opacity-50 text-xs text-center">
+                    You can review, edit, or delete anything at any time.
+                  </p>
                 </div>
               </div>
             ) : (
@@ -149,7 +155,11 @@ export const Record = () => {
                     <p className="h-6 text-pink-300 text-xs text-center">
                       Your voice is used to capture your words —{" "}
                       <strong>nothing more</strong>. Once it's transcribed, the
-                      audio is <span className="underline underline-offset-2">deleted</span>.
+                      audio is{" "}
+                      <span className="underline underline-offset-2">
+                        deleted
+                      </span>
+                      .
                     </p>
                   ) : (
                     <WaveformVisualizer isActive={isRecording} />
