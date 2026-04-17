@@ -1,49 +1,59 @@
 import "./Fonts.css";
 import "./App.css";
 
-import { TbTriangleInvertedFilled } from "react-icons/tb";
-import { TbCircleDotted } from "react-icons/tb";
+import { PiTriangleDuotone } from "react-icons/pi";
+import { PiUserGearDuotone } from "react-icons/pi";
 import { SiGreptimedb } from "react-icons/si";
+import { PiHandWavingDuotone } from "react-icons/pi";
+import { Page } from "./Page";
+import { NavLink } from "react-router";
 
 function App() {
   return (
     <>
-      <div className="grid mx-auto max-w-2xl h-full">
-        <div className="flex flex-col p-8 pb-6">
-          <div className="mx-auto">
-            <SiGreptimedb className="mb-6 text-pink-600 text-8xl rotate-180 scale-x-[-1]" />
-          </div>
-          <h1 className="font-black text-pink-600 text-6xl tracking-tight">
-            EndoChron
-          </h1>
-          <h2 className="font-extralight text-pink-600 text-4xl">Welcome!</h2>
+      <Page>
+        <div className="flex justify-center md:justify-normal">
+          <SiGreptimedb className="mb-6 text-pink-600 text-8xl rotate-180 scale-x-[-1]" />
+        </div>
+        <h1 className="font-black text-pink-600 text-6xl tracking-tight">
+          EndoChron
+        </h1>
 
-          <div className="content-center gap-4 grid grow">
-            <p className="mb-2">How would you like to sign in?</p>
-            <button className="btn-block justify-start btn">
-              <TbTriangleInvertedFilled className="mr-2" /> Use my Phendo
+        <div className="content-center gap-4 grid grow">
+          <h2 className="font-extralight text-pink-600 text-3xl">
+            Welcome! <PiHandWavingDuotone className="inline scale-x-[-1]" /> <br />How would you like to start?
+          </h2>
+          {/* <p className="mb-2 text-lg"></p> */}
+          <NavLink to={"/speak"}>
+            <button className="btn-block justify-start btn-lg btn">
+              <PiTriangleDuotone className="mr-2 rotate-180" /> Use my Phendo
               Account
             </button>
-            <button className="btn-block justify-start btn">
-              <TbCircleDotted className="mr-2" /> Use Anonymously
+          </NavLink>
+          <NavLink to={"/profile"}>
+            <button className="btn-block justify-start btn btn-lg">
+              <PiUserGearDuotone className="mr-2" /> Create a profile
             </button>
-          </div>
-
-          <footer>
-            <ul className="flex justify-center gap-4 font-light text-xs uppercase tracking-wide">
-              <li>
-                <a href="#">Privacy</a>
-              </li>
-              <li>
-                <a href="#">Support</a>
-              </li>
-              <li>
-                <a href="#">Colophon</a>
-              </li>
-            </ul>
-          </footer>
+          </NavLink>
         </div>
-      </div>
+
+        <footer>
+          <ul className="flex justify-center gap-4 text-pink-300 text-sm tracking-wide">
+            <li>
+              <NavLink to="/Terms">Terms</NavLink>
+            </li>
+            <li>
+              <NavLink to="/Privacy">Privacy</NavLink>
+            </li>
+            <li>
+              <NavLink to="/Support">Support</NavLink>
+            </li>
+            <li>
+              <NavLink to="/Colophon">Colophon</NavLink>
+            </li>
+          </ul>
+        </footer>
+      </Page>
     </>
   );
 }

@@ -29,6 +29,9 @@ importers:
       tailwindcss:
         specifier: ^4.2.2
         version: 4.2.2
+      typeit-react:
+        specifier: ^2.7.8
+        version: 2.7.8(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     devDependencies:
       '@eslint/js':
         specifier: ^9.39.4
@@ -316,6 +319,9 @@ packages:
   '@types/react@19.2.14':
     resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
 
+  '@types/web-animations-js@2.2.16':
+    resolution: {integrity: sha512-ATELeWMFwj8eQiH0KmvsCl1V2lu/qx/CjOBmv4ADSZS5u8r4reMyjCXtxG7khqyiwH3IOMNdrON/Ugn94OUcRA==}
+
   '@vitejs/plugin-react@6.0.1':
     resolution: {integrity: sha512-l9X/E3cDb+xY3SWzlG1MOGt2usfEHGMNIaegaUGFsLkb3RCn/k8/TOXBcab+OndDI4TBtktT8/9BwwW8Vi9KUQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -517,6 +523,15 @@ packages:
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
+  typeit-react@2.7.8:
+    resolution: {integrity: sha512-zN2Riiv63pmJEVqXOy1yXraF6hz1zr4L17pw1f9h4zQQDwP8YGBL+hcH9/75VOocjc7ZAg3hYUW1etZlZe4OfQ==}
+    peerDependencies:
+      react: ^19.0.0
+      react-dom: ^19.0.0
+
+  typeit@8.8.7:
+    resolution: {integrity: sha512-sSVpy+cjeFP6Z+fZqiHzUSShg5yYFeJEt/Qut/bX945+Axyq+Yq+GPOuuk+sofoccSv8nNX/ibOOHkbki2mEpg==}
 
   typescript@6.0.2:
     resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
@@ -763,6 +778,8 @@ snapshots:
     dependencies:
       csstype: 3.2.3
 
+  '@types/web-animations-js@2.2.16': {}
+
   '@vitejs/plugin-react@6.0.1(vite@8.0.5(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@types/node@24.12.2)(jiti@2.6.1))':
     dependencies:
       '@rolldown/pluginutils': 1.0.0-rc.7
@@ -919,6 +936,19 @@ snapshots:
 
   tslib@2.8.1:
     optional: true
+
+  typeit-react@2.7.8(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+    dependencies:
+      '@types/react-dom': 19.2.3(@types/react@19.2.14)
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+      typeit: 8.8.7
+    transitivePeerDependencies:
+      - '@types/react'
+
+  typeit@8.8.7:
+    dependencies:
+      '@types/web-animations-js': 2.2.16
 
   typescript@6.0.2: {}
 
