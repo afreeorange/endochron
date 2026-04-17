@@ -110,12 +110,11 @@ export const Record = () => {
                     </button>
                   </div>
                   <button className="btn-block btn btn-lg btn-primary">
-                    <PiAsclepiusDuotone className="text-2xl" /> Add
-                    to Diary
+                    <PiAsclepiusDuotone className="text-2xl" /> Add to Diary
                   </button>
 
                   <p className="opacity-50 text-xs text-center">
-                    You can review, edit, or delete anything at any time.
+                    You can review, edit, or delete any thing at any time.
                   </p>
                 </div>
               </div>
@@ -153,13 +152,9 @@ export const Record = () => {
                 <div className="mb-8">
                   {!isRecording ? (
                     <p className="h-6 text-pink-300 text-xs text-center">
-                      Your voice is used to capture your words —{" "}
-                      <strong>nothing more</strong>. Once it's transcribed, the
-                      audio is{" "}
-                      <span className="underline underline-offset-2">
-                        deleted
-                      </span>
-                      .
+                      Your voice is used to capture your <strong>words</strong>{" "}
+                      &mdash; <strong>nothing more</strong>. <br /> Your words
+                      live on only your device. Edit or remove them whenever you want.
                     </p>
                   ) : (
                     <WaveformVisualizer isActive={isRecording} />
