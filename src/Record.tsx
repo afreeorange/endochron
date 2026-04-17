@@ -15,6 +15,7 @@ export const Record = () => {
   const [animatedText, setText, clearText] = useAnimatedText();
   const scrollRef = useRef<HTMLDivElement>(null);
   const stopRef = useRef(false);
+  const streamRef = useRef<AsyncGenerator<string> | null>(null);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -30,14 +31,24 @@ export const Record = () => {
     return () => observer.disconnect();
   }, []);
 
-  async function record() {
+  async function record(resume = false) {
     stopRef.current = false;
     setPhase("recording");
-    const { textStream } = await streamText();
-    for await (const textPart of textStream) {
-      if (stopRef.current) return;
-      setText(textPart);
+
+    if (!resume || !streamRef.current) {
+      const { textStream } = await streamText();
+      streamRef.current = textStream;
     }
+
+    const stream = streamRef.current;
+    while (true) {
+      if (stopRef.current) return;
+      const { value, done } = await stream.next();
+      if (done) break;
+      setText(value);
+    }
+
+    streamRef.current = null;
     setPhase("done");
   }
 
@@ -48,6 +59,7 @@ export const Record = () => {
 
   function reset() {
     stopRef.current = true;
+    streamRef.current = null;
     clearText();
     setPhase("idle");
   }
@@ -61,9 +73,12 @@ export const Record = () => {
           <h1
             className="font-light text-pink-600 text-5xl"
             dangerouslySetInnerHTML={{
-              __html: isRecording
-                ? "Listening&hellip;"
-                : "What&#8217;s on your mind, Mischa?",
+              __html:
+                phase === "recording"
+                  ? "Listening&hellip;"
+                  : phase === "done"
+                    ? "What do you want to do next?"
+                    : "What&#8217;s on your mind, Mischa?",
             }}
           />
 
@@ -78,10 +93,10 @@ export const Record = () => {
 
           <div className="z-50 flex flex-col justify-end items-center gap-6 pb-[15%] w-full h-full grow">
             {phase === "done" ? (
-              <div className="bg-base-150 border w-full card">
+              <div className="z-40 bg-base-100 border w-full card">
                 <div className="gap-3 p-4 card-body">
                   <div className="join join-horizontal">
-                    <button className="w-1/2 btn join-item" onClick={record}>
+                    <button className="w-1/2 btn join-item" onClick={() => record(true)}>
                       <PiMicrophoneDuotone className="text-lg" /> Continue
                     </button>
                     <button
@@ -117,7 +132,7 @@ export const Record = () => {
                           ? "border-solid border-pink-400"
                           : "border-dashed border-pink-400 bg-pink-100",
                       )}
-                      onClick={isRecording ? stop : record}
+                      onClick={isRecording ? stop : () => record()}
                     >
                       <PiMicrophoneDuotone
                         className={clsx(
@@ -134,7 +149,7 @@ export const Record = () => {
                     <p className="h-6 text-pink-300 text-xs text-center">
                       Your voice is used to capture your words —{" "}
                       <strong>nothing more</strong>. Once it's transcribed, the
-                      audio is <u>deleted</u>.
+                      audio is <span className="underline underline-offset-2">deleted</span>.
                     </p>
                   ) : (
                     <WaveformVisualizer isActive={isRecording} />
