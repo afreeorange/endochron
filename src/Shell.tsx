@@ -8,7 +8,7 @@ export const Shell = ({ children }: PropsWithChildren) => (
   <div className="h-full">
     {children}
 
-    <div className="fixed dock dock-md">
+    <div className="dock dock-md">
       <button className="dock-active">
         <PiMicrophoneDuotone className="text-2xl" />
         <span className="dock-label">Record</span>
