@@ -64,6 +64,16 @@ export const WaveformVisualizer = ({
         ctx.clearRect(0, 0, cssWidth, height);
 
         const cy = height / 2;
+
+        ctx.strokeStyle = color;
+        ctx.globalAlpha = 0.15;
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, cy);
+        ctx.lineTo(cssWidth, cy);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
         bars.forEach((h, i) => {
           const x = cssWidth - (bars.length - i) * STEP;
           if (x < -STEP) return;
