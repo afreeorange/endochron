@@ -91,24 +91,34 @@ export const Record = () => {
             />
           </AnimatePresence>
 
-          <div className="relative">
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+          >
             <div
               ref={scrollRef}
               className="absolute opacity-25 mt-4 w-full h-[35vh] overflow-y-scroll no-scrollbar"
             >
               {animatedText}
             </div>
-          </div>
+          </motion.div>
 
-          <div className="z-50 flex flex-col justify-end items-center gap-6 pb-[15%] w-full h-full grow">
+          <motion.div
+            className="z-50 flex flex-col justify-end items-center pb-[15%] w-full h-full grow"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
+          >
             {phase === "done" ? (
               <motion.div
                 className="z-40 bg-base-100 border border-pink-300 w-full card"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
+                transition={{ duration: 0.65, ease: "easeOut" }}
               >
-                <div className="gap-2 p-4 card-body">
+                <div className="gap-4 p-4 card-body">
                   <div className="join join-horizontal">
                     <button
                       className="border-pink-200 w-1/2 btn btn-lg join-item"
@@ -163,7 +173,7 @@ export const Record = () => {
                   </div>
                 </div>
 
-                <div className="mb-8">
+                <div className="mt-4">
                   {isRecording ? (
                     <WaveformVisualizer isActive={isRecording} />
                   ) : (
@@ -190,7 +200,7 @@ export const Record = () => {
                 </div>
               </>
             )}
-          </div>
+          </motion.div>
         </div>
       </Page>
     </Shell>
