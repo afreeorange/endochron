@@ -12,6 +12,7 @@ type Phase = "idle" | "recording" | "done";
 
 export const Record = () => {
   const [phase, setPhase] = useState<Phase>("idle");
+  const [privacyDismissed, setPrivacyDismissed] = useState(false);
   const [animatedText, setText, clearText] = useAnimatedText();
   const scrollRef = useRef<HTMLDivElement>(null);
   const stopRef = useRef(false);
@@ -77,7 +78,7 @@ export const Record = () => {
                 phase === "recording"
                   ? "Listening&hellip;"
                   : phase === "done"
-                    ? "What do you want to do next?"
+                    ? "Done."
                     : "What&#8217;s on your mind, Mischa?",
             }}
           />
@@ -85,7 +86,7 @@ export const Record = () => {
           <div className="relative">
             <div
               ref={scrollRef}
-              className="absolute opacity-25 mt-4 w-full h-[30vh] overflow-y-scroll no-scrollbar"
+              className="absolute opacity-25 mt-4 w-full h-[35vh] overflow-y-scroll no-scrollbar"
             >
               {animatedText}
             </div>
@@ -94,7 +95,7 @@ export const Record = () => {
           <div className="z-50 flex flex-col justify-end items-center gap-6 pb-[15%] w-full h-full grow">
             {phase === "done" ? (
               <div className="z-40 bg-base-100 border border-pink-300 w-full card">
-                <div className="gap-3 p-4 card-body">
+                <div className="gap-2 p-4 card-body">
                   <div className="join join-horizontal">
                     <button
                       className="border-pink-200 w-1/2 btn btn-lg join-item"
@@ -114,7 +115,7 @@ export const Record = () => {
                   </button>
 
                   <p className="opacity-50 text-xs text-center">
-                    You can review, edit, or delete any thing at any time.
+                    You can re-record, review, or remove any thing at any time.
                   </p>
                 </div>
               </div>
@@ -150,18 +151,28 @@ export const Record = () => {
                 </div>
 
                 <div className="mb-8">
-                  {!isRecording ? (
-                    <p className="h-6 text-pink-300 text-xs">
+                  {isRecording ? (
+                    <WaveformVisualizer isActive={isRecording} />
+                  ) : (
+                    <p
+                      className={clsx(
+                        "opacity-50 px-8 h-6 text-pink-300 text-xs text-center",
+                        privacyDismissed && "invisible",
+                      )}
+                    >
                       Your <strong>voice in words</strong> &mdash;{" "}
-                      <strong>nothing more</strong>. All audio is{" "}
+                      <strong>nothing more</strong>. <br /> All audio is{" "}
                       <span className="underline underline-offset-2">
                         deleted
                       </span>
-                      . Your story lives on only your device. Edit or remove any
-                      thing at any time.
+                      .{" "}
+                      <button
+                        className="border border-pink-400 btn btn-xs"
+                        onClick={() => setPrivacyDismissed(true)}
+                      >
+                        Got it
+                      </button>
                     </p>
-                  ) : (
-                    <WaveformVisualizer isActive={isRecording} />
                   )}
                 </div>
               </>

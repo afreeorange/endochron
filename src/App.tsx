@@ -15,7 +15,7 @@ const App = () => (
       <div className="flex justify-center md:justify-normal">
         <SiGreptimedb className="mb-6 text-pink-600 text-8xl rotate-180 scale-x-[-1]" />
       </div>
-      <h1 className="font-black text-pink-600 text-6xl tracking-tight">
+      <h1 className="flex justify-center md:justify-normal font-black text-pink-600 text-6xl tracking-tight">
         EndoChron
       </h1>
 
