@@ -1,6 +1,7 @@
 import { PiAsclepiusDuotone, PiMicrophoneDuotone } from "react-icons/pi";
 import { PiArrowCounterClockwise } from "react-icons/pi";
 import clsx from "clsx";
+import { AnimatePresence, motion } from "motion/react";
 
 import Shell from "./Shell";
 import { Page } from "./Page";
@@ -71,17 +72,24 @@ export const Record = () => {
     <Shell>
       <Page>
         <div className="flex flex-col h-full">
-          <h1
-            className="font-light text-pink-600 text-5xl"
-            dangerouslySetInnerHTML={{
-              __html:
-                phase === "recording"
-                  ? "Listening&hellip;"
-                  : phase === "done"
-                    ? "Done."
-                    : "What&#8217;s on your mind, Mischa?",
-            }}
-          />
+          <AnimatePresence mode="wait">
+            <motion.h1
+              key={phase}
+              className="font-light text-pink-600 text-5xl"
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              dangerouslySetInnerHTML={{
+                __html:
+                  phase === "recording"
+                    ? "Listening&hellip;"
+                    : phase === "done"
+                      ? "Done."
+                      : "What&#8217;s on your mind, Mischa?",
+              }}
+            />
+          </AnimatePresence>
 
           <div className="relative">
             <div
@@ -94,7 +102,12 @@ export const Record = () => {
 
           <div className="z-50 flex flex-col justify-end items-center gap-6 pb-[15%] w-full h-full grow">
             {phase === "done" ? (
-              <div className="z-40 bg-base-100 border border-pink-300 w-full card">
+              <motion.div
+                className="z-40 bg-base-100 border border-pink-300 w-full card"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+              >
                 <div className="gap-2 p-4 card-body">
                   <div className="join join-horizontal">
                     <button
@@ -118,7 +131,7 @@ export const Record = () => {
                     You can re-record, review, or remove any thing at any time.
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ) : (
               <>
                 <div className="relative">
