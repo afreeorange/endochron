@@ -26,13 +26,13 @@ const App = () => (
           How would you like to start?
         </h2>
 
-        <NavLink to={"/speak"}>
+        <NavLink to={"/record"}>
           <button className="btn-block justify-start btn-lg btn">
             <PiTriangleDuotone className="mr-2 rotate-180" /> Use my Phendo
             Account
           </button>
         </NavLink>
-        <NavLink to={"/profile"}>
+        <NavLink to={"/record"}>
           <button className="btn-block justify-start btn btn-lg">
             <PiUserGearDuotone className="mr-2" /> Create a profile
           </button>

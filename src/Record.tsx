@@ -8,6 +8,7 @@ import { Page } from "./Page";
 import { useEffect, useRef, useState } from "react";
 import { streamText, useAnimatedText } from "./textStream";
 import { WaveformVisualizer } from "./WaveformVisualizer";
+import { NavLink } from "react-router";
 
 type Phase = "idle" | "recording" | "done";
 
@@ -69,7 +70,7 @@ export const Record = () => {
   const isRecording = phase === "recording";
 
   return (
-    <Shell>
+    <Shell disableDock={isRecording}>
       <Page>
         <div className="flex flex-col h-full">
           <AnimatePresence mode="wait">
@@ -85,7 +86,7 @@ export const Record = () => {
                   phase === "recording"
                     ? "Listening&hellip;"
                     : phase === "done"
-                      ? "Done."
+                      ? "What would you like next?"
                       : "What&#8217;s on your mind, Mischa?",
               }}
             />
@@ -106,14 +107,14 @@ export const Record = () => {
           </motion.div>
 
           <motion.div
-            className="z-50 flex flex-col justify-end items-center pb-[15%] w-full h-full grow"
+            className="z-50 flex flex-col justify-end items-center pb-[30%] w-full h-full grow"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
           >
             {phase === "done" ? (
               <motion.div
-                className="z-40 bg-base-100 border border-pink-300 w-full card"
+                className="z-40 bg-base-100 -mb-[14%] border border-pink-300 w-full card"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, ease: "easeOut" }}
@@ -133,12 +134,14 @@ export const Record = () => {
                       <PiArrowCounterClockwise className="text-lg" /> Start over
                     </button>
                   </div>
-                  <button className="btn-block btn btn-lg btn-primary">
-                    <PiAsclepiusDuotone className="text-2xl" /> Add to Diary
-                  </button>
+                  <NavLink to={"/reflect/daily"}>
+                    <button className="btn-block btn btn-lg btn-primary">
+                      <PiAsclepiusDuotone className="text-2xl" /> Add to Diary
+                    </button>
+                  </NavLink>
 
                   <p className="opacity-50 text-xs text-center">
-                    You can re-record, review, or remove any thing at any time.
+                    You can review, re-record, or remove any thing at any time.
                   </p>
                 </div>
               </motion.div>
@@ -184,11 +187,8 @@ export const Record = () => {
                       )}
                     >
                       Your <strong>voice in words</strong> &mdash;{" "}
-                      <strong>nothing more</strong>. <br /> All audio is{" "}
-                      <span className="underline underline-offset-2">
-                        deleted
-                      </span>
-                      .{" "}
+                      <strong>nothing more</strong>. <br />{" "}
+                      <em>All audio is deleted.</em>{" "}
                       <button
                         className="border border-pink-400 btn btn-xs"
                         onClick={() => setPrivacyDismissed(true)}
