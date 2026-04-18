@@ -22,7 +22,7 @@ const App = () => (
       <div className="content-center gap-4 grid grow">
         <h2 className="font-extralight text-pink-600 text-2xl">
           Welcome! <PiHandWavingDuotone className="inline scale-x-[-1]" />{" "}
-          <br />
+          <br className="md:hidden" />
           How would you like to start?
         </h2>
 
@@ -40,7 +40,7 @@ const App = () => (
       </div>
 
       <footer>
-        <ul className="flex justify-center gap-4 text-pink-300 text-sm tracking-wide">
+        <ul className="flex justify-evenly gap-4 text-pink-300 text-sm tracking-wide">
           <li>
             <NavLink to="/Terms">Terms</NavLink>
           </li>

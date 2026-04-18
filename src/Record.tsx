@@ -86,7 +86,7 @@ export const Record = () => {
                   phase === "recording"
                     ? "Listening&hellip;"
                     : phase === "done"
-                      ? "What would you like next?"
+                      ? "Listened."
                       : "What&#8217;s on your mind, Mischa?",
               }}
             />
@@ -140,7 +140,7 @@ export const Record = () => {
                     </button>
                   </NavLink>
 
-                  <p className="opacity-50 text-xs text-center">
+                  <p className="opacity-50 text-sm">
                     You can review, re-record, or remove any thing at any time.
                   </p>
                 </div>
@@ -162,7 +162,7 @@ export const Record = () => {
                         "block p-6 border rounded-full cursor-pointer",
                         isRecording
                           ? "border-solid border-pink-400"
-                          : "border-dashed border-pink-400 bg-pink-100",
+                          : "border-dotted border-pink-400 bg-pink-100",
                       )}
                       onClick={isRecording ? stop : () => record()}
                     >
@@ -176,21 +176,21 @@ export const Record = () => {
                   </div>
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-8 w-full max-auto">
                   {isRecording ? (
                     <WaveformVisualizer isActive={isRecording} />
                   ) : (
                     <p
                       className={clsx(
-                        "opacity-50 px-8 h-6 text-pink-300 text-xs text-center",
+                        "opacity-50 px-8 h-6 text-pink-300 text-sm text-center",
                         privacyDismissed && "invisible",
                       )}
                     >
-                      Your <strong>voice in words</strong> &mdash;{" "}
-                      <strong>nothing more</strong>. <br />{" "}
-                      <em>All audio is deleted.</em>{" "}
+                      Your <strong>voice</strong> in <strong>words</strong>{" "}
+                      &mdash; <strong>nothing more</strong>. <br />{" "}
+                      <em>All audio is deleted</em>{" "}
                       <button
-                        className="border border-pink-400 btn btn-xs"
+                        className="border border-pink-400 btn btn-sm"
                         onClick={() => setPrivacyDismissed(true)}
                       >
                         Got it
