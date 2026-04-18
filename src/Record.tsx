@@ -151,10 +151,14 @@ export const Record = () => {
 
                 <div className="mb-8">
                   {!isRecording ? (
-                    <p className="h-6 text-pink-300 text-xs text-center">
-                      Your voice is used to capture your <strong>words</strong>{" "}
-                      &mdash; <strong>nothing more</strong>. <br /> Your words
-                      live on only your device. Edit or remove them whenever you want.
+                    <p className="h-6 text-pink-300 text-xs">
+                      Your <strong>voice in words</strong> &mdash;{" "}
+                      <strong>nothing more</strong>. All audio is{" "}
+                      <span className="underline underline-offset-2">
+                        deleted
+                      </span>
+                      . Your story lives on only your device. Edit or remove any
+                      thing at any time.
                     </p>
                   ) : (
                     <WaveformVisualizer isActive={isRecording} />
