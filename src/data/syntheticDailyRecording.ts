@@ -1,3 +1,8 @@
+/**
+ * Generated with Claude. I (a human) reviewed these and 'they' are all
+ * apprehensive.
+ */
+
 export const syntheticTranscripts = [
   {
     id: 1,

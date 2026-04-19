@@ -3,7 +3,7 @@ import { PiMicrophoneDuotone } from "react-icons/pi";
 import { PiAsclepiusDuotone } from "react-icons/pi";
 import { PiPersonDuotone } from "react-icons/pi";
 import { PiGearDuotone } from "react-icons/pi";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import clsx from "clsx";
 
 interface ShellProps extends PropsWithChildren {
@@ -12,14 +12,18 @@ interface ShellProps extends PropsWithChildren {
 
 export const Shell = ({ children, disableDock }: ShellProps) => {
   const { pathname } = useLocation();
+  let navigate = useNavigate();
 
   return (
-    <div className="h-full">
-      {children}
+    <div className="flex flex-col h-full">
+      <div className="flex-1 overflow-y-auto min-h-0 pb-20">
+        {children}
+      </div>
 
-      <div className="dock dock-md">
+      <div className="z-50 dock dock-md">
         <button
           disabled={disableDock}
+          onClick={() => navigate("/record")}
           className={clsx(
             pathname.includes("/record") ? "dock-active" : "opacity-35",
           )}
@@ -30,6 +34,7 @@ export const Shell = ({ children, disableDock }: ShellProps) => {
 
         <button
           disabled={disableDock}
+          onClick={() => navigate("/reflect")}
           className={clsx(
             pathname.includes("/reflect") ? "dock-active" : "opacity-35",
           )}
@@ -40,6 +45,7 @@ export const Shell = ({ children, disableDock }: ShellProps) => {
 
         <button
           disabled={disableDock}
+          onClick={() => navigate("/prepare")}
           className={clsx(
             pathname.includes("/prepare") ? "dock-active" : "opacity-35",
           )}
@@ -50,6 +56,7 @@ export const Shell = ({ children, disableDock }: ShellProps) => {
 
         <button
           disabled={disableDock}
+          onClick={() => navigate("/settings")}
           className={clsx(
             pathname.includes("/settings") ? "dock-active" : "opacity-35",
           )}

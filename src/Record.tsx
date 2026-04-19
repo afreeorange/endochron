@@ -107,14 +107,14 @@ export const Record = () => {
           </motion.div>
 
           <motion.div
-            className="z-50 flex flex-col justify-end items-center pb-[30%] w-full h-full grow"
+            className="flex flex-col justify-end items-center pb-8 w-full h-full"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
           >
             {phase === "done" ? (
               <motion.div
-                className="z-40 bg-base-100 -mb-[14%] border border-pink-300 w-full card"
+                className="z-40 bg-base-100 border border-pink-300 w-full card"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.65, ease: "easeOut" }}
