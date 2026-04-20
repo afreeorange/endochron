@@ -21,14 +21,19 @@ p {
   scrollbar-width: none;
 }
 
-.rating-Mild {
+.rating-Mild,
+.rating-Light {
   @apply bg-pink-100;
 }
 
-.rating-Moderate {
+.rating-Moderate,
+.rating-Medium {
   @apply bg-pink-300 text-white;
 }
 
-.rating-Severe {
+.rating-Severe,
+.rating-Heavy {
   @apply bg-pink-700 text-white;
 }
+
+

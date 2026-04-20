@@ -8,11 +8,15 @@ type TypeItCore = NonNullable<
 const chunk = (text: string) => text.match(/\S+\s*/g) ?? [];
 
 export async function streamText() {
-  const days = (await import("./data/days")).default;
-  const transcripts = Object.values(days).map((d) => d.transcript);
-  const text = transcripts[Math.floor(Math.random() * transcripts.length)];
+  const days = (await import("./data/syntheticData")).default.days;
 
-  const chunks = chunk(text);
+  const text = days["2026-08-19"]?.transcript;
+
+  // const transcripts = Object.values(days)
+  //   .map((d) => d?.transcript)
+  //   .filter((_) => _);
+  // const text = transcripts[Math.floor(Math.random() * transcripts.length)];
+  const chunks = chunk(text!);
 
   async function* generateStream() {
     for (const chunk of chunks) {

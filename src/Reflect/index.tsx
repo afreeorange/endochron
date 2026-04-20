@@ -1,19 +1,17 @@
 import dayjs from "dayjs";
 import Shell from "../Shell";
 import {
-  RiEmotionHappyFill,
-  RiEmotionNormalLine,
-  RiEmotionUnhappyLine,
-} from "react-icons/ri";
-import { PiQuotesDuotone } from "react-icons/pi";
+  PiMicrophoneDuotone,
+  PiQuotesDuotone,
+  PiSmileyDuotone,
+  PiSmileyMehDuotone,
+  PiSmileySadDuotone,
+} from "react-icons/pi";
 import { PiPlusCircle } from "react-icons/pi";
 import clsx from "clsx";
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
-import { random } from "lodash-es";
-import { sampleEmotions } from "../data/mood";
-import { samplePainEntries } from "../data/pain";
 
 import data from "../data/syntheticData";
 
@@ -31,29 +29,29 @@ function relativeDay(date: string) {
 
 export const emotionMap = (selected: boolean | null) => ({
   GOOD: (
-    <RiEmotionHappyFill
+    <PiSmileyDuotone
       className={
         selected === null
           ? undefined
-          : clsx(selected ? "text-white opacity-100" : "text-pink-600")
-      }
-    />
-  ),
-  BAD: (
-    <RiEmotionNormalLine
-      className={
-        selected === null
-          ? undefined
-          : clsx(selected ? "text-white opacity-100" : "opacity-25")
+          : clsx(selected ? "text-white opacity-100" : "text-green-600")
       }
     />
   ),
   MANAGEABLE: (
-    <RiEmotionUnhappyLine
+    <PiSmileyMehDuotone
       className={
         selected === null
           ? undefined
-          : clsx(selected ? "text-white opacity-100" : undefined)
+          : clsx(selected ? "text-white opacity-100" : "text-red-400")
+      }
+    />
+  ),
+  BAD: (
+    <PiSmileySadDuotone
+      className={
+        selected === null
+          ? undefined
+          : clsx(selected ? "text-white opacity-100" : "text-yellow-500")
       }
     />
   ),
@@ -72,6 +70,34 @@ const fade = {
   transition: { duration: 0.2, ease: "easeInOut" as const },
 };
 
+const sectionContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.07 } },
+};
+
+const sectionItem = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.22, ease: "easeOut" as const },
+  },
+};
+
+const badgeContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.045 } },
+};
+
+const badgeItem = {
+  hidden: { opacity: 0, x: -10 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.18, ease: "easeOut" as const },
+  },
+};
+
 export const Daily = () => {
   const dateKeys = Object.keys(data.days).reverse();
 
@@ -82,11 +108,11 @@ export const Daily = () => {
   const [moods, setMoods] = useState<Moods>({});
   const [pickingMood, setPickingMood] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const emotions = useMemo(() => sampleEmotions(), [selectedDate]);
-  const pains = useMemo(() => samplePainEntries(random(1, 4)), [selectedDate]);
 
-  const transcript = drafts[selectedDate] ?? data.days[selectedDate].transcript;
-  const mood: Mood = moods[selectedDate] ?? data.days[selectedDate].mood;
+  const transcript =
+    (drafts[selectedDate] ?? data.days[selectedDate]?.transcript) || null;
+  const mood: Mood =
+    (moods[selectedDate] ?? data.days[selectedDate]?.overall) || null;
 
   function startEdit() {
     setEditing(true);
@@ -94,7 +120,7 @@ export const Daily = () => {
   }
 
   function confirm() {
-    const val = textareaRef.current?.value ?? transcript;
+    const val = textareaRef.current?.value ?? transcript ?? "";
     setDrafts((d) => ({ ...d, [selectedDate]: val }));
     setEditing(false);
   }
@@ -102,6 +128,8 @@ export const Daily = () => {
   function cancel() {
     setEditing(false);
   }
+
+  console.log(data.days);
 
   return (
     <Shell hideDock={editing}>
@@ -121,43 +149,62 @@ export const Daily = () => {
         </div>
 
         {/* Dates Row */}
-        <div className="gap-x-1 grid grid-flow-col my-4 overflow-x-auto overflow-y-hidden">
-          {dateKeys.map((_) => (
-            <motion.div
-              className={clsx(
-                "relative px-2 py-1 border border-pink-200 rounded-md w-18 text-xl cursor-pointer",
-                {
-                  "bg-pink-500 text-white": _ === selectedDate,
-                  "opacity-40": !data.days[_],
-                },
-              )}
-              key={_}
-              onClick={() => setSelectedDate(_)}
-              animate={{
-                backgroundColor:
-                  _ === selectedDate
-                    ? "oklch(60.4% 0.221 3.57)"
-                    : "transparent",
-                color: _ === selectedDate ? "#fff" : "inherit",
-              }}
-              transition={{ duration: 0.2, ease: "easeInOut" }}
-            >
-              <div className="font-light text-xs">{dayjs(_).format("ddd")}</div>
-              <div className="font-normal">{dayjs(_).format("MMM")}</div>
-              <div className="relative flex">
-                <div className="font-semibold">{dayjs(_).format("DD")}</div>
-                <div className="-right-1 bottom-1 absolute">
-                  {
-                    emotionMap(selectedDate == _)[
-                      moods[_] ?? data.days[_]?.overall
-                    ]
-                  }
-                </div>
+        <div className="flex gap-2 mt-2 mb-4 overflow-x-auto overflow-y-hidden">
+          {Object.entries(
+            dateKeys.reduce<Record<string, string[]>>((acc, d) => {
+              const key = dayjs(d).format("MMMM YYYY");
+              (acc[key] ??= []).push(d);
+              return acc;
+            }, {}),
+          ).map(([month, dates]) => (
+            <div key={month} className="rounded-lg shrink-0">
+              <div className="mb-1 font-light text-pink-400 text-xs">
+                {month}
               </div>
-            </motion.div>
+              <div className="flex gap-1">
+                {dates.map((_) => (
+                  <motion.div
+                    className={clsx(
+                      "relative px-2 py-1 border border-pink-200 rounded-md w-16 text-xl cursor-pointer",
+                      {
+                        "bg-pink-500 text-white": _ === selectedDate,
+                        "opacity-40": !data.days[_],
+                      },
+                    )}
+                    key={_}
+                    onClick={() => setSelectedDate(_)}
+                    animate={{
+                      backgroundColor:
+                        _ === selectedDate
+                          ? "oklch(60.4% 0.221 3.57)"
+                          : "transparent",
+                      color: _ === selectedDate ? "#fff" : "inherit",
+                    }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                  >
+                    <div className="font-light text-xs">
+                      {dayjs(_).format("ddd")}
+                    </div>
+                    <div className="relative flex">
+                      <div className="font-semibold">
+                        {dayjs(_).format("DD")}
+                      </div>
+                      <div className="-right-1 bottom-1 absolute">
+                        {
+                          emotionMap(selectedDate == _)[
+                            moods[_] ?? data.days[_]?.overall
+                          ]
+                        }
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
 
+        {/* FULL BLOCK */}
         <div className="mt-0">
           <div className="flex justify-between items-center">
             <AnimatePresence mode="wait">
@@ -166,163 +213,327 @@ export const Daily = () => {
               </motion.h1>
             </AnimatePresence>
 
-            <div className="flex items-center gap-2">
-              <AnimatePresence>
-                {!pickingMood && !moods[selectedDate] && (
-                  <motion.span
-                    className="opacity-25 text-xs"
-                    initial={{ opacity: 0, x: 8 }}
-                    animate={{ opacity: 0.25, x: 0 }}
-                    exit={{ opacity: 0, x: 8 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    Tap to edit
-                  </motion.span>
-                )}
-              </AnimatePresence>
+            {transcript && (
+              <div className="flex items-center gap-2">
+                <AnimatePresence>
+                  {!pickingMood && !moods[selectedDate] && (
+                    <motion.span
+                      className="opacity-25 text-xs"
+                      initial={{ opacity: 0, x: 8 }}
+                      animate={{ opacity: 0.25, x: 0 }}
+                      exit={{ opacity: 0, x: 8 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      Tap to edit
+                    </motion.span>
+                  )}
+                </AnimatePresence>
 
-              <AnimatePresence mode="wait">
-                {pickingMood ? (
+                <AnimatePresence mode="wait">
+                  {pickingMood ? (
+                    <motion.div
+                      key="picker"
+                      className="flex gap-1"
+                      initial={{ opacity: 0, scale: 0.85 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.85 }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                    >
+                      {moodKeys.map((m) => (
+                        <button
+                          key={m}
+                          className={clsx(
+                            "text-3xl btn btn-lg btn-circle",
+                            m === mood && "btn-primary",
+                          )}
+                          onClick={() => {
+                            setMoods((d) => ({ ...d, [selectedDate]: m }));
+                            setPickingMood(false);
+                          }}
+                        >
+                          {emotionMap(m === mood)[m]}
+                        </button>
+                      ))}
+                    </motion.div>
+                  ) : (
+                    <motion.button
+                      key="trigger"
+                      className="text-3xl btn btn-lg btn-circle"
+                      onClick={() => setPickingMood(true)}
+                      initial={{ opacity: 0, scale: 0.85 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.85 }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                    >
+                      {emotionMap(null)[mood]}
+                    </motion.button>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
+          </div>
+
+          {!transcript && (
+            <div className="flex flex-col my-4 h-full">
+              <h2 className="grow">
+                Nothing here. Would you like to record something?
+              </h2>
+              <button
+                className={clsx(
+                  "block bg-pink-100 mx-auto mt-24 p-6 border border-pink-400 border-dotted rounded-full cursor-pointer",
+                )}
+              >
+                <PiMicrophoneDuotone className={clsx("text-6xl")} />
+              </button>
+            </div>
+          )}
+
+          {transcript && (
+            <>
+              {/* <h2 className="my-2 font-semibold text-sm uppercase">Journal</h2> */}
+              <div className="flex items-start gap-2 mt-2 journal">
+                <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />
+                <div className="flex-1">
+                  <AnimatePresence mode="wait">
+                    {editing ? (
+                      <motion.div key="edit" {...fade}>
+                        <textarea
+                          ref={textareaRef}
+                          defaultValue={transcript}
+                          className="rounded-md w-full text-base textarea textarea-bordered"
+                          rows={5}
+                        />
+                        <div className="grid grid-cols-2 mt-2 join">
+                          <button
+                            className="btn btn-sm btn-primary join-item"
+                            onClick={confirm}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="btn btn-sm join-item"
+                            onClick={cancel}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div key={`view-${selectedDate}`} {...fade}>
+                        <div
+                          className="text-sm cursor-pointer"
+                          onClick={startEdit}
+                        >
+                          {transcript}
+                        </div>
+                        <p className="opacity-25 mt-1 text-xs">
+                          AI transcription. Tap to edit.
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              <motion.div
+                key={selectedDate}
+                variants={sectionContainer}
+                initial="hidden"
+                animate="visible"
+              >
+                {/* PAIN */}
+                <motion.div
+                  variants={sectionItem}
+                  className="py-2 border-pink-200 border-b border-dotted"
+                >
+                  <div className="flex">
+                    <h3 className="mb-1 font-semibold text-xs grow">Pain</h3>
+                    <PiPlusCircle className="opacity-50 text-lg" />
+                  </div>
                   <motion.div
-                    key="picker"
-                    className="flex gap-1"
-                    initial={{ opacity: 0, scale: 0.85 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.85 }}
-                    transition={{ duration: 0.18, ease: "easeOut" }}
+                    className="flex gap-x-1 overflow-x-auto overflow-y-hidden"
+                    variants={badgeContainer}
                   >
-                    {moodKeys.map((m) => (
-                      <button
-                        key={m}
-                        className={clsx(
-                          "text-3xl btn btn-lg btn-circle",
-                          m === mood && "btn-primary",
-                        )}
-                        onClick={() => {
-                          setMoods((d) => ({ ...d, [selectedDate]: m }));
-                          setPickingMood(false);
-                        }}
+                    {data.days[selectedDate]!.data.pain.map((_) => (
+                      <motion.div
+                        key={_[0]}
+                        variants={badgeItem}
+                        className="w-fit join"
                       >
-                        {emotionMap(m === mood)[m]}
-                      </button>
+                        <div className="badge badge-sm join-item">{_[0]}</div>
+                        <div
+                          className={`whitespace-nowrap join-item badge badge-sm rating-${_[1]}`}
+                        >
+                          {_[1]}
+                        </div>
+                      </motion.div>
                     ))}
                   </motion.div>
-                ) : (
-                  <motion.button
-                    key="trigger"
-                    className="text-3xl btn btn-lg btn-circle"
-                    onClick={() => setPickingMood(true)}
-                    initial={{ opacity: 0, scale: 0.85 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.85 }}
-                    transition={{ duration: 0.18, ease: "easeOut" }}
-                  >
-                    {emotionMap(null)[mood]}
-                  </motion.button>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
+                </motion.div>
 
-          {/* <h2 className="my-2 font-semibold text-sm uppercase">Journal</h2> */}
-          <div className="flex items-start gap-2 mt-2 journal">
-            <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />
-            <div className="flex-1">
-              <AnimatePresence mode="wait">
-                {editing ? (
-                  <motion.div key="edit" {...fade}>
-                    <textarea
-                      ref={textareaRef}
-                      defaultValue={transcript}
-                      className="rounded-md w-full text-base textarea textarea-bordered"
-                      rows={5}
-                    />
-                    <div className="grid grid-cols-2 mt-2 join">
-                      <button
-                        className="btn btn-sm btn-primary join-item"
-                        onClick={confirm}
-                      >
-                        Edit
-                      </button>
-                      <button className="btn btn-sm join-item" onClick={cancel}>
-                        Cancel
-                      </button>
-                    </div>
-                  </motion.div>
-                ) : (
-                  <motion.div key={`view-${selectedDate}`} {...fade}>
-                    <div className="text-sm cursor-pointer" onClick={startEdit}>
-                      {transcript}
-                    </div>
-                    <p className="opacity-25 mt-1 text-xs">
-                      AI transcription. Tap to edit.
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
-            <div className="flex">
-              <h3 className="mb-1 font-semibold text-xs grow">Pain</h3>
-              <PiPlusCircle className="opacity-50 text-lg" />
-            </div>
-            <div className="flex gap-x-1 overflow-x-auto overflow-y-hidden">
-              {pains.map((_) => (
-                <div className="w-fit join">
-                  <div
-                    className={`badge badge-sm join-item rating-${_.severity}`}
-                  >
-                    {_.severity}
-                  </div>
-                  <div className="whitespace-nowrap join-item badge badge-sm">
-                    {_.location}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
-            <div className="flex">
-              <h3 className="mb-1 font-semibold text-xs grow">Mood</h3>
-              <PiPlusCircle className="opacity-50 text-lg" />
-            </div>
-            <div className="flex gap-x-1 overflow-x-auto">
-              {emotions.map((_) => (
-                <div
-                  className={clsx(
-                    "whitespace-nowrap badge badge-sm",
-                    _[0] === "POSITIVE" ? "bg-pink-100" : "",
-                  )}
+                {/* MOOD */}
+                <motion.div
+                  variants={sectionItem}
+                  className="py-2 border-pink-200 border-b border-dotted"
                 >
-                  {_[1]}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
-            <div className="flex">
-              <h3 className="mb-1 font-semibold text-xs grow">
-                Period/Bleeding
-              </h3>
-              <PiPlusCircle className="opacity-50 text-lg" />
-            </div>
-          </div>
-          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
-            <div className="flex">
-              <h3 className="mb-1 font-semibold text-xs grow">GI/Urinary</h3>
-              <PiPlusCircle className="opacity-50 text-lg" />
-            </div>
-          </div>
-          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
-            <div className="flex">
-              <h3 className="mb-1 font-semibold text-xs grow">Hard to Do</h3>
-              <PiPlusCircle className="opacity-50 text-lg" />
-            </div>
-          </div>
-          <div>
-            <h3 className="my-2 mt-4 font-semibold text-sm">Other</h3>
-          </div>
+                  <div className="flex">
+                    <h3 className="mb-1 font-semibold text-xs grow">Mood</h3>
+                    <PiPlusCircle className="opacity-50 text-lg" />
+                  </div>
+                  <motion.div
+                    className="flex gap-x-1 overflow-x-auto"
+                    variants={badgeContainer}
+                  >
+                    {data.days[selectedDate]!.data.mood.map((_) => (
+                      <motion.div
+                        key={_[0]}
+                        variants={badgeItem}
+                        className={clsx(
+                          "whitespace-nowrap badge badge-sm",
+                          _[1] === "POSITIVE" ? "bg-pink-100" : "",
+                        )}
+                      >
+                        {_[0]}
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </motion.div>
+
+                {/* PERIOD */}
+                <motion.div
+                  variants={sectionItem}
+                  className="py-2 border-pink-200 border-b border-dotted"
+                >
+                  <div className="flex">
+                    <h3 className="mb-1 font-semibold text-xs grow">
+                      Period/Bleeding
+                    </h3>
+                    <PiPlusCircle className="opacity-50 text-lg" />
+                  </div>
+                  {data.days[selectedDate]!.data.period && (
+                    <motion.div
+                      className="flex flex-wrap gap-1"
+                      variants={badgeContainer}
+                    >
+                      <motion.div variants={badgeItem} className="w-fit join">
+                        <div
+                          className={`badge badge-sm join-item rating-${data.days[selectedDate]!.data.period.flow}`}
+                        >
+                          {data.days[selectedDate]!.data.period.flow}
+                        </div>
+                        <div className="whitespace-nowrap join-item badge badge-sm">
+                          Flow
+                        </div>
+                      </motion.div>
+                      {data.days[selectedDate]!.data.period.other.map((_) => (
+                        <motion.div
+                          key={_}
+                          variants={badgeItem}
+                          className="badge badge-sm"
+                        >
+                          {_}
+                        </motion.div>
+                      ))}
+                    </motion.div>
+                  )}
+                </motion.div>
+
+                {/* GI/URINARY */}
+                <motion.div
+                  variants={sectionItem}
+                  className="py-2 border-pink-200 border-b border-dotted"
+                >
+                  <div className="flex">
+                    <h3 className="mb-1 font-semibold text-xs grow">
+                      GI/Urinary
+                    </h3>
+                    <PiPlusCircle className="opacity-50 text-lg" />
+                  </div>
+                  <motion.div
+                    className="flex flex-wrap gap-1"
+                    variants={badgeContainer}
+                  >
+                    {data.days[selectedDate]!.data.gi.map(
+                      ([name, severity]) => (
+                        <motion.div
+                          key={name}
+                          variants={badgeItem}
+                          className="w-fit join"
+                        >
+                          <div className="whitespace-nowrap join-item badge badge-sm">
+                            {name}
+                          </div>
+                          <div
+                            className={`join-item badge badge-sm rating-${severity}`}
+                          >
+                            {severity}
+                          </div>
+                        </motion.div>
+                      ),
+                    )}
+                  </motion.div>
+                </motion.div>
+
+                {/* HARD TO DO */}
+                <motion.div
+                  variants={sectionItem}
+                  className="py-2 border-pink-200 border-b border-dotted"
+                >
+                  <div className="flex">
+                    <h3 className="mb-1 font-semibold text-xs grow">
+                      Hard to Do
+                    </h3>
+                    <PiPlusCircle className="opacity-50 text-lg" />
+                  </div>
+                  <motion.div
+                    className="flex flex-wrap gap-1"
+                    variants={badgeContainer}
+                  >
+                    {data.days[selectedDate]!.data.hardToDo.map((item) => (
+                      <motion.div
+                        key={item}
+                        variants={badgeItem}
+                        className="whitespace-nowrap badge badge-sm"
+                      >
+                        {item}
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </motion.div>
+
+                {/* OTHER */}
+                <motion.div variants={sectionItem} className="py-2">
+                  <div className="flex">
+                    <h3 className="mb-1 font-semibold text-xs grow">Other</h3>
+                    <PiPlusCircle className="opacity-50 text-lg" />
+                  </div>
+                  <motion.div
+                    className="flex flex-wrap gap-1"
+                    variants={badgeContainer}
+                  >
+                    {data.days[selectedDate]!.data.other.map(
+                      ([name, severity]) => (
+                        <motion.div
+                          key={name}
+                          variants={badgeItem}
+                          className="w-fit join"
+                        >
+                          <div className="whitespace-nowrap join-item badge badge-sm">
+                            {name}
+                          </div>
+                          <div
+                            className={`join-item badge badge-sm rating-${severity}`}
+                          >
+                            {severity}
+                          </div>
+                        </motion.div>
+                      ),
+                    )}
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+            </>
+          )}
         </div>
       </div>
     </Shell>
