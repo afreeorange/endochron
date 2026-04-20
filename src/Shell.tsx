@@ -8,9 +8,10 @@ import clsx from "clsx";
 
 interface ShellProps extends PropsWithChildren {
   disableDock?: boolean;
+  hideDock?: boolean;
 }
 
-export const Shell = ({ children, disableDock }: ShellProps) => {
+export const Shell = ({ children, disableDock, hideDock }: ShellProps) => {
   const { pathname } = useLocation();
   let navigate = useNavigate();
 
@@ -18,7 +19,7 @@ export const Shell = ({ children, disableDock }: ShellProps) => {
     <div className="flex flex-col h-full">
       <div className="flex-1 min-h-0 overflow-y-auto">{children}</div>
 
-      <div className="z-50 dock dock-md">
+      {!hideDock && (<div className="z-50 dock dock-md">
         <button
           disabled={disableDock}
           onClick={() => navigate("/record")}
@@ -63,6 +64,7 @@ export const Shell = ({ children, disableDock }: ShellProps) => {
           <span className="dock-label">Settings</span>
         </button>
       </div>
+      )}
     </div>
   );
 };

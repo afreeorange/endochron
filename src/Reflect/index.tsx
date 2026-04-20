@@ -22,30 +22,53 @@ function relativeDay(date: string) {
   return d.format("MMM D");
 }
 
-export const emotionMap = (selected: boolean) => ({
+export const emotionMap = (selected: boolean | null) => ({
   GOOD: (
     <RiEmotionHappyFill
-      className={clsx(selected ? "text-white opacity-100" : "text-green-600")}
+      className={
+        selected === null
+          ? undefined
+          : clsx(selected ? "text-white opacity-100" : "text-green-600")
+      }
     />
   ),
   BAD: (
     <RiEmotionNormalLine
-      className={clsx(selected ? "text-white opacity-100" : "opacity-25")}
+      className={
+        selected === null
+          ? undefined
+          : clsx(selected ? "text-white opacity-100" : "opacity-25")
+      }
     />
   ),
-  NEUTRAL: <RiEmotionUnhappyLine />,
+  NEUTRAL: (
+    <RiEmotionUnhappyLine
+      className={
+        selected === null
+          ? undefined
+          : clsx(selected ? "text-white opacity-100" : undefined)
+      }
+    />
+  ),
 });
 
 type Transcripts = { [date: string]: string };
+type Mood = keyof ReturnType<typeof emotionMap>;
+type Moods = { [date: string]: Mood };
+
+const moodKeys: Mood[] = ["GOOD", "NEUTRAL", "BAD"];
 
 export const Daily = () => {
   const dateKeys = Object.keys(days).reverse();
   const [selectedDate, setSelectedDate] = useState(dateKeys[0]);
   const [editing, setEditing] = useState(false);
   const [drafts, setDrafts] = useState<Transcripts>({});
+  const [moods, setMoods] = useState<Moods>({});
+  const [pickingMood, setPickingMood] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const transcript = drafts[selectedDate] ?? days[selectedDate].transcript;
+  const mood: Mood = moods[selectedDate] ?? days[selectedDate].mood;
 
   function startEdit() {
     setEditing(true);
@@ -63,8 +86,8 @@ export const Daily = () => {
   }
 
   return (
-    <Shell>
-      <div className="p-2">
+    <Shell hideDock={editing}>
+      <div className="p-2 pb-12">
         <div className="grid grid-cols-5 join">
           <button className="btn-primary btn-xs join-item btn">Days</button>
           <button className="btn-xs join-item btn">Weeks</button>
@@ -89,7 +112,7 @@ export const Daily = () => {
               <div className="relative flex">
                 <div className="font-semibold">{dayjs(_).format("DD")}</div>
                 <div className="-right-1 bottom-1 absolute">
-                  {emotionMap(selectedDate == _)[days[_]["mood"]]}
+                  {emotionMap(selectedDate == _)[moods[_] ?? days[_]["mood"]]}
                 </div>
               </div>
             </div>
@@ -97,10 +120,41 @@ export const Daily = () => {
         </div>
 
         <div className="mt-0">
-          <h1 className="text-4xl">{relativeDay(selectedDate)}</h1>
+          <div className="flex justify-between items-center">
+            <h1 className="text-4xl">{relativeDay(selectedDate)}</h1>
+            <div className="flex items-center gap-2">
+              {!pickingMood && !moods[selectedDate] && (
+                <span className="opacity-25 text-xs">Tap to edit</span>
+              )}
+              {pickingMood ? (
+                moodKeys.map((m) => (
+                  <button
+                    key={m}
+                    className={clsx(
+                      "text-2xl btn btn-sm btn-circle",
+                      m === mood && "btn-primary",
+                    )}
+                    onClick={() => {
+                      setMoods((d) => ({ ...d, [selectedDate]: m }));
+                      setPickingMood(false);
+                    }}
+                  >
+                    {emotionMap(m === mood)[m]}
+                  </button>
+                ))
+              ) : (
+                <button
+                  className="text-2xl btn btn-sm btn-circle"
+                  onClick={() => setPickingMood(true)}
+                >
+                  {emotionMap(null)[mood]}
+                </button>
+              )}
+            </div>
+          </div>
           <h2 className="font-semibold text-xs uppercase">Journal</h2>
           <div className="flex items-start gap-2 journal">
-            <PiQuotesDuotone className="mt-1 text-2xl rotate-180 shrink-0" />
+            <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />
             <div className="flex-1">
               {editing ? (
                 <>
@@ -115,7 +169,7 @@ export const Daily = () => {
                       className="btn btn-sm btn-primary join-item"
                       onClick={confirm}
                     >
-                      OK
+                      Edit
                     </button>
                     <button className="btn btn-sm join-item" onClick={cancel}>
                       Cancel
@@ -127,7 +181,7 @@ export const Daily = () => {
                   <div className="text-sm cursor-pointer" onClick={startEdit}>
                     {transcript}
                   </div>
-                  <p className="opacity-40 mt-1 text-xs">
+                  <p className="opacity-25 mt-1 text-xs">
                     AI transcription. Tap to edit any time.
                   </p>
                 </>
