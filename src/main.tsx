@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import {
   BrowserRouter,
+  Navigate,
   Outlet,
   Route,
   Routes,
@@ -10,8 +11,8 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import App from "./App.tsx";
 import Record from "./Record.tsx";
-import Reflect from "./Reflect/index.tsx";
-import Weekly from "./Reflect/Weekly.tsx";
+import Days from "./Reflect/Days.tsx";
+import Weeks from "./Reflect/Weeks.tsx";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -21,8 +22,9 @@ const AnimatedRoutes = () => {
         <Route element={<PageTransition />}>
           <Route path="/" element={<App />} />
           <Route path="/record" element={<Record />} />
-          <Route path="/reflect" element={<Reflect />} />
-          <Route path="/reflect/weeks" element={<Weekly />} />
+          <Route path="/reflect/days" element={<Days />} />
+          <Route path="/reflect/weeks" element={<Weeks />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </AnimatePresence>

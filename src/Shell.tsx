@@ -33,7 +33,7 @@ export const Shell = ({ children, disableDock, hideDock }: ShellProps) => {
 
         <button
           disabled={disableDock}
-          onClick={() => navigate("/reflect")}
+          onClick={() => navigate("/reflect/days")}
           className={clsx(
             pathname.includes("/reflect") ? "dock-active" : "opacity-35",
           )}

@@ -137,7 +137,7 @@ export const Record = () => {
                       <PiArrowCounterClockwise className="text-lg" /> Start over
                     </button>
                   </div>
-                  <NavLink to={"/reflect"}>
+                  <NavLink to={"/reflect/days"}>
                     <button className="btn-block btn btn-lg btn-primary">
                       <PiAsclepiusDuotone className="text-2xl" /> Add to Diary
                     </button>
