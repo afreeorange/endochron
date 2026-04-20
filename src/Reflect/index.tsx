@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import Shell from "../Shell";
-import days from "../data/days";
 import {
   RiEmotionHappyFill,
   RiEmotionNormalLine,
@@ -16,7 +15,9 @@ import { random } from "lodash-es";
 import { sampleEmotions } from "../data/mood";
 import { samplePainEntries } from "../data/pain";
 
-const REF_DATE = dayjs("2026-05-15");
+import data from "../data/syntheticData";
+
+const REF_DATE = dayjs("2026-08-19");
 
 function relativeDay(date: string) {
   const d = dayjs(date);
@@ -72,7 +73,7 @@ const fade = {
 };
 
 export const Daily = () => {
-  const dateKeys = Object.keys(days).reverse();
+  const dateKeys = Object.keys(data.days).reverse();
 
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(dateKeys[0]);
@@ -84,8 +85,8 @@ export const Daily = () => {
   const emotions = useMemo(() => sampleEmotions(), [selectedDate]);
   const pains = useMemo(() => samplePainEntries(random(1, 4)), [selectedDate]);
 
-  const transcript = drafts[selectedDate] ?? days[selectedDate].transcript;
-  const mood: Mood = moods[selectedDate] ?? days[selectedDate].mood;
+  const transcript = drafts[selectedDate] ?? data.days[selectedDate].transcript;
+  const mood: Mood = moods[selectedDate] ?? data.days[selectedDate].mood;
 
   function startEdit() {
     setEditing(true);
@@ -102,11 +103,10 @@ export const Daily = () => {
     setEditing(false);
   }
 
-  console.log(pains);
-
   return (
     <Shell hideDock={editing}>
       <div className="p-4 pb-64">
+        {/* Top Nav */}
         <div className="grid grid-cols-5 w-full join">
           <button className="btn-primary btn-xs join-item btn">Days</button>
           <button
@@ -120,12 +120,16 @@ export const Daily = () => {
           <button className="btn-xs join-item btn">Any</button>
         </div>
 
-        <div className="gap-x-1 grid grid-flow-col my-4 overflow-scroll">
+        {/* Dates Row */}
+        <div className="gap-x-1 grid grid-flow-col my-4 overflow-x-auto overflow-y-hidden">
           {dateKeys.map((_) => (
             <motion.div
               className={clsx(
                 "relative px-2 py-1 border border-pink-200 rounded-md w-18 text-xl cursor-pointer",
-                { "bg-pink-500 text-white": _ === selectedDate },
+                {
+                  "bg-pink-500 text-white": _ === selectedDate,
+                  "opacity-40": !data.days[_],
+                },
               )}
               key={_}
               onClick={() => setSelectedDate(_)}
@@ -143,7 +147,11 @@ export const Daily = () => {
               <div className="relative flex">
                 <div className="font-semibold">{dayjs(_).format("DD")}</div>
                 <div className="-right-1 bottom-1 absolute">
-                  {emotionMap(selectedDate == _)[moods[_] ?? days[_]["mood"]]}
+                  {
+                    emotionMap(selectedDate == _)[
+                      moods[_] ?? data.days[_]?.overall
+                    ]
+                  }
                 </div>
               </div>
             </motion.div>
@@ -216,8 +224,8 @@ export const Daily = () => {
             </div>
           </div>
 
-          <h2 className="my-2 font-semibold text-sm uppercase">Journal</h2>
-          <div className="flex items-start gap-2 journal">
+          {/* <h2 className="my-2 font-semibold text-sm uppercase">Journal</h2> */}
+          <div className="flex items-start gap-2 mt-2 journal">
             <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />
             <div className="flex-1">
               <AnimatePresence mode="wait">
@@ -259,7 +267,7 @@ export const Daily = () => {
               <h3 className="mb-1 font-semibold text-xs grow">Pain</h3>
               <PiPlusCircle className="opacity-50 text-lg" />
             </div>
-            <div className="flex gap-x-1 overflow-x-scroll overflow-y-hidden">
+            <div className="flex gap-x-1 overflow-x-auto overflow-y-hidden">
               {pains.map((_) => (
                 <div className="w-fit join">
                   <div
@@ -279,11 +287,11 @@ export const Daily = () => {
               <h3 className="mb-1 font-semibold text-xs grow">Mood</h3>
               <PiPlusCircle className="opacity-50 text-lg" />
             </div>
-            <div className="flex gap-x-1 overflow-x-scroll">
+            <div className="flex gap-x-1 overflow-x-auto">
               {emotions.map((_) => (
                 <div
                   className={clsx(
-                    "badge badge-sm",
+                    "whitespace-nowrap badge badge-sm",
                     _[0] === "POSITIVE" ? "bg-pink-100" : "",
                   )}
                 >
@@ -294,7 +302,9 @@ export const Daily = () => {
           </div>
           <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
             <div className="flex">
-              <h3 className="mb-1 font-semibold text-xs grow">Period/Bleeding</h3>
+              <h3 className="mb-1 font-semibold text-xs grow">
+                Period/Bleeding
+              </h3>
               <PiPlusCircle className="opacity-50 text-lg" />
             </div>
           </div>
