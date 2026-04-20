@@ -107,7 +107,10 @@ export const Record = () => {
           </motion.div>
 
           <motion.div
-            className="flex flex-col justify-end items-center pb-8 w-full h-full"
+            className={clsx(
+              "flex flex-col justify-end items-center w-full h-full",
+              phase === "done" ? "pb-16" : "pb-24",
+            )}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5, ease: "easeOut" }}
@@ -134,7 +137,7 @@ export const Record = () => {
                       <PiArrowCounterClockwise className="text-lg" /> Start over
                     </button>
                   </div>
-                  <NavLink to={"/reflect/daily"}>
+                  <NavLink to={"/reflect"}>
                     <button className="btn-block btn btn-lg btn-primary">
                       <PiAsclepiusDuotone className="text-2xl" /> Add to Diary
                     </button>

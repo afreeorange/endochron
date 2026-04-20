@@ -8,8 +8,9 @@ type TypeItCore = NonNullable<
 const chunk = (text: string) => text.match(/\S+\s*/g) ?? [];
 
 export async function streamText() {
-  const { syntheticTranscripts } = await import("./data/syntheticDailyRecording");
-  const text = syntheticTranscripts[Math.floor(Math.random() * syntheticTranscripts.length)].transcript;
+  const days = (await import("./data/days")).default;
+  const transcripts = Object.values(days).map((d) => d.transcript);
+  const text = transcripts[Math.floor(Math.random() * transcripts.length)];
 
   const chunks = chunk(text);
 

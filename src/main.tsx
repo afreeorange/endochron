@@ -10,7 +10,7 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import App from "./App.tsx";
 import Record from "./Record.tsx";
-import Daily from "./Reflect/Daily.tsx";
+import Reflect from "./Reflect/index.tsx";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -20,7 +20,7 @@ const AnimatedRoutes = () => {
         <Route element={<PageTransition />}>
           <Route path="/" element={<App />} />
           <Route path="/record" element={<Record />} />
-          <Route path="/reflect/daily" element={<Daily />} />
+          <Route path="/reflect" element={<Reflect />} />
         </Route>
       </Routes>
     </AnimatePresence>
