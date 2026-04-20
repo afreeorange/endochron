@@ -20,3 +20,15 @@ p {
 .no-scrollbar {
   scrollbar-width: none;
 }
+
+.rating-Mild {
+  @apply bg-pink-100;
+}
+
+.rating-Moderate {
+  @apply bg-pink-300 text-white;
+}
+
+.rating-Severe {
+  @apply bg-pink-700 text-white;
+}

@@ -7,9 +7,14 @@ import {
   RiEmotionUnhappyLine,
 } from "react-icons/ri";
 import { PiQuotesDuotone } from "react-icons/pi";
+import { PiPlusCircleDuotone } from "react-icons/pi";
 import clsx from "clsx";
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
+import { useNavigate } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
+import { random } from "lodash-es";
+import { sampleEmotions } from "../data/mood";
+import { samplePainEntries } from "../data/pain";
 
 const REF_DATE = dayjs("2026-05-15");
 
@@ -68,12 +73,16 @@ const fade = {
 
 export const Daily = () => {
   const dateKeys = Object.keys(days).reverse();
+
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(dateKeys[0]);
   const [editing, setEditing] = useState(false);
   const [drafts, setDrafts] = useState<Transcripts>({});
   const [moods, setMoods] = useState<Moods>({});
   const [pickingMood, setPickingMood] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const emotions = useMemo(() => sampleEmotions(), [selectedDate]);
+  const pains = useMemo(() => samplePainEntries(random(1, 4)), [selectedDate]);
 
   const transcript = drafts[selectedDate] ?? days[selectedDate].transcript;
   const mood: Mood = moods[selectedDate] ?? days[selectedDate].mood;
@@ -93,12 +102,19 @@ export const Daily = () => {
     setEditing(false);
   }
 
+  console.log(pains);
+
   return (
     <Shell hideDock={editing}>
       <div className="p-4 pb-64">
         <div className="grid grid-cols-5 w-full join">
           <button className="btn-primary btn-xs join-item btn">Days</button>
-          <button className="btn-xs join-item btn">Weeks</button>
+          <button
+            className="btn-xs join-item btn"
+            onClick={() => navigate("/reflect/weeks")}
+          >
+            Weeks
+          </button>
           <button className="btn-xs join-item btn">Months</button>
           <button className="btn-xs join-item btn">Years</button>
           <button className="btn-xs join-item btn">Any</button>
@@ -238,28 +254,43 @@ export const Daily = () => {
             </div>
           </div>
           <div>
-            <h3 className="my-2 mt-4 font-semibold text-sm">Pain</h3>
-            <div className="flex gap-x-1">
-              <div className="badge badge-sm">Pulling</div>
-              <div className="join">
-                <div className="bg-pink-100 join-item badge badge-sm">
-                  Cervix
+            <div className="flex">
+              <h3 className="font-semibold text-sm grow">Pain</h3>
+              <PiPlusCircleDuotone className="text-pink-300 text-lg" />
+            </div>
+            <div className="flex gap-x-1 overflow-x-scroll overflow-y-hidden">
+              {pains.map((_) => (
+                <div className="w-fit join">
+                  <div
+                    className={`badge badge-sm join-item rating-${_.severity}`}
+                  >
+                    {_.severity}
+                  </div>
+                  <div className="whitespace-nowrap join-item badge badge-sm">
+                    {_.location}
+                  </div>
                 </div>
-                <div className="join-item badge badge-sm">Pulling</div>
-              </div>
-              <div className="join">
-                <div className="bg-pink-100 join-item badge badge-sm">
-                  Rectum
-                </div>
-                <div className="join-item badge badge-sm">Shooting</div>
-              </div>
+              ))}
             </div>
           </div>
           <div>
-            <h3 className="my-2 mt-4 font-semibold text-sm">Mood</h3>
-            <div className="flex gap-x-1">
-              <div className="bg-pink-400 text-white badge badge-sm">Happy</div>
-              <div className="badge badge-sm">Erratic</div>
+            <div className="flex">
+              <h3 className="font-semibold text-sm grow">Mood</h3>
+              <PiPlusCircleDuotone className="text-pink-300 text-lg" />
+            </div>
+            <div className="flex gap-x-1 overflow-x-scroll">
+              {emotions.map((_) => (
+                <div
+                  className={clsx(
+                    "badge badge-sm",
+                    _[0] === "POSITIVE"
+                      ? "bg-pink-400 text-white"
+                      : "bg-pink-100",
+                  )}
+                >
+                  {_[1]}
+                </div>
+              ))}
             </div>
           </div>
           <div>
@@ -274,7 +305,7 @@ export const Daily = () => {
             <h3 className="my-2 mt-4 font-semibold text-sm">Hard to do</h3>
           </div>
           <div>
-            <h3 className="my-2 mt-4 font-semibold text-sm">Something else</h3>
+            <h3 className="my-2 mt-4 font-semibold text-sm">Other</h3>
           </div>
         </div>
       </div>

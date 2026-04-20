@@ -11,6 +11,7 @@ import { AnimatePresence, motion } from "motion/react";
 import App from "./App.tsx";
 import Record from "./Record.tsx";
 import Reflect from "./Reflect/index.tsx";
+import Weekly from "./Reflect/Weekly.tsx";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -21,6 +22,7 @@ const AnimatedRoutes = () => {
           <Route path="/" element={<App />} />
           <Route path="/record" element={<Record />} />
           <Route path="/reflect" element={<Reflect />} />
+          <Route path="/reflect/weeks" element={<Weekly />} />
         </Route>
       </Routes>
     </AnimatePresence>

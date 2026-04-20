@@ -1,0 +1,25 @@
+export const level = ["Mild", "Moderate", "Severe"];
+
+export default [
+  "Fatigue",
+  "Numbness",
+  "Headache",
+  "Asthma",
+  "Chest Pressure",
+  "Swelling",
+  "Rash",
+  "Ringing in Ears",
+  "Eczema",
+  "Hives",
+  "Allergies",
+  "Itchy",
+  "Hot Flash",
+  "Sweaty",
+  "Touch Sensitivity",
+  "Noise Sensitivity",
+  "Mentally Foggy",
+  "Sinus Congestion",
+  "Fever",
+  "Dizziness",
+  "Blurry Vision",
+];
