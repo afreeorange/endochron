@@ -9,6 +9,7 @@ import {
 import { PiQuotesDuotone } from "react-icons/pi";
 import clsx from "clsx";
 import { useState, useRef } from "react";
+import { AnimatePresence, motion } from "motion/react";
 
 const REF_DATE = dayjs("2026-05-15");
 
@@ -19,7 +20,7 @@ function relativeDay(date: string) {
   if (diff === 0) return "Today";
   if (diff === 1) return "Yesterday";
   if (diff < 7) return `On ${d.format("dddd")}`;
-  return d.format("MMM D");
+  return d.format("MMM DD ‘YY");
 }
 
 export const emotionMap = (selected: boolean | null) => ({
@@ -28,7 +29,7 @@ export const emotionMap = (selected: boolean | null) => ({
       className={
         selected === null
           ? undefined
-          : clsx(selected ? "text-white opacity-100" : "text-green-600")
+          : clsx(selected ? "text-white opacity-100" : "text-pink-600")
       }
     />
   ),
@@ -41,7 +42,7 @@ export const emotionMap = (selected: boolean | null) => ({
       }
     />
   ),
-  NEUTRAL: (
+  MANAGEABLE: (
     <RiEmotionUnhappyLine
       className={
         selected === null
@@ -56,7 +57,14 @@ type Transcripts = { [date: string]: string };
 type Mood = keyof ReturnType<typeof emotionMap>;
 type Moods = { [date: string]: Mood };
 
-const moodKeys: Mood[] = ["GOOD", "NEUTRAL", "BAD"];
+const moodKeys: Mood[] = ["GOOD", "MANAGEABLE", "BAD"];
+
+const fade = {
+  initial: { opacity: 0, y: 4 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -4 },
+  transition: { duration: 0.2, ease: "easeInOut" as const },
+};
 
 export const Daily = () => {
   const dateKeys = Object.keys(days).reverse();
@@ -87,8 +95,8 @@ export const Daily = () => {
 
   return (
     <Shell hideDock={editing}>
-      <div className="p-2 pb-12">
-        <div className="grid grid-cols-5 join">
+      <div className="p-4 pb-64">
+        <div className="grid grid-cols-5 w-full join">
           <button className="btn-primary btn-xs join-item btn">Days</button>
           <button className="btn-xs join-item btn">Weeks</button>
           <button className="btn-xs join-item btn">Months</button>
@@ -98,15 +106,21 @@ export const Daily = () => {
 
         <div className="gap-x-1 grid grid-flow-col my-4 overflow-scroll">
           {dateKeys.map((_) => (
-            <div
+            <motion.div
               className={clsx(
                 "relative px-2 py-1 border border-pink-200 rounded-md w-18 text-xl cursor-pointer",
-                {
-                  "bg-pink-500 text-white": _ === selectedDate,
-                },
+                { "bg-pink-500 text-white": _ === selectedDate },
               )}
               key={_}
               onClick={() => setSelectedDate(_)}
+              animate={{
+                backgroundColor:
+                  _ === selectedDate
+                    ? "oklch(60.4% 0.221 3.57)"
+                    : "transparent",
+                color: _ === selectedDate ? "#fff" : "inherit",
+              }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
             >
               <div className="font-light">{dayjs(_).format("MMM")}</div>
               <div className="relative flex">
@@ -115,97 +129,153 @@ export const Daily = () => {
                   {emotionMap(selectedDate == _)[moods[_] ?? days[_]["mood"]]}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         <div className="mt-0">
           <div className="flex justify-between items-center">
-            <h1 className="text-4xl">{relativeDay(selectedDate)}</h1>
+            <AnimatePresence mode="wait">
+              <motion.h1 key={selectedDate} className="text-4xl" {...fade}>
+                {relativeDay(selectedDate)}
+              </motion.h1>
+            </AnimatePresence>
+
             <div className="flex items-center gap-2">
-              {!pickingMood && !moods[selectedDate] && (
-                <span className="opacity-25 text-xs">Tap to edit</span>
-              )}
-              {pickingMood ? (
-                moodKeys.map((m) => (
-                  <button
-                    key={m}
-                    className={clsx(
-                      "text-2xl btn btn-sm btn-circle",
-                      m === mood && "btn-primary",
-                    )}
-                    onClick={() => {
-                      setMoods((d) => ({ ...d, [selectedDate]: m }));
-                      setPickingMood(false);
-                    }}
+              <AnimatePresence>
+                {!pickingMood && !moods[selectedDate] && (
+                  <motion.span
+                    className="opacity-25 text-xs"
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 0.25, x: 0 }}
+                    exit={{ opacity: 0, x: 8 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {emotionMap(m === mood)[m]}
-                  </button>
-                ))
-              ) : (
-                <button
-                  className="text-2xl btn btn-sm btn-circle"
-                  onClick={() => setPickingMood(true)}
-                >
-                  {emotionMap(null)[mood]}
-                </button>
-              )}
+                    Tap to edit
+                  </motion.span>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence mode="wait">
+                {pickingMood ? (
+                  <motion.div
+                    key="picker"
+                    className="flex gap-1"
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.85 }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                  >
+                    {moodKeys.map((m) => (
+                      <button
+                        key={m}
+                        className={clsx(
+                          "text-3xl btn btn-lg btn-circle",
+                          m === mood && "btn-primary",
+                        )}
+                        onClick={() => {
+                          setMoods((d) => ({ ...d, [selectedDate]: m }));
+                          setPickingMood(false);
+                        }}
+                      >
+                        {emotionMap(m === mood)[m]}
+                      </button>
+                    ))}
+                  </motion.div>
+                ) : (
+                  <motion.button
+                    key="trigger"
+                    className="text-3xl btn btn-lg btn-circle"
+                    onClick={() => setPickingMood(true)}
+                    initial={{ opacity: 0, scale: 0.85 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.85 }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                  >
+                    {emotionMap(null)[mood]}
+                  </motion.button>
+                )}
+              </AnimatePresence>
             </div>
           </div>
-          <h2 className="font-semibold text-xs uppercase">Journal</h2>
+
+          <h2 className="my-2 font-semibold text-sm uppercase">Journal</h2>
           <div className="flex items-start gap-2 journal">
             <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />
             <div className="flex-1">
-              {editing ? (
-                <>
-                  <textarea
-                    ref={textareaRef}
-                    defaultValue={transcript}
-                    className="rounded-md w-full text-base textarea textarea-bordered"
-                    rows={5}
-                  />
-                  <div className="grid grid-cols-2 mt-2 join">
-                    <button
-                      className="btn btn-sm btn-primary join-item"
-                      onClick={confirm}
-                    >
-                      Edit
-                    </button>
-                    <button className="btn btn-sm join-item" onClick={cancel}>
-                      Cancel
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="text-sm cursor-pointer" onClick={startEdit}>
-                    {transcript}
-                  </div>
-                  <p className="opacity-25 mt-1 text-xs">
-                    AI transcription. Tap to edit any time.
-                  </p>
-                </>
-              )}
+              <AnimatePresence mode="wait">
+                {editing ? (
+                  <motion.div key="edit" {...fade}>
+                    <textarea
+                      ref={textareaRef}
+                      defaultValue={transcript}
+                      className="rounded-md w-full text-base textarea textarea-bordered"
+                      rows={5}
+                    />
+                    <div className="grid grid-cols-2 mt-2 join">
+                      <button
+                        className="btn btn-sm btn-primary join-item"
+                        onClick={confirm}
+                      >
+                        Edit
+                      </button>
+                      <button className="btn btn-sm join-item" onClick={cancel}>
+                        Cancel
+                      </button>
+                    </div>
+                  </motion.div>
+                ) : (
+                  <motion.div key={`view-${selectedDate}`} {...fade}>
+                    <div className="text-sm cursor-pointer" onClick={startEdit}>
+                      {transcript}
+                    </div>
+                    <p className="opacity-25 mt-1 text-xs">
+                      AI transcription. Tap to edit.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
-
-          <h2 className="font-semibold text-xs uppercase">
-            Signs &amp; Symptoms
-          </h2>
-          <h3 className="text-xs">Period & Bleeding</h3>
-          <h3 className="text-xs">Pain</h3>
-          <h3 className="text-xs">Gi/Urinary</h3>
-          <h3 className="text-xs">Something Else</h3>
-          <h3 className="text-xs">Mood</h3>
-          <h3 className="text-xs">Sex</h3>
-          <h3 className="text-xs">Activities Hard To Do</h3>
-
-          <h2 className="font-semibold text-xs uppercase">Self-Care</h2>
-          <h3 className="text-xs">Hormones</h3>
-          <h3 className="text-xs">Medications</h3>
-          <h3 className="text-xs">Supplements</h3>
-          <h3 className="text-xs">Foods</h3>
-          <h3 className="text-xs">Exercise</h3>
+          <div>
+            <h3 className="my-2 mt-4 font-semibold text-sm">Pain</h3>
+            <div className="flex gap-x-1">
+              <div className="badge badge-sm">Pulling</div>
+              <div className="join">
+                <div className="bg-pink-100 join-item badge badge-sm">
+                  Cervix
+                </div>
+                <div className="join-item badge badge-sm">Pulling</div>
+              </div>
+              <div className="join">
+                <div className="bg-pink-100 join-item badge badge-sm">
+                  Rectum
+                </div>
+                <div className="join-item badge badge-sm">Shooting</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 className="my-2 mt-4 font-semibold text-sm">Mood</h3>
+            <div className="flex gap-x-1">
+              <div className="bg-pink-400 text-white badge badge-sm">Happy</div>
+              <div className="badge badge-sm">Erratic</div>
+            </div>
+          </div>
+          <div>
+            <h3 className="my-2 mt-4 font-semibold text-sm">
+              Period & Bleeding
+            </h3>
+          </div>
+          <div>
+            <h3 className="my-2 mt-4 font-semibold text-sm">GI/Urinary</h3>
+          </div>
+          <div>
+            <h3 className="my-2 mt-4 font-semibold text-sm">Hard to do</h3>
+          </div>
+          <div>
+            <h3 className="my-2 mt-4 font-semibold text-sm">Something else</h3>
+          </div>
         </div>
       </div>
     </Shell>

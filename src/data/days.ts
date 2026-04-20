@@ -20,7 +20,7 @@ export default {
       "So, um, it hit me this morning. I woke up and I was just, the cramping was bad. Like a five, maybe a six. I don't know why. I thought we were done with this for the week. I took a naproxen right away and got back in bed for an hour. Managed to get up and make coffee. Worked, sort of. I kept losing focus. Um, the heating pad is my best friend today. I didn't exercise, obviously. Didn't want to eat. Just, yeah, kind of a lost day.",
   },
   "2026-02-20": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Today was, yeah. It was fine. Pain was there but manageable, like a three. I took a naproxen this morning just to stay ahead of it. Didn't do much beyond work. Um, I ordered dinner because I didn't have it in me to cook. I'm just kind of tired from yesterday honestly. Didn't walk, didn't stretch, didn't do any of the stuff I'm supposed to do. Just got through the day. That's it.",
   },
@@ -75,7 +75,7 @@ export default {
       "Ugh. Thought I was on the upswing but today was bad again. Pain in my lower back, weirdly, more than my belly. Like a five. I don't know if it's still period-related or something else. I laid down most of the evening. Um, I had to leave a meeting early to go lie on the floor. That was embarrassing but whatever. I took a naproxen around three, didn't really touch it. My husband made dinner, I ate a little. Yeah. Just frustrated.",
   },
   "2026-03-03": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Middle of the road day. Pain like a three. Got some work done, not as much as I wanted. Um, the cats are being cats, one of them knocked over a plant this morning, there was dirt everywhere. My husband made dinner, he's been doing a lot of the cooking this week, which I appreciate. I didn't walk, I didn't stretch. Just, yeah, a fine day. Nothing to report really. That's the update.",
   },
@@ -150,7 +150,7 @@ export default {
       "Full flow now. Heavy. Pain is, like, I don't even want to rank it. It's bad. I'm in bed. I haven't showered. My daughter brought me toast, I love that kid. My husband is handling everything, dinner, the dog, the laundry. Um, I feel guilty that he's doing it all, but I literally cannot get up for any length of time. I took naproxen at six, at noon, at six. That's my max. I'm just riding it out.",
   },
   "2026-03-18": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "A little better. Pain like a four. Still bleeding heavy. I worked from bed for a few hours, got the most urgent stuff done. My boss said don't worry about the rest. Um, I took a shower, which felt like a major accomplishment. Ate some soup my husband made. Didn't really leave the bedroom. That's all I got today.",
   },
@@ -160,7 +160,7 @@ export default {
       "Came down a lot today. Pain like a two. Bleeding is slowing. I showered for the first time in like three days properly, washed my hair, which, sorry, but true. Felt human. Um, got caught up on work. Had a real meal, my husband made pasta. My daughter is doing better about not worrying about me, she's figured out the rhythm of this I think. Which is something I have complicated feelings about.",
   },
   "2026-03-20": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Fine today. Tired. Pain like a two or three. I didn't do much. Um, work was slow today, which was good timing honestly. Just coasting to the weekend. I made dinner, which I haven't done in like a week, so that felt good. Simple stuff, just pasta. Um, yeah. Neutral day.",
   },
@@ -170,7 +170,7 @@ export default {
       "Saturday and I'm flared up again. I don't understand my body anymore. Pain like a five. I was supposed to go to my friend's birthday thing tonight, I was really looking forward to it, and I'm not going. I texted her, she said she understood, but I can tell she's tired of me canceling. I'm tired of me canceling. Um, I'm on the couch. My husband and daughter went to her game without me. Just a bad day.",
   },
   "2026-03-22": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Okay day. Not great, not bad. Pain like a three. Um, I did some laundry, made soup, nothing exciting. My husband and I watched a movie in the evening, some documentary he wanted to see. I fell asleep halfway through. That's about it. I'm just trying to preserve energy for the week ahead at this point.",
   },
@@ -190,17 +190,17 @@ export default {
       "I paid for it. Pain in my pelvis, like a five. Should not have done yoga. Or maybe it's unrelated, who knows, with this disease you never know if you caused it or it was coming anyway. Took a naproxen at like ten. Lying down most of the afternoon. Um, I was frustrated, because I was finally trying to do something for my body and this is what I get. Anyway. Rest day, forced.",
   },
   "2026-03-26": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Um, today was fine. Pain like a three. I worked, I made dinner, I went to bed early. That's, yeah, that's the whole day. Um, I didn't try any exercise today, I'm gun-shy after yesterday. Just a quiet day. My daughter had a friend over after school, they did homework together. My husband brought home flowers, which was random and nice. Yeah.",
   },
   "2026-03-27": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Fine. Same as yesterday basically. I forgot to record yesterday I think? Or maybe I did, I don't remember now. Anyway. Um, pain like a three, same as yesterday. Ate normally. Worked normally. Nothing happened today. Which, honestly, boring is kind of a gift with this disease. I'll take boring.",
   },
   "2026-03-28": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Saturday, neutral. Pain like a two. We ran errands all morning, my daughter and I, we went to the bookstore, she picked out like five books, I got one. Um, I got tired faster than I wanted to, I noticed, I was ready to sit down after like an hour of being out. But we had fun. We got lunch out. Came home and I napped for like forty-five minutes, which I rarely do. Yeah.",
   },
@@ -215,7 +215,7 @@ export default {
       "Monday, still good. Pain like a one. Um, I'm kind of waiting for the other shoe to drop, which, I hate that I think that way, but I do. Every time I have more than a few good days in a row I start bracing. Work was normal, I got through my stuff. Made dinner. My daughter had a project due tomorrow she waited until the last minute on, of course, we worked on it together after dinner. Yeah. Normal day.",
   },
   "2026-03-31": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Okay day. Little bit of pain, like a three. Nothing major. Um, I have my follow-up with my doctor next week, I need to remember to write down my questions. Last time I forgot to ask her about like half the stuff I wanted to bring up. I'm going to make a list this week. Ate well, worked, went to my daughter's school thing in the evening, some awards ceremony. Yeah.",
   },
@@ -230,7 +230,7 @@ export default {
       "Good day. I walked to pick up my kid from school instead of driving, which I haven't done in months. My pelvis felt fine the whole way, no catching, no pulling. That's huge for me. Um, we walked back together, she was telling me about her day. It was like a mile round trip, which is nothing, but it's more than I've done in forever. My legs are going to feel it tomorrow. But today, yes.",
   },
   "2026-04-03": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Friday. Just okay. Pain like a three. I'm tired from the week, the new project is demanding, I'm kind of burnt out. Um, we're ordering pizza, that's my whole evening plan. My daughter is at a friend's house. My husband is working late. I'm going to watch a movie by myself and go to bed early. Yeah.",
   },
@@ -240,12 +240,12 @@ export default {
       "Saturday, good. Pain gone. We went to the park in the morning, did some yard work in the afternoon, my husband and I, we finally cleaned up the garden beds. I was out there for like two hours, which, um, I felt it in my back but not in the bad way, just like I used my body way, which is different. Yeah. We had a nice day together. Cooked dinner together. That's, yeah. Nice.",
   },
   "2026-04-05": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Sunday, okay. A little pain, like a three. I think I overdid it yesterday with the yard work. Um, resting today. Watching a movie with my kid later. I did laundry, meal prepped a little for the week. Nothing crazy. Took a naproxen midday just to stay ahead of it. Yeah.",
   },
   "2026-04-06": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Monday, neutral. Pain like a three. Busy at work, the new project is heating up. Um, I had my doctor appointment today actually. She refilled my Orilissa. We didn't talk about much else honestly, it was a quick check-in, I had my list of questions and still only got to half of them before we ran out of time. I asked about the pain getting worse on some days, she said give it another cycle and we'll reassess. Same thing she always says.",
   },
@@ -255,7 +255,7 @@ export default {
       "Bad day. Pain in my lower back and my belly, like a six. Um, I don't know what set it off, I was fine this morning and by ten AM I was on the floor. Literally on the floor, the hardwood in my office, because sometimes that pressure helps. I worked from bed. Didn't eat much. Took two naproxen. Just a bad one. My husband checked on me a few times. I was kind of short with him, I feel bad about that now.",
   },
   "2026-04-08": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Better. Pain like a three. Slept a lot last night, like ten hours, that helped. I got through my meetings. Tired but okay. Um, I apologized to my husband for yesterday, he was fine, he always gets it, but I still wanted to say it. Made dinner. Watched some TV. That's it.",
   },
@@ -270,7 +270,7 @@ export default {
       "Flare out of nowhere. I was fine this morning. By afternoon, pain like a six. I cannot predict this thing. I just can't. Um, I was in the middle of a work thing and had to excuse myself. Went to lie down for an hour. Took a naproxen. Came back, finished the day, barely. My daughter wanted me to play with her and I just couldn't. I told her I'd make it up to her tomorrow.",
   },
   "2026-04-11": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Saturday, recovering. Pain like a three. Didn't do much. My daughter had a friend over, they were loud, I hid in my room with a book. It was nice actually, I haven't read much lately. I made it up to her later, we made cookies in the evening together. Yeah. Okay day.",
   },
@@ -285,7 +285,7 @@ export default {
       "Pain came down overnight somehow. Like a two. Still bleeding heavy but the cramping is less. I'll take it. Worked half a day, my boss said take it easy. Um, I actually got up and made lunch, which is more than I usually do on period days. Had toast with eggs. Felt okay. My husband and daughter got back from the birthday party and she was on a sugar high, it was hilarious.",
   },
   "2026-04-14": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Middle day. Pain like a three. Bleeding slowing. Tired but functional. Got through my workday, which, that's the bar these days. Um, ate normally. Took a shower and felt like a person. My daughter and I watched something together after dinner. Yeah. Nothing crazy to report.",
   },
@@ -300,7 +300,7 @@ export default {
       "Why am I in pain again. My period just ended. Pain like a five in my pelvis. This is the part that makes me crazy. There's no pattern. Um, I took a naproxen, lying down. I don't know what else to do. I'm trying not to spiral about it, but it's hard when you thought you were in the clear.",
   },
   "2026-04-17": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Okay. Pain like a three. Um, I'm just going through the motions today. Work, dinner, bed. That's the plan. I'm tired, emotionally more than physically. This month has felt harder than last month, I don't know if that's real or just how I'm remembering it. I should look back at my tracking.",
   },
@@ -315,7 +315,7 @@ export default {
       "Still bad. Sunday. Pain like a five, six, it's been sitting there all day. I'm just, I'm frustrated. I don't know what I did to set this off. Maybe nothing. Maybe it's just my life now. I had thoughts today like, is this how it's going to be every month. Is it getting worse. I don't want to think that way but I do.",
   },
   "2026-04-20": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Monday. Pain came down, like a three. I'm dragging though, this weekend wiped me out. Had to push through some meetings. Um, I need to sleep more. I'm going to try to be in bed by nine tonight. My husband is making dinner, he's keeping things moving. I need to do something nice for him when I have energy, I keep saying that.",
   },
@@ -355,7 +355,7 @@ export default {
       "Monday, good. Pain gone. I don't understand my body. I don't. But I'll take the good days when they come. Um, I got a lot done at work, made up for yesterday. Had a good day with my daughter, we drove to school singing along to the radio. Little things. Made dinner. Yeah. Just a normal good day.",
   },
   "2026-04-28": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Fine day. Pain like a three. Um, work was busy, I didn't have time to think about my body much, which is actually kind of nice. I like when I can just be a person doing her job and not a patient managing her symptoms. That's rare. Made dinner. Bed. Yeah.",
   },
@@ -375,17 +375,17 @@ export default {
       "May. No pain. I did a short walk this morning before work, like fifteen minutes. Um, it felt good. I want to do that more if I can, walks in the morning are easier than other times of day for me for some reason. Worked a full day, had a good day. Took my meds on time. Yeah. Good start to the month.",
   },
   "2026-05-02": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Saturday, okay. Little pain, like a two. Ran errands, did some cleaning. Nothing notable. Um, my daughter had a sleepover at a friend's house so the house was quiet, which was actually kind of weird. My husband and I watched a movie. Yeah. Uneventful Saturday.",
   },
   "2026-05-03": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Sunday. Pain like a three. I was supposed to meal prep and I didn't. Oh well. Watched TV with my kid when she got home from the sleepover, she was exhausted, fell asleep on the couch. Called my mom for a while, she's been asking about my health, I gave her the vague version. Yeah. That's it.",
   },
   "2026-05-04": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Monday. Fine. Pain like a three. Work was work. Um, I'm tired, I can't tell if it's the endo tired or just regular Monday tired. Probably both. Going to bed early. My daughter had homework, my husband helped her with math, I helped with the reading part. Yeah.",
   },
@@ -395,7 +395,7 @@ export default {
       "Bad one. Pain like a six. I think my period is coming again. Or maybe not, I honestly don't know anymore, the Orilissa has made my cycles so unpredictable I can't tell. I had to reschedule my meetings. Worked from bed. Um, took naproxen twice. Nothing really touched it. Just trying to get through the day.",
   },
   "2026-05-06": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Pain came down to a three. No period yet. So I don't know what yesterday was. Just a flare, I guess. That's what I'll tell myself. I'm dragging today though, yesterday wiped me out. Um, worked a full day but didn't get much done. Ate leftovers. Bed.",
   },
@@ -405,12 +405,12 @@ export default {
       "Good day. Pain like a one. I got a lot done, ate well, did some stretching in the morning, like ten minutes. Um, had lunch with a coworker, we went to that sandwich place. My daughter had soccer, I went, watched, chatted with some of the other parents. Yeah. Good day.",
   },
   "2026-05-08": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Friday. Just okay. Pain like a three. I'm glad it's the weekend. I don't have any plans, which, honestly, that's the plan. Um, we're just going to be home. My husband wants to try a new recipe, I'm down for that. My daughter has a friend coming over tomorrow. Yeah.",
   },
   "2026-05-09": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Saturday. Pain like a three. Puttered around the house. Did laundry. My husband and I watched a movie in the evening, one we've been meaning to see. My daughter's friend came over in the afternoon, they were in her room the whole time, doing whatever eleven-year-old girls do. Yeah. Nice quiet day.",
   },
@@ -435,7 +435,7 @@ export default {
       "Woke up in pain. A five. I don't know. Um, heating pad, naproxen. Working from bed again. I feel like I say that a lot. Because I do, it's a lot of my days. My daughter came in before school to say bye, she was careful, she knows the rhythm. Yeah.",
   },
   "2026-05-14": {
-    mood: "NEUTRAL",
+    mood: "MANAGEABLE",
     transcript:
       "Pain like a three. Better than yesterday. Got through the day. Um, I have nothing else to report really. Worked, ate, went through the motions. Yeah. That's the update.",
   },
@@ -444,4 +444,4 @@ export default {
     transcript:
       "Friday, good. Pain gone. I feel like myself today. I don't know how long it'll last but right now, yeah. I feel good. Um, we're going out tonight with friends, the first time in a while I've committed to plans and actually feel up to them. Hoping that holds. Ending the week strong. Okay, bye.",
   },
-} as Record<string, { mood: "GOOD" | "BAD" | "NEUTRAL"; transcript: string }>;
+} as Record<string, { mood: "GOOD" | "BAD" | "MANAGEABLE"; transcript: string }>;
