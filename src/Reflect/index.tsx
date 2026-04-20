@@ -7,7 +7,7 @@ import {
   RiEmotionUnhappyLine,
 } from "react-icons/ri";
 import { PiQuotesDuotone } from "react-icons/pi";
-import { PiPlusCircleDuotone } from "react-icons/pi";
+import { PiPlusCircle } from "react-icons/pi";
 import clsx from "clsx";
 import { useState, useRef, useMemo } from "react";
 import { useNavigate } from "react-router";
@@ -138,7 +138,8 @@ export const Daily = () => {
               }}
               transition={{ duration: 0.2, ease: "easeInOut" }}
             >
-              <div className="font-light">{dayjs(_).format("MMM")}</div>
+              <div className="font-light text-xs">{dayjs(_).format("ddd")}</div>
+              <div className="font-normal">{dayjs(_).format("MMM")}</div>
               <div className="relative flex">
                 <div className="font-semibold">{dayjs(_).format("DD")}</div>
                 <div className="-right-1 bottom-1 absolute">
@@ -253,10 +254,10 @@ export const Daily = () => {
               </AnimatePresence>
             </div>
           </div>
-          <div>
+          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
             <div className="flex">
-              <h3 className="font-semibold text-sm grow">Pain</h3>
-              <PiPlusCircleDuotone className="text-pink-300 text-lg" />
+              <h3 className="mb-1 font-semibold text-xs grow">Pain</h3>
+              <PiPlusCircle className="opacity-50 text-lg" />
             </div>
             <div className="flex gap-x-1 overflow-x-scroll overflow-y-hidden">
               {pains.map((_) => (
@@ -273,19 +274,17 @@ export const Daily = () => {
               ))}
             </div>
           </div>
-          <div>
+          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
             <div className="flex">
-              <h3 className="font-semibold text-sm grow">Mood</h3>
-              <PiPlusCircleDuotone className="text-pink-300 text-lg" />
+              <h3 className="mb-1 font-semibold text-xs grow">Mood</h3>
+              <PiPlusCircle className="opacity-50 text-lg" />
             </div>
             <div className="flex gap-x-1 overflow-x-scroll">
               {emotions.map((_) => (
                 <div
                   className={clsx(
                     "badge badge-sm",
-                    _[0] === "POSITIVE"
-                      ? "bg-pink-400 text-white"
-                      : "bg-pink-100",
+                    _[0] === "POSITIVE" ? "bg-pink-100" : "",
                   )}
                 >
                   {_[1]}
@@ -293,16 +292,23 @@ export const Daily = () => {
               ))}
             </div>
           </div>
-          <div>
-            <h3 className="my-2 mt-4 font-semibold text-sm">
-              Period & Bleeding
-            </h3>
+          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
+            <div className="flex">
+              <h3 className="mb-1 font-semibold text-xs grow">Period/Bleeding</h3>
+              <PiPlusCircle className="opacity-50 text-lg" />
+            </div>
           </div>
-          <div>
-            <h3 className="my-2 mt-4 font-semibold text-sm">GI/Urinary</h3>
+          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
+            <div className="flex">
+              <h3 className="mb-1 font-semibold text-xs grow">GI/Urinary</h3>
+              <PiPlusCircle className="opacity-50 text-lg" />
+            </div>
           </div>
-          <div>
-            <h3 className="my-2 mt-4 font-semibold text-sm">Hard to do</h3>
+          <div className="mb-2 py-2 border-pink-300 border-b border-dotted">
+            <div className="flex">
+              <h3 className="mb-1 font-semibold text-xs grow">Hard to Do</h3>
+              <PiPlusCircle className="opacity-50 text-lg" />
+            </div>
           </div>
           <div>
             <h3 className="my-2 mt-4 font-semibold text-sm">Other</h3>
