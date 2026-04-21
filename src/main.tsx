@@ -13,6 +13,8 @@ import App from "./App.tsx";
 import Record from "./Record.tsx";
 import Days from "./Reflect/Days.tsx";
 import Weeks from "./Reflect/Weeks.tsx";
+import Years from "./Reflect/Years.tsx";
+import Months from "./Reflect/Months.tsx";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -24,6 +26,8 @@ const AnimatedRoutes = () => {
           <Route path="/record" element={<Record />} />
           <Route path="/reflect/days" element={<Days />} />
           <Route path="/reflect/weeks" element={<Weeks />} />
+          <Route path="/reflect/months" element={<Months />} />
+          <Route path="/reflect/years" element={<Years />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

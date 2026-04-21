@@ -36,4 +36,37 @@ p {
   @apply bg-pink-700 text-white;
 }
 
+/* Yearly calendar */
+calendar-date::part(header) {
+  display: none;
+}
+calendar-month::part(heading) {
+  display: none;
+}
+calendar-month::part(tr head) {
+  display: none;
+}
+calendar-month::part(td) {
+  padding: 1px;
+}
+calendar-month::part(button) {
+  font-size: 0;
+  inline-size: 10px;
+  block-size: 10px;
+  min-inline-size: 0;
+  border-radius: 50%;
+  background-color: oklch(95% 0.02 340);
+}
+calendar-month::part(outside) {
+  visibility: hidden;
+}
+calendar-month::part(button yearly-rating-Mild) {
+  background-color: oklch(90% 0.06 340);
+}
+calendar-month::part(button yearly-rating-Moderate) {
+  background-color: oklch(75% 0.14 340);
+}
+calendar-month::part(button yearly-rating-Severe) {
+  background-color: oklch(45% 0.18 340);
+}
 

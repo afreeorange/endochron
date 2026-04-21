@@ -479,6 +479,9 @@ export const Daily = () => {
                           </motion.div>
                         ),
                       )}
+                      {data.days[selectedDate]!.data.medications.map((_) => (
+                        <div className="badge badge-sm">{_}</div>
+                      ))}
                     </motion.div>
                   </motion.div>
                 </motion.div>

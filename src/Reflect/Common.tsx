@@ -4,7 +4,7 @@ import {
   PiSmileyMehDuotone,
   PiSmileySadDuotone,
 } from "react-icons/pi";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 export const emotionMap = (selected: boolean | null) => ({
   GOOD: (
@@ -38,35 +38,39 @@ export const emotionMap = (selected: boolean | null) => ({
 
 export const Nav = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const btn = (path: string) =>
+    clsx("btn-xs join-item btn", pathname === path && "btn-primary");
 
   return (
     <div className="grid grid-cols-5 px-4 py-2 w-full join">
       <button
-        className="btn-primary btn-xs join-item btn"
+        className={btn("/reflect/days")}
         onClick={() => navigate("/reflect/days")}
       >
         Days
       </button>
       <button
-        className="btn-xs join-item btn"
+        className={btn("/reflect/weeks")}
         onClick={() => navigate("/reflect/weeks")}
       >
         Weeks
       </button>
       <button
-        className="btn-xs join-item btn"
+        className={btn("/reflect/months")}
         onClick={() => navigate("/reflect/months")}
       >
         Months
       </button>
       <button
-        className="btn-xs join-item btn"
+        className={btn("/reflect/years")}
         onClick={() => navigate("/reflect/years")}
       >
         Years
       </button>
       <button
-        className="btn-xs join-item btn"
+        className={btn("/reflect/any")}
         onClick={() => navigate("/reflect/any")}
       >
         Any
