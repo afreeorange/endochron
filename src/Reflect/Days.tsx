@@ -1,19 +1,13 @@
 import dayjs from "dayjs";
 import Shell from "../Shell";
-import {
-  PiMicrophoneDuotone,
-  PiQuotesDuotone,
-  PiSmileyDuotone,
-  PiSmileyMehDuotone,
-  PiSmileySadDuotone,
-} from "react-icons/pi";
+import { PiMicrophoneDuotone, PiQuotesDuotone } from "react-icons/pi";
 import { PiPlusCircle } from "react-icons/pi";
 import clsx from "clsx";
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
 
 import data from "../data/syntheticData";
+import { emotionMap, Nav } from "./Common";
 
 const REF_DATE = dayjs("2026-08-19");
 
@@ -27,38 +21,7 @@ function relativeDay(date: string) {
   return d.format("MMM DD ‘YY");
 }
 
-export const emotionMap = (selected: boolean | null) => ({
-  GOOD: (
-    <PiSmileyDuotone
-      className={
-        selected === null
-          ? undefined
-          : clsx(selected ? "text-white opacity-100" : "text-green-600")
-      }
-    />
-  ),
-  MANAGEABLE: (
-    <PiSmileyMehDuotone
-      className={
-        selected === null
-          ? undefined
-          : clsx(selected ? "text-white opacity-100" : "text-red-400")
-      }
-    />
-  ),
-  BAD: (
-    <PiSmileySadDuotone
-      className={
-        selected === null
-          ? undefined
-          : clsx(selected ? "text-white opacity-100" : "text-yellow-500")
-      }
-    />
-  ),
-});
-
 type Mood = keyof ReturnType<typeof emotionMap>;
-
 const moodKeys: Mood[] = ["GOOD", "MANAGEABLE", "BAD"];
 
 const fade = {
@@ -99,7 +62,6 @@ const badgeItem = {
 export const Daily = () => {
   const dateKeys = Object.keys(data.days).reverse();
 
-  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(dateKeys[0]);
   const [editing, setEditing] = useState(false);
   const [drafts, setDrafts] = useState<{ [date: string]: string }>({});
@@ -127,29 +89,14 @@ export const Daily = () => {
     setEditing(false);
   }
 
-  console.log(data.days);
-
   return (
     <Shell hideDock={editing}>
       <div className="flex flex-col h-full">
+        <Nav />
         {/* Sticky Header */}
-        <div className="z-20 bg-base-100 px-4 pt-4 pb-2 shrink-0">
-          {/* Top Nav */}
-          <div className="grid grid-cols-5 w-full join">
-            <button className="btn-primary btn-xs join-item btn">Days</button>
-            <button
-              className="btn-xs join-item btn"
-              onClick={() => navigate("/reflect/weeks")}
-            >
-              Weeks
-            </button>
-            <button className="btn-xs join-item btn">Months</button>
-            <button className="btn-xs join-item btn">Years</button>
-            <button className="btn-xs join-item btn">Any</button>
-          </div>
-
+        <div className="z-20 bg-base-100 px-4 pb-2 shrink-0">
           {/* Dates Row */}
-          <div className="flex gap-2 mt-2 overflow-x-auto overflow-y-hidden">
+          <div className="flex gap-2 overflow-x-auto overflow-y-hidden">
             {Object.entries(
               dateKeys.reduce<Record<string, string[]>>((acc, d) => {
                 const key = dayjs(d).format("MMMM YYYY");
@@ -294,7 +241,7 @@ export const Daily = () => {
             {transcript && (
               <>
                 {/* <h2 className="my-2 font-semibold text-sm uppercase">Journal</h2> */}
-                <div className="flex items-start gap-2 mt-2 journal">
+                <div className="flex items-start gap-2 mt-6 mb-6 journal">
                   <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />
                   <div className="flex-1">
                     <AnimatePresence mode="wait">
