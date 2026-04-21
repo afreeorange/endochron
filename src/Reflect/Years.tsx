@@ -1,38 +1,109 @@
 import "cally";
 import dayjs from "dayjs";
 import Shell from "../Shell";
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router";
-import { AnimatePresence, motion } from "motion/react";
-
-const grid = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.03 } },
-  exit: { opacity: 0, transition: { duration: 0.12 } },
-};
-
-const monthItem = {
-  hidden: { opacity: 0, y: 10 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.2, ease: "easeOut" as const },
-  },
-};
+import { useMemo, useRef, useEffect, useState, useCallback } from "react";
+import { useNavigate, useParams } from "react-router";
+import { motion } from "motion/react";
 import clsx from "clsx";
 import data from "../data/syntheticData";
 import { Nav, YearlySelector } from "./Common";
 import type { YearlyCategory } from "./Common";
 
+
 export const Yearly = () => {
   const dateKeys = Object.keys(data.days);
   const years = [...new Set(dateKeys.map((d) => dayjs(d).format("YYYY")))].sort(
-    (a, b) => b.localeCompare(a),
+    (a, b) => a.localeCompare(b),
   );
-  const [selectedYear, setSelectedYear] = useState(years[0]);
+
+  const currentYear = dayjs().format("YYYY");
+  const { year: paramYear } = useParams();
+  const defaultYear = years.includes(currentYear) ? currentYear : years[years.length - 1];
+  const [activeYear, setActiveYear] = useState(paramYear ?? defaultYear);
   const [category, setCategory] = useState<YearlyCategory>("Overall");
   const [subCategory, setSubCategory] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const activeYearRef = useRef(activeYear);
+  const isScrollingToRef = useRef(false);
+  const visibleYears = useRef<Set<string>>(new Set());
+
+  useEffect(() => {
+    activeYearRef.current = activeYear;
+  }, [activeYear]);
+
+  // Scroll to the initial year from URL on mount
+  useEffect(() => {
+    const year = paramYear ?? defaultYear;
+    if (year && year !== years[0]) {
+      const el = sectionRefs.current[year];
+      if (el) el.scrollIntoView({ behavior: "instant", block: "start" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Update active year + URL as sections scroll into view
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (isScrollingToRef.current) return;
+
+        // Maintain the full set of currently-visible years
+        entries.forEach((e) => {
+          const y = e.target.getAttribute("data-year");
+          if (!y) return;
+          if (e.isIntersecting) visibleYears.current.add(y);
+          else visibleYears.current.delete(y);
+        });
+
+        if (visibleYears.current.size === 0) return;
+
+        // Pick the topmost visible year by DOM position
+        const topmost = [...visibleYears.current].reduce((best, y) => {
+          const a = sectionRefs.current[y]?.getBoundingClientRect().top ?? Infinity;
+          const b = sectionRefs.current[best]?.getBoundingClientRect().top ?? Infinity;
+          return a < b ? y : best;
+        });
+
+        if (topmost !== activeYearRef.current) {
+          activeYearRef.current = topmost;
+          setActiveYear(topmost);
+          navigate(`/reflect/years/${topmost}`, { replace: true });
+        }
+      },
+      { root: container, threshold: 0, rootMargin: "0px 0px -70% 0px" },
+    );
+
+    Object.values(sectionRefs.current).forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      observer.disconnect();
+      visibleYears.current.clear();
+    };
+  }, [navigate]);
+
+  const scrollToYear = useCallback(
+    (year: string) => {
+      const el = sectionRefs.current[year];
+      if (!el) return;
+      isScrollingToRef.current = true;
+      setActiveYear(year);
+      activeYearRef.current = year;
+      navigate(`/reflect/years/${year}`, { replace: true });
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        isScrollingToRef.current = false;
+      }, 700);
+    },
+    [navigate],
+  );
 
   const getDayParts = useMemo(() => {
     return function (date: Date): string {
@@ -40,7 +111,6 @@ export const Yearly = () => {
       const key = d.format("YYYY-MM-DD");
       const day = data.days[key];
       if (!day) return "";
-
       if (category === "Overall") {
         const map: Record<string, string> = {
           GOOD: "yearly-rating-Mild",
@@ -94,24 +164,17 @@ export const Yearly = () => {
         <div className="z-20 bg-base-100 shrink-0">
           <Nav />
           <div className="flex gap-2 px-4 pb-3 overflow-x-auto overflow-y-hidden">
-            {years.map((year) => (
-              <motion.button
+            {[...years].reverse().map((year) => (
+              <button
                 key={year}
                 className={clsx(
                   "px-2 py-1 border border-pink-200 rounded-md font-semibold text-xl cursor-pointer shrink-0",
+                  year === activeYear && "bg-[oklch(60.4%_0.221_3.57)] text-white",
                 )}
-                onClick={() => setSelectedYear(year)}
-                animate={{
-                  backgroundColor:
-                    year === selectedYear
-                      ? "oklch(60.4% 0.221 3.57)"
-                      : "transparent",
-                  color: year === selectedYear ? "#fff" : "inherit",
-                }}
-                transition={{ duration: 0.2, ease: "easeInOut" }}
+                onClick={() => scrollToYear(year)}
               >
                 {year}
-              </motion.button>
+              </button>
             ))}
           </div>
           <YearlySelector
@@ -124,47 +187,67 @@ export const Yearly = () => {
           />
         </div>
 
-        {/* Scrollable Content */}
-        <div className="flex-1 px-4 pb-12 overflow-y-auto">
-          {/* @ts-expect-error custom element */}
-          <calendar-date
-            value={`${selectedYear}-01-01`}
-            getDayParts={getDayParts}
-            className="mx-auto w-full max-w-xl"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedYear}
-                className="gap-8 gap-y-4 grid grid-cols-3"
-                variants={grid}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
+        {/* Scrollable list of all years */}
+        <div
+          className="flex-1 px-4 pb-12 overflow-y-auto"
+          ref={scrollContainerRef}
+        >
+          {years.map((year, yi) => (
+            <div
+              key={year}
+              data-year={year}
+              ref={(el) => {
+                sectionRefs.current[year] = el;
+              }}
+              className="mb-12"
+            >
+              <motion.h2
+                className="mb-2 font-black text-pink-500 text-sm tracking-tight"
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut", delay: yi * 0.08 }}
               >
-                {Array.from({ length: 12 }, (_, i) => (
-                  <motion.div
-                    key={i}
-                    variants={monthItem}
-                    className="cursor-pointer"
-                    onClick={() =>
-                      navigate(
-                        `/reflect/months/${selectedYear}-${String(i + 1).padStart(2, "0")}`,
-                      )
-                    }
-                  >
-                    <div className="mb-1 font-semibold text-pink-300 text-xs">
-                      {dayjs(
-                        `${selectedYear}-${String(i + 1).padStart(2, "0")}-01`,
-                      ).format("MMM")}
-                    </div>
-                    {/* @ts-expect-error custom element */}
-                    <calendar-month className="w-full" offset={i} />
-                  </motion.div>
-                ))}
-              </motion.div>
-            </AnimatePresence>
-            {/* @ts-expect-error custom element */}
-          </calendar-date>
+                {year}
+              </motion.h2>
+
+              {/* @ts-expect-error custom element */}
+              <calendar-date
+                value={`${year}-01-01`}
+                getDayParts={getDayParts}
+                className="mx-auto w-full max-w-xl"
+              >
+                <div className="gap-x-5 gap-y-5 grid grid-cols-3">
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <motion.div
+                      key={i}
+                      className="cursor-pointer"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 0.2,
+                        ease: "easeOut",
+                        delay: yi * 0.08 + 0.05 + i * 0.025,
+                      }}
+                      onClick={() =>
+                        navigate(
+                          `/reflect/months/${year}-${String(i + 1).padStart(2, "0")}`,
+                        )
+                      }
+                    >
+                      <div className="mb-1 font-semibold text-pink-300 text-xs">
+                        {dayjs(
+                          `${year}-${String(i + 1).padStart(2, "0")}-01`,
+                        ).format("MMM")}
+                      </div>
+                      {/* @ts-expect-error custom element */}
+                      <calendar-month className="w-full" offset={i} />
+                    </motion.div>
+                  ))}
+                </div>
+                {/* @ts-expect-error custom element */}
+              </calendar-date>
+            </div>
+          ))}
         </div>
       </div>
     </Shell>

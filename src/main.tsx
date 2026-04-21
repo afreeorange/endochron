@@ -18,9 +18,12 @@ import Months from "./Reflect/Months.tsx";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+  const transitionKey = location.pathname.startsWith("/reflect/years")
+    ? "/reflect/years"
+    : location.pathname;
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
+      <Routes location={location} key={transitionKey}>
         <Route element={<PageTransition />}>
           <Route path="/" element={<App />} />
           <Route path="/record" element={<Record />} />
@@ -29,6 +32,7 @@ const AnimatedRoutes = () => {
           <Route path="/reflect/months" element={<Months />} />
           <Route path="/reflect/months/:yearMonth" element={<Months />} />
           <Route path="/reflect/years" element={<Years />} />
+          <Route path="/reflect/years/:year" element={<Years />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

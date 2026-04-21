@@ -23,7 +23,7 @@ const CATEGORY_LABELS: Record<YearlyCategory, string> = {
   GI: "GI Problem",
   HardToDo: "Hard to Do",
   Period: "Period",
-  PeriodType: "Period Type",
+  // PeriodType: "Period Type",
 };
 
 const ALL_SUB_OPTIONS: Record<YearlyCategory, string[]> = {
