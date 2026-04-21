@@ -27,6 +27,7 @@ const AnimatedRoutes = () => {
           <Route path="/reflect/days" element={<Days />} />
           <Route path="/reflect/weeks" element={<Weeks />} />
           <Route path="/reflect/months" element={<Months />} />
+          <Route path="/reflect/months/:yearMonth" element={<Months />} />
           <Route path="/reflect/years" element={<Years />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
