@@ -2,11 +2,11 @@ import dayjs from "dayjs";
 import Shell from "../Shell";
 import { useParams, useNavigate } from "react-router";
 import { useState, useMemo, useRef, useEffect, Fragment } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import clsx from "clsx";
 import { PiPlusCircle } from "react-icons/pi";
 import data from "../data/syntheticData";
-import { Nav, YearlySelector, TranscriptBlock, emotionMap } from "./Common";
+import { Nav, YearlySelector, TranscriptBlock, emotionMap, sectionContainer, sectionItem } from "./Common";
 import type { YearlyCategory } from "./Common";
 import type { DayEntry } from "../data/dataTypes";
 
@@ -200,9 +200,9 @@ function MonthAggregatePills({ month }: { month: string }) {
   );
 
   return (
-    <div className="mt-4">
+    <motion.div className="mt-4" variants={sectionContainer} initial="hidden" animate="visible">
       {/* Overall */}
-      <div className={section}>
+      <motion.div variants={sectionItem} className={section}>
         <Heading label="Overall" />
         <div className="flex flex-wrap gap-1">
           {(["BAD", "MANAGEABLE", "GOOD"] as const)
@@ -216,101 +216,70 @@ function MonthAggregatePills({ month }: { month: string }) {
               />
             ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Pain */}
       {Object.keys(painMap).length > 0 && (
-        <div className={section}>
+        <motion.div variants={sectionItem} className={section}>
           <Heading label="Pain" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(painMap)
               .sort(byFreq(painCount))
               .map(([loc, sev]) => (
-                <CountPill
-                  key={loc}
-                  label={loc}
-                  cls={`rating-${sev}`}
-                  n={painCount[loc]}
-                />
+                <CountPill key={loc} label={loc} cls={`rating-${sev}`} n={painCount[loc]} />
               ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Mood */}
       {Object.keys(moodMap).length > 0 && (
-        <div className={section}>
+        <motion.div variants={sectionItem} className={section}>
           <Heading label="Mood" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(moodMap)
               .sort(byFreq(moodCount))
               .map(([name, pol]) => (
-                <CountPill
-                  key={name}
-                  label={name}
-                  cls={
-                    pol === "POSITIVE"
-                      ? "bg-pink-100 text-pink-700"
-                      : "bg-pink-800 text-white border-pink-900"
-                  }
-                  n={moodCount[name]}
-                />
+                <CountPill key={name} label={name} cls={pol === "POSITIVE" ? "bg-pink-100 text-pink-700" : "bg-pink-800 text-white border-pink-900"} n={moodCount[name]} />
               ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Period/Bleeding */}
       {(periodFlowMap.flow || periodOther.size > 0) && (
-        <div className={section}>
+        <motion.div variants={sectionItem} className={section}>
           <Heading label="Period/Bleeding" />
           <div className="flex flex-wrap gap-1">
             {periodFlowMap.flow && (
-              <CountPill
-                label={`${periodFlowMap.flow} flow`}
-                cls={`rating-${periodFlowMap.flow}`}
-                n={periodFlowCount}
-              />
+              <CountPill label={`${periodFlowMap.flow} flow`} cls={`rating-${periodFlowMap.flow}`} n={periodFlowCount} />
             )}
             {[...periodOther]
-              .sort(
-                (a, b) =>
-                  (periodOtherCount[b] ?? 0) - (periodOtherCount[a] ?? 0),
-              )
+              .sort((a, b) => (periodOtherCount[b] ?? 0) - (periodOtherCount[a] ?? 0))
               .map((o) => (
-                <CountPill
-                  key={o}
-                  label={o}
-                  cls="bg-pink-100 text-pink-700"
-                  n={periodOtherCount[o]}
-                />
+                <CountPill key={o} label={o} cls="bg-pink-100 text-pink-700" n={periodOtherCount[o]} />
               ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* GI/Urinary */}
       {Object.keys(giMap).length > 0 && (
-        <div className={section}>
+        <motion.div variants={sectionItem} className={section}>
           <Heading label="GI/Urinary" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(giMap)
               .sort(byFreq(giCount))
               .map(([name, sev]) => (
-                <CountPill
-                  key={name}
-                  label={name}
-                  cls={`rating-${sev}`}
-                  n={giCount[name]}
-                />
+                <CountPill key={name} label={name} cls={`rating-${sev}`} n={giCount[name]} />
               ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Hard to Do */}
       {Object.keys(hardToDoCount).length > 0 && (
-        <div className={section}>
+        <motion.div variants={sectionItem} className={section}>
           <Heading label="Hard to Do" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(hardToDoCount)
@@ -319,13 +288,13 @@ function MonthAggregatePills({ month }: { month: string }) {
                 <CountPill key={item} label={item} cls="" n={n} />
               ))}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Other */}
       {(Object.keys(otherMap).length > 0 ||
         Object.keys(medCount).length > 0) && (
-        <div className="py-2">
+        <motion.div variants={sectionItem} className="py-2">
           <Heading label="Other" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(otherMap)
@@ -344,9 +313,9 @@ function MonthAggregatePills({ month }: { month: string }) {
                 <CountPill key={med} label={med} cls="" n={n} />
               ))}
           </div>
-        </div>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -563,31 +532,41 @@ export const Monthly = () => {
 
         {/* Scrollable content */}
         <div className="flex-1 px-4 pb-12 overflow-y-auto">
-          <MonthGrid
-            month={selectedMonth}
-            category={category}
-            onWeekClick={(w) => navigate(`/reflect/weeks/${w}`)}
-          />
-
-          {monthSummary && (
-            <div className="mt-4">
-              <h2 className="mb-2 font-light text-pink-500 text-4xl tracking-tight">
-                {dayjs(selectedMonth).format("MMMM 'YY")} in review
-              </h2>
-              <TranscriptBlock
-                key={selectedMonth}
-                transcript={monthSummary}
-                animKey={selectedMonth}
-                label="AI summary. Tap to edit."
-                showQuote={false}
-                onSave={(text) =>
-                  setSummaryDrafts((d) => ({ ...d, [selectedMonth]: text }))
-                }
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedMonth}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+            >
+              <MonthGrid
+                month={selectedMonth}
+                category={category}
+                onWeekClick={(w) => navigate(`/reflect/weeks/${w}`)}
               />
-            </div>
-          )}
 
-          <MonthAggregatePills month={selectedMonth} />
+              {monthSummary && (
+                <div className="mt-4">
+                  <h2 className="mb-2 font-light text-pink-500 text-4xl tracking-tight">
+                    {dayjs(selectedMonth).format("MMMM 'YY")} in review
+                  </h2>
+                  <TranscriptBlock
+                    key={selectedMonth}
+                    transcript={monthSummary}
+                    animKey={selectedMonth}
+                    label="AI summary. Tap to edit."
+                    showQuote={false}
+                    onSave={(text) =>
+                      setSummaryDrafts((d) => ({ ...d, [selectedMonth]: text }))
+                    }
+                  />
+                </div>
+              )}
+
+              <MonthAggregatePills month={selectedMonth} />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </Shell>
