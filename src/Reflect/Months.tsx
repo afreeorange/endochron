@@ -571,8 +571,8 @@ export const Monthly = () => {
 
           {monthSummary && (
             <div className="mt-4">
-              <h2 className="mb-0 font-black text-pink-500 text-sm tracking-tight">
-                Summary
+              <h2 className="mb-2 font-light text-pink-500 text-4xl tracking-tight">
+                {dayjs(selectedMonth).format("MMMM 'YY")} in review
               </h2>
               <TranscriptBlock
                 key={selectedMonth}

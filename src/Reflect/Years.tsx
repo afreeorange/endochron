@@ -23,9 +23,12 @@ export const Yearly = () => {
   const [activeYear, setActiveYear] = useState(paramYear ?? defaultYear);
   const navigate = useNavigate();
   const [category, setCategory] = useState<YearlyCategory>(
-    () => (localStorage.getItem("reflect_category") as YearlyCategory) ?? "Overall",
+    () =>
+      (localStorage.getItem("reflect_category") as YearlyCategory) ?? "Overall",
   );
-  useEffect(() => { localStorage.setItem("reflect_category", category); }, [category]);
+  useEffect(() => {
+    localStorage.setItem("reflect_category", category);
+  }, [category]);
 
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -120,18 +123,24 @@ export const Yearly = () => {
     function baseRating(day: (typeof data.days)[string]): string {
       if (!day) return "";
       if (category === "Overall")
-        return ({ GOOD: "Good", MANAGEABLE: "Manageable", BAD: "Bad" } as Record<string, string>)[day.overall] ?? "";
+        return (
+          (
+            { GOOD: "Good", MANAGEABLE: "Manageable", BAD: "Bad" } as Record<
+              string,
+              string
+            >
+          )[day.overall] ?? ""
+        );
       if (category === "Pain")
         return maxSev(day.data.pain.map(([, s]) => s)) ?? "";
       if (category === "Mood") {
-        if (day.data.mood.some(([, pol]) => pol === "NEGATIVE")) return "Severe";
+        if (day.data.mood.some(([, pol]) => pol === "NEGATIVE"))
+          return "Severe";
         if (day.data.mood.some(([, pol]) => pol === "POSITIVE")) return "Mild";
         return "";
       }
-      if (category === "GI")
-        return maxSev(day.data.gi.map(([, s]) => s)) ?? "";
-      if (category === "Period")
-        return day.data.period?.flow ?? "";
+      if (category === "GI") return maxSev(day.data.gi.map(([, s]) => s)) ?? "";
+      if (category === "Period") return day.data.period?.flow ?? "";
       return "";
     }
 
@@ -146,10 +155,16 @@ export const Yearly = () => {
 
       // Don't connect across week-row boundaries (Sun=0, Sat=6)
       const dow = d.day();
-      const prevDay = dow !== 0 ? data.days[d.subtract(1, "day").format("YYYY-MM-DD")] : undefined;
-      const nextDay = dow !== 6 ? data.days[d.add(1, "day").format("YYYY-MM-DD")] : undefined;
-      const hasPrev = !!prevDay && `yearly-rating-${baseRating(prevDay)}` === full;
-      const hasNext = !!nextDay && `yearly-rating-${baseRating(nextDay)}` === full;
+      const prevDay =
+        dow !== 0
+          ? data.days[d.subtract(1, "day").format("YYYY-MM-DD")]
+          : undefined;
+      const nextDay =
+        dow !== 6 ? data.days[d.add(1, "day").format("YYYY-MM-DD")] : undefined;
+      const hasPrev =
+        !!prevDay && `yearly-rating-${baseRating(prevDay)}` === full;
+      const hasNext =
+        !!nextDay && `yearly-rating-${baseRating(nextDay)}` === full;
 
       if (hasPrev && hasNext) return `${full} ${full}-middle`;
       if (hasPrev) return `${full} ${full}-end`;
@@ -183,10 +198,16 @@ export const Yearly = () => {
             <div className="flex flex-row gap-3 shrink-0">
               {CATEGORY_LEGEND[category].map(({ label, color, icon }) => (
                 <div key={label} className="flex items-center gap-1">
-                  {icon
-                    ? <span className="text-base leading-none" style={{ color }}>{icon}</span>
-                    : <span className="rounded-full w-2.5 h-2.5 shrink-0" style={{ backgroundColor: color }} />
-                  }
+                  {icon ? (
+                    <span className="text-base leading-none" style={{ color }}>
+                      {icon}
+                    </span>
+                  ) : (
+                    <span
+                      className="rounded-full w-2.5 h-2.5 shrink-0"
+                      style={{ backgroundColor: color }}
+                    />
+                  )}
                   <span className="text-pink-400 text-xs">{label}</span>
                 </div>
               ))}
@@ -235,7 +256,7 @@ export const Yearly = () => {
                   {Array.from({ length: 12 }, (_, i) => (
                     <motion.div
                       key={i}
-                      className="cursor-pointer"
+                      className="hover:bg-pink-100 cursor-pointer"
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{
