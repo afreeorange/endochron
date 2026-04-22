@@ -38,8 +38,10 @@ export const Daily = () => {
   const [moods, setMoods] = useState<Record<string, Mood>>({});
   const [pickingMood, setPickingMood] = useState(false);
 
-  const transcript = (drafts[selectedDate] ?? data.days[selectedDate]?.transcript) || null;
-  const mood: Mood = (moods[selectedDate] ?? data.days[selectedDate]?.overall) || "GOOD";
+  const transcript =
+    (drafts[selectedDate] ?? data.days[selectedDate]?.transcript) || null;
+  const mood: Mood =
+    (moods[selectedDate] ?? data.days[selectedDate]?.overall) || "GOOD";
 
   return (
     <Shell hideDock={false}>
@@ -56,9 +58,13 @@ export const Daily = () => {
               }, {}),
             ).map(([month, dates], i) => (
               <Fragment key={month}>
-                {i > 0 && <div className="self-stretch border-l border-dotted border-pink-200/60" />}
+                {i > 0 && (
+                  <div className="self-stretch border-pink-200/60 border-l border-dotted" />
+                )}
                 <div className="flex flex-col shrink-0">
-                  <div className="sticky mb-1 font-light text-pink-400 text-xs whitespace-nowrap">{month}</div>
+                  <div className="sticky mb-1 font-light text-pink-400 text-xs whitespace-nowrap">
+                    {month}
+                  </div>
                   <div className="flex gap-1">
                     {dates.map((d) => (
                       <motion.div
@@ -69,16 +75,27 @@ export const Daily = () => {
                         )}
                         onClick={() => setSelectedDate(d)}
                         animate={{
-                          backgroundColor: d === selectedDate ? "oklch(60.4% 0.221 3.57)" : "transparent",
+                          backgroundColor:
+                            d === selectedDate
+                              ? "oklch(60.4% 0.221 3.57)"
+                              : "transparent",
                           color: d === selectedDate ? "#fff" : "inherit",
                         }}
                         transition={{ duration: 0.2, ease: "easeInOut" }}
                       >
-                        <div className="font-light text-xs">{dayjs(d).format("ddd")}</div>
+                        <div className="font-light text-xs">
+                          {dayjs(d).format("ddd")}
+                        </div>
                         <div className="relative flex">
-                          <div className="font-semibold">{dayjs(d).format("DD")}</div>
+                          <div className="font-semibold">
+                            {dayjs(d).format("DD")}
+                          </div>
                           <div className="-right-1 bottom-1 absolute">
-                            {emotionMap(selectedDate === d)[moods[d] ?? data.days[d]?.overall]}
+                            {
+                              emotionMap(selectedDate === d)[
+                                moods[d] ?? data.days[d]?.overall
+                              ]
+                            }
                           </div>
                         </div>
                       </motion.div>
@@ -128,7 +145,10 @@ export const Daily = () => {
                       {moodKeys.map((m) => (
                         <button
                           key={m}
-                          className={clsx("text-3xl btn btn-lg btn-circle", m === mood && "btn-primary")}
+                          className={clsx(
+                            "text-3xl btn btn-lg btn-circle",
+                            m === mood && "btn-primary",
+                          )}
                           onClick={() => {
                             setMoods((d) => ({ ...d, [selectedDate]: m }));
                             setPickingMood(false);
@@ -158,20 +178,24 @@ export const Daily = () => {
 
           {!transcript ? (
             <div className="flex flex-col h-full">
-              <h2 className="grow">Nothing here. Would you like to record something?</h2>
+              <h2 className="grow">
+                Nothing here. Would you like to record something?
+              </h2>
               <button className="block bg-pink-100 mx-auto mt-12 p-6 border border-pink-400 border-dotted rounded-full cursor-pointer">
                 <PiMicrophoneDuotone className="text-6xl" />
               </button>
             </div>
           ) : (
-            <>
+            <div className="mt-2">
               <TranscriptBlock
                 transcript={transcript}
                 animKey={selectedDate}
-                onSave={(text) => setDrafts((d) => ({ ...d, [selectedDate]: text }))}
+                onSave={(text) =>
+                  setDrafts((d) => ({ ...d, [selectedDate]: text }))
+                }
               />
               <DaySections key={selectedDate} day={data.days[selectedDate]!} />
-            </>
+            </div>
           )}
         </div>
       </div>

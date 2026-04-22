@@ -32,7 +32,7 @@ function DayPills({
   day: DayEntry;
   category: YearlyCategory;
 }) {
-  const pill = "text-[12px] px-0.5 leading-tight rounded-sm truncate block";
+  const pill = "text-xs px-0.5 leading-tight rounded-sm truncate block";
 
   switch (category) {
     case "Overall":
@@ -474,6 +474,21 @@ export const Monthly = () => {
   const monthSummary =
     summaryDrafts[selectedMonth] ?? data.months[selectedMonth]?.summary ?? null;
 
+  const summaryHeading = useMemo(() => {
+    const m = dayjs(selectedMonth).format("MMMM 'YY");
+    const variants = [
+      `${m} in review`,
+      `Looking back on ${m}`,
+      `${m}, revisited`,
+      `${m} at a glance`,
+      `Reflecting on ${m}`,
+      `${m}, a retrospective`,
+      `${m} in summary`,
+      `The story of ${m}`,
+    ];
+    return variants[Math.floor(Math.random() * variants.length)];
+  }, [selectedMonth]);
+
   return (
     <Shell>
       <div className="flex flex-col h-full">
@@ -548,8 +563,8 @@ export const Monthly = () => {
 
               {monthSummary && (
                 <div className="mt-4">
-                  <h2 className="mb-2 font-light text-pink-500 text-4xl tracking-tight">
-                    {dayjs(selectedMonth).format("MMMM 'YY")} in review
+                  <h2 className="mb-2 font-light text-pink-300 text-2xl tracking-tight">
+                    {summaryHeading}
                   </h2>
                   <TranscriptBlock
                     key={selectedMonth}

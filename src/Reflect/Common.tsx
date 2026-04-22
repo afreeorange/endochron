@@ -97,7 +97,7 @@ interface YearlySelectorProps {
 export const YearlySelector = ({ category, onChange }: YearlySelectorProps) => (
   <div className="px-4 pb-3 w-full">
     <select
-      className="w-full select-sm select"
+      className="w-full select-md md:select-lg select"
       value={category}
       onChange={(e) => onChange(e.target.value as YearlyCategory)}
     >
@@ -117,7 +117,7 @@ export const emotionMap = (selected: boolean | null) => ({
     <PiSmileyDuotone
       className={
         selected === null
-          ? undefined
+          ? "text-green-600"
           : clsx(selected ? "text-white opacity-100" : "text-green-600")
       }
     />
@@ -126,7 +126,7 @@ export const emotionMap = (selected: boolean | null) => ({
     <PiSmileyMehDuotone
       className={
         selected === null
-          ? undefined
+          ? "text-red-400"
           : clsx(selected ? "text-white opacity-100" : "text-red-400")
       }
     />
@@ -135,7 +135,7 @@ export const emotionMap = (selected: boolean | null) => ({
     <PiSmileySadDuotone
       className={
         selected === null
-          ? undefined
+          ? "text-yellow-500"
           : clsx(selected ? "text-white opacity-100" : "text-yellow-500")
       }
     />
@@ -149,7 +149,7 @@ export const Nav = () => {
   const { pathname } = useLocation();
 
   const btn = (path: string) =>
-    clsx("btn-xs join-item btn", pathname.startsWith(path) && "btn-primary");
+    clsx("btn-sm join-item btn", pathname.startsWith(path) && "btn-primary");
 
   return (
     <div className="grid grid-cols-5 px-4 py-2 w-full join">
