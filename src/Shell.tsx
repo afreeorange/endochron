@@ -13,7 +13,7 @@ interface ShellProps extends PropsWithChildren {
 
 export const Shell = ({ children, disableDock, hideDock }: ShellProps) => {
   const { pathname } = useLocation();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col h-full">

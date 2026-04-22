@@ -44,7 +44,7 @@ function DayPills({
   switch (category) {
     case "Overall":
       return (
-        <div className="flex justify-end mt-1.5 text-2xl">
+        <div className="flex justify-end mt-1.5 -mr-1 text-2xl">
           {emotionMap(false)[day.overall]}
         </div>
       );
@@ -439,7 +439,7 @@ function MonthGrid({
               className={clsx(
                 "gap-0.5 grid grid-cols-7 p-0.5 rounded-md transition-colors",
                 weekHasData
-                  ? "border border-pink-200/60 hover:border-pink-300/80 cursor-pointer"
+                  ? "border border-pink-200/60 hover:border-pink-300/80 hover:bg-pink-100 cursor-pointer"
                   : "border border-transparent",
               )}
               onClick={() => weekHasData && weekStart && onWeekClick(weekStart)}

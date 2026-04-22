@@ -6,7 +6,7 @@ import { useState, Fragment } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import data from "../data/syntheticData";
-import { emotionMap, Nav, TranscriptBlock, DaySections } from "./Common";
+import { emotionMap, fadeAnim, Nav, TranscriptBlock, DaySections } from "./Common";
 
 const REF_DATE = dayjs("2026-08-19");
 
@@ -23,12 +23,6 @@ function relativeDay(date: string) {
 type Mood = keyof ReturnType<typeof emotionMap>;
 const moodKeys: Mood[] = ["GOOD", "MANAGEABLE", "BAD"];
 
-const fadeAnim = {
-  initial: { opacity: 0, y: 4 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -4 },
-  transition: { duration: 0.2, ease: "easeInOut" as const },
-};
 
 export const Daily = () => {
   const dateKeys = Object.keys(data.days).reverse();
@@ -178,10 +172,10 @@ export const Daily = () => {
 
           {!transcript ? (
             <div className="flex flex-col h-full">
-              <h2 className="grow">
+              <h2 className="mt-4 grow">
                 Nothing here. Would you like to record something?
               </h2>
-              <button className="block bg-pink-100 mx-auto mt-12 p-6 border border-pink-400 border-dotted rounded-full cursor-pointer">
+              <button className="block bg-pink-100 mx-auto p-6 border border-pink-400 border-dotted rounded-full cursor-pointer">
                 <PiMicrophoneDuotone className="text-6xl" />
               </button>
             </div>
