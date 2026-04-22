@@ -1,13 +1,21 @@
 import clsx from "clsx";
-import type { ReactNode } from "react";
+import { useState, useRef, type ReactNode } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import {
   PiSmileyDuotone,
   PiSmileyMehDuotone,
   PiSmileySadDuotone,
+  PiQuotesDuotone,
+  PiPlusCircle,
 } from "react-icons/pi";
 import { useNavigate, useLocation } from "react-router";
+import type { DayEntry } from "../data/dataTypes";
+
+// ── Types ────────────────────────────────────────────────────────────────────
 
 export type YearlyCategory = "Overall" | "Pain" | "Mood" | "GI" | "Period";
+
+export type LegendItem = { label: string; color: string; icon?: ReactNode };
 
 const C = {
   mild: "oklch(90% 0.06 340)",
@@ -15,19 +23,71 @@ const C = {
   severe: "oklch(45% 0.18 340)",
 };
 
-export type LegendItem = { label: string; color: string; icon?: ReactNode };
-
 export const CATEGORY_LEGEND: Record<YearlyCategory, LegendItem[]> = {
   Overall: [
-    { label: "Bad",        color: "#eab308", icon: <PiSmileySadDuotone /> },
+    { label: "Bad", color: "#eab308", icon: <PiSmileySadDuotone /> },
     { label: "Manageable", color: "#f87171", icon: <PiSmileyMehDuotone /> },
-    { label: "Good",       color: "#16a34a", icon: <PiSmileyDuotone /> },
+    { label: "Good", color: "#16a34a", icon: <PiSmileyDuotone /> },
   ],
-  Pain:   [{ label: "Mild", color: C.mild }, { label: "Moderate", color: C.moderate }, { label: "Severe", color: C.severe }],
-  Mood:   [{ label: "Positive", color: C.mild }, { label: "Negative", color: C.severe }],
-  GI:     [{ label: "Mild", color: C.mild }, { label: "Moderate", color: C.moderate }, { label: "Severe", color: C.severe }],
-  Period: [{ label: "Light", color: C.mild }, { label: "Medium", color: C.moderate }, { label: "Heavy", color: C.severe }],
+  Pain: [
+    { label: "Mild", color: C.mild },
+    { label: "Moderate", color: C.moderate },
+    { label: "Severe", color: C.severe },
+  ],
+  Mood: [
+    { label: "Positive", color: C.mild },
+    { label: "Negative", color: C.severe },
+  ],
+  GI: [
+    { label: "Mild", color: C.mild },
+    { label: "Moderate", color: C.moderate },
+    { label: "Severe", color: C.severe },
+  ],
+  Period: [
+    { label: "Light", color: C.mild },
+    { label: "Medium", color: C.moderate },
+    { label: "Heavy", color: C.severe },
+  ],
 };
+
+// ── Animation variants ────────────────────────────────────────────────────────
+
+export const fadeAnim = {
+  initial: { opacity: 0, y: 4 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -4 },
+  transition: { duration: 0.2, ease: "easeInOut" as const },
+};
+
+export const sectionContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.07 } },
+};
+
+export const sectionItem = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.22, ease: "easeOut" as const },
+  },
+};
+
+export const badgeContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.045 } },
+};
+
+export const badgeItem = {
+  hidden: { opacity: 0, x: -10 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.18, ease: "easeOut" as const },
+  },
+};
+
+// ── YearlySelector ────────────────────────────────────────────────────────────
 
 interface YearlySelectorProps {
   category: YearlyCategory;
@@ -37,7 +97,7 @@ interface YearlySelectorProps {
 export const YearlySelector = ({ category, onChange }: YearlySelectorProps) => (
   <div className="px-4 pb-3 w-full">
     <select
-      className="select select-sm w-full"
+      className="w-full select-sm select"
       value={category}
       onChange={(e) => onChange(e.target.value as YearlyCategory)}
     >
@@ -49,6 +109,8 @@ export const YearlySelector = ({ category, onChange }: YearlySelectorProps) => (
     </select>
   </div>
 );
+
+// ── emotionMap ────────────────────────────────────────────────────────────────
 
 export const emotionMap = (selected: boolean | null) => ({
   GOOD: (
@@ -80,12 +142,14 @@ export const emotionMap = (selected: boolean | null) => ({
   ),
 });
 
+// ── Nav ───────────────────────────────────────────────────────────────────────
+
 export const Nav = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const btn = (path: string) =>
-    clsx("btn-xs join-item btn", pathname === path && "btn-primary");
+    clsx("btn-xs join-item btn", pathname.startsWith(path) && "btn-primary");
 
   return (
     <div className="grid grid-cols-5 px-4 py-2 w-full join">
@@ -123,10 +187,240 @@ export const Nav = () => {
   );
 };
 
-// export const InnerShell = ({ children }: ShellProps) => {
-//         <div className="flex flex-col h-full">
+// ── TranscriptBlock ───────────────────────────────────────────────────────────
 
-//         <div className="z-20 bg-base-100 px-4 pt-4 pb-2 shrink-0">
-//           <Nav />
+interface TranscriptBlockProps {
+  transcript: string | null;
+  onSave: (text: string) => void;
+  animKey?: string;
+  label?: string;
+  showQuote?: boolean;
+}
 
-// }
+export const TranscriptBlock = ({
+  transcript,
+  onSave,
+  animKey,
+  label = "AI transcription. Tap to edit.",
+  showQuote = true,
+}: TranscriptBlockProps) => {
+  const [editing, setEditing] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  if (!transcript) return null;
+
+  function startEdit() {
+    setEditing(true);
+    setTimeout(() => textareaRef.current?.focus(), 0);
+  }
+
+  function confirm() {
+    const val = textareaRef.current?.value ?? transcript ?? "";
+    onSave(val);
+    setEditing(false);
+  }
+
+  return (
+    <div className="flex items-start gap-2 mt-6 mb-6">
+      {showQuote && <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />}
+      <div className="flex-1">
+        <AnimatePresence mode="wait">
+          {editing ? (
+            <motion.div key="edit" {...fadeAnim}>
+              <textarea
+                ref={textareaRef}
+                defaultValue={transcript}
+                className="rounded-md w-full text-base textarea textarea-bordered"
+                rows={5}
+              />
+              <div className="grid grid-cols-2 mt-2 join">
+                <button
+                  className="btn btn-sm btn-primary join-item"
+                  onClick={confirm}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn btn-sm join-item"
+                  onClick={() => setEditing(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key={animKey ? `view-${animKey}` : "view"}
+              {...fadeAnim}
+            >
+              <div className="text-sm cursor-pointer" onClick={startEdit}>
+                {transcript}
+              </div>
+              <p className="opacity-25 mt-1 text-xs">{label}</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+};
+
+// ── DaySections ───────────────────────────────────────────────────────────────
+
+export const DaySections = ({ day }: { day: DayEntry }) => (
+  <motion.div variants={sectionContainer} initial="hidden" animate="visible">
+    {/* Pain */}
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
+      <div className="flex">
+        <h3 className="mb-1 font-semibold text-xs grow">Pain</h3>
+        <PiPlusCircle className="opacity-50 text-lg" />
+      </div>
+      <motion.div
+        className="flex gap-x-1 overflow-x-auto overflow-y-hidden"
+        variants={badgeContainer}
+      >
+        {day.data.pain.map(([loc, sev]) => (
+          <motion.div key={loc} variants={badgeItem} className="w-fit join">
+            <div className="badge badge-sm join-item">{loc}</div>
+            <div
+              className={`whitespace-nowrap join-item badge badge-sm rating-${sev}`}
+            >
+              {sev}
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.div>
+
+    {/* Mood */}
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
+      <div className="flex">
+        <h3 className="mb-1 font-semibold text-xs grow">Mood</h3>
+        <PiPlusCircle className="opacity-50 text-lg" />
+      </div>
+      <motion.div
+        className="flex gap-x-1 overflow-x-auto"
+        variants={badgeContainer}
+      >
+        {day.data.mood.map(([name, pol]) => (
+          <motion.div
+            key={name}
+            variants={badgeItem}
+            className={clsx(
+              "whitespace-nowrap badge badge-sm",
+              pol === "POSITIVE" && "bg-pink-100",
+            )}
+          >
+            {name}
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.div>
+
+    {/* Period */}
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
+      <div className="flex">
+        <h3 className="mb-1 font-semibold text-xs grow">Period/Bleeding</h3>
+        <PiPlusCircle className="opacity-50 text-lg" />
+      </div>
+      {day.data.period && (
+        <motion.div className="flex flex-wrap gap-1" variants={badgeContainer}>
+          <motion.div variants={badgeItem} className="w-fit join">
+            <div
+              className={`badge badge-sm join-item rating-${day.data.period.flow}`}
+            >
+              {day.data.period.flow}
+            </div>
+            <div className="whitespace-nowrap join-item badge badge-sm">
+              Flow
+            </div>
+          </motion.div>
+          {day.data.period.other.map((o) => (
+            <motion.div key={o} variants={badgeItem} className="badge badge-sm">
+              {o}
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
+    </motion.div>
+
+    {/* GI/Urinary */}
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
+      <div className="flex">
+        <h3 className="mb-1 font-semibold text-xs grow">GI/Urinary</h3>
+        <PiPlusCircle className="opacity-50 text-lg" />
+      </div>
+      <motion.div className="flex flex-wrap gap-1" variants={badgeContainer}>
+        {day.data.gi.map(([name, sev]) => (
+          <motion.div key={name} variants={badgeItem} className="w-fit join">
+            <div className="whitespace-nowrap join-item badge badge-sm">
+              {name}
+            </div>
+            <div className={`join-item badge badge-sm rating-${sev}`}>
+              {sev}
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.div>
+
+    {/* Hard to Do */}
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
+      <div className="flex">
+        <h3 className="mb-1 font-semibold text-xs grow">Hard to Do</h3>
+        <PiPlusCircle className="opacity-50 text-lg" />
+      </div>
+      <motion.div className="flex flex-wrap gap-1" variants={badgeContainer}>
+        {day.data.hardToDo.map((item) => (
+          <motion.div
+            key={item}
+            variants={badgeItem}
+            className="whitespace-nowrap badge badge-sm"
+          >
+            {item}
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.div>
+
+    {/* Other */}
+    <motion.div variants={sectionItem} className="py-2">
+      <div className="flex">
+        <h3 className="mb-1 font-semibold text-xs grow">Other</h3>
+        <PiPlusCircle className="opacity-50 text-lg" />
+      </div>
+      <motion.div className="flex flex-wrap gap-1" variants={badgeContainer}>
+        {day.data.other.map(([name, sev]) => (
+          <motion.div key={name} variants={badgeItem} className="w-fit join">
+            <div className="whitespace-nowrap join-item badge badge-sm">
+              {name}
+            </div>
+            <div className={`join-item badge badge-sm rating-${sev}`}>
+              {sev}
+            </div>
+          </motion.div>
+        ))}
+        {day.data.medications.map((med) => (
+          <motion.div key={med} variants={badgeItem} className="badge badge-sm">
+            {med}
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.div>
+  </motion.div>
+);

@@ -53,7 +53,7 @@ calendar-month::part(button) {
   @apply rounded-full w-2.5 sm:w-4 h-2.5 sm:h-4;
   font-size: 0;
   min-inline-size: 0;
-  background-color: oklch(95% 0.02 340);
+  background-color: oklch(95% 0.015 340);
 }
 calendar-month::part(outside) {
   visibility: hidden;
@@ -78,6 +78,60 @@ calendar-month::part(button yearly-rating-Manageable) {
 }
 calendar-month::part(button yearly-rating-Bad) {
   background-color: #eab308;
+}
+
+/* Monthly calendar (full grid with visible day numbers) */
+.monthly-calendar calendar-date::part(header) {
+  display: none;
+}
+.monthly-calendar calendar-month::part(heading) {
+  display: none;
+}
+.monthly-calendar calendar-month::part(tr head) {
+  display: table-row;
+}
+.monthly-calendar calendar-month::part(td) {
+  padding: 2px;
+}
+.monthly-calendar calendar-month::part(button) {
+  border-radius: 0.375rem;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  font-size: 0.75rem;
+  min-inline-size: 0;
+  background-color: oklch(95% 0.015 340);
+  color: oklch(40% 0.1 340);
+}
+.monthly-calendar calendar-month::part(outside) {
+  visibility: hidden;
+}
+.monthly-calendar calendar-month::part(button yearly-rating-Mild),
+.monthly-calendar calendar-month::part(button yearly-rating-Light) {
+  background-color: oklch(90% 0.06 340);
+  color: oklch(35% 0.1 340);
+}
+.monthly-calendar calendar-month::part(button yearly-rating-Moderate),
+.monthly-calendar calendar-month::part(button yearly-rating-Medium) {
+  background-color: oklch(75% 0.14 340);
+  color: white;
+}
+.monthly-calendar calendar-month::part(button yearly-rating-Severe),
+.monthly-calendar calendar-month::part(button yearly-rating-Heavy) {
+  background-color: oklch(45% 0.18 340);
+  color: white;
+}
+.monthly-calendar calendar-month::part(button yearly-rating-Good) {
+  background-color: #16a34a;
+  color: white;
+}
+.monthly-calendar calendar-month::part(button yearly-rating-Manageable) {
+  background-color: #f87171;
+  color: white;
+}
+.monthly-calendar calendar-month::part(button yearly-rating-Bad) {
+  background-color: #eab308;
+  color: oklch(25% 0.05 100);
 }
 
 /*

@@ -20,7 +20,11 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   const transitionKey = location.pathname.startsWith("/reflect/years")
     ? "/reflect/years"
-    : location.pathname;
+    : location.pathname.startsWith("/reflect/months")
+      ? "/reflect/months"
+      : location.pathname.startsWith("/reflect/weeks")
+        ? "/reflect/weeks"
+        : location.pathname;
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={transitionKey}>
@@ -29,6 +33,7 @@ const AnimatedRoutes = () => {
           <Route path="/record" element={<Record />} />
           <Route path="/reflect/days" element={<Days />} />
           <Route path="/reflect/weeks" element={<Weeks />} />
+          <Route path="/reflect/weeks/:week" element={<Weeks />} />
           <Route path="/reflect/months" element={<Months />} />
           <Route path="/reflect/months/:yearMonth" element={<Months />} />
           <Route path="/reflect/years" element={<Years />} />

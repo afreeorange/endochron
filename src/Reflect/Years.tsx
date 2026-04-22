@@ -179,7 +179,7 @@ export const Yearly = () => {
             </div>
             <div className="flex flex-row gap-3 shrink-0">
               {CATEGORY_LEGEND[category].map(({ label, color, icon }) => (
-                <div key={label} className="flex items-center gap-1.5">
+                <div key={label} className="flex items-center gap-1">
                   {icon
                     ? <span className="text-base leading-none" style={{ color }}>{icon}</span>
                     : <span className="rounded-full w-2.5 h-2.5 shrink-0" style={{ backgroundColor: color }} />
