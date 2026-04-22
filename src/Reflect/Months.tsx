@@ -129,6 +129,10 @@ function MonthAggregatePills({ month }: { month: string }) {
 
   const tally = (map: Record<string, number>, key: string) =>
     (map[key] = (map[key] ?? 0) + 1);
+  const byFreq =
+    (counts: Record<string, number>) =>
+    <T extends [string, ...unknown[]]>(a: T, b: T) =>
+      (counts[b[0]] ?? 0) - (counts[a[0]] ?? 0);
   const worstSev = (map: Record<string, string>, key: string, sev: string) => {
     if (!map[key] || (SEV_RANK[sev] ?? 0) > (SEV_RANK[map[key]] ?? 0))
       map[key] = sev;
@@ -175,7 +179,7 @@ function MonthAggregatePills({ month }: { month: string }) {
   const section = "py-2 border-pink-200 border-b border-dotted";
   const Heading = ({ label }: { label: string }) => (
     <div className="flex items-center mb-1">
-      <span className="font-semibold text-xs text-pink-500 grow">{label}</span>
+      <span className="font-semibold text-pink-500 text-xs grow">{label}</span>
       <PiPlusCircle className="opacity-50 text-lg" />
     </div>
   );
@@ -219,14 +223,16 @@ function MonthAggregatePills({ month }: { month: string }) {
         <div className={section}>
           <Heading label="Pain" />
           <div className="flex flex-wrap gap-1">
-            {Object.entries(painMap).map(([loc, sev]) => (
-              <CountPill
-                key={loc}
-                label={loc}
-                cls={`rating-${sev}`}
-                n={painCount[loc]}
-              />
-            ))}
+            {Object.entries(painMap)
+              .sort(byFreq(painCount))
+              .map(([loc, sev]) => (
+                <CountPill
+                  key={loc}
+                  label={loc}
+                  cls={`rating-${sev}`}
+                  n={painCount[loc]}
+                />
+              ))}
           </div>
         </div>
       )}
@@ -236,18 +242,20 @@ function MonthAggregatePills({ month }: { month: string }) {
         <div className={section}>
           <Heading label="Mood" />
           <div className="flex flex-wrap gap-1">
-            {Object.entries(moodMap).map(([name, pol]) => (
-              <CountPill
-                key={name}
-                label={name}
-                cls={
-                  pol === "POSITIVE"
-                    ? "bg-pink-100 text-pink-700"
-                    : "bg-pink-800 text-white border-pink-900"
-                }
-                n={moodCount[name]}
-              />
-            ))}
+            {Object.entries(moodMap)
+              .sort(byFreq(moodCount))
+              .map(([name, pol]) => (
+                <CountPill
+                  key={name}
+                  label={name}
+                  cls={
+                    pol === "POSITIVE"
+                      ? "bg-pink-100 text-pink-700"
+                      : "bg-pink-800 text-white border-pink-900"
+                  }
+                  n={moodCount[name]}
+                />
+              ))}
           </div>
         </div>
       )}
@@ -264,14 +272,19 @@ function MonthAggregatePills({ month }: { month: string }) {
                 n={periodFlowCount}
               />
             )}
-            {[...periodOther].map((o) => (
-              <CountPill
-                key={o}
-                label={o}
-                cls="bg-pink-100 text-pink-700"
-                n={periodOtherCount[o]}
-              />
-            ))}
+            {[...periodOther]
+              .sort(
+                (a, b) =>
+                  (periodOtherCount[b] ?? 0) - (periodOtherCount[a] ?? 0),
+              )
+              .map((o) => (
+                <CountPill
+                  key={o}
+                  label={o}
+                  cls="bg-pink-100 text-pink-700"
+                  n={periodOtherCount[o]}
+                />
+              ))}
           </div>
         </div>
       )}
@@ -281,14 +294,16 @@ function MonthAggregatePills({ month }: { month: string }) {
         <div className={section}>
           <Heading label="GI/Urinary" />
           <div className="flex flex-wrap gap-1">
-            {Object.entries(giMap).map(([name, sev]) => (
-              <CountPill
-                key={name}
-                label={name}
-                cls={`rating-${sev}`}
-                n={giCount[name]}
-              />
-            ))}
+            {Object.entries(giMap)
+              .sort(byFreq(giCount))
+              .map(([name, sev]) => (
+                <CountPill
+                  key={name}
+                  label={name}
+                  cls={`rating-${sev}`}
+                  n={giCount[name]}
+                />
+              ))}
           </div>
         </div>
       )}
@@ -298,9 +313,11 @@ function MonthAggregatePills({ month }: { month: string }) {
         <div className={section}>
           <Heading label="Hard to Do" />
           <div className="flex flex-wrap gap-1">
-            {Object.entries(hardToDoCount).map(([item, n]) => (
-              <CountPill key={item} label={item} cls="" n={n} />
-            ))}
+            {Object.entries(hardToDoCount)
+              .sort(([, a], [, b]) => b - a)
+              .map(([item, n]) => (
+                <CountPill key={item} label={item} cls="" n={n} />
+              ))}
           </div>
         </div>
       )}
@@ -311,17 +328,21 @@ function MonthAggregatePills({ month }: { month: string }) {
         <div className="py-2">
           <Heading label="Other" />
           <div className="flex flex-wrap gap-1">
-            {Object.entries(otherMap).map(([name, sev]) => (
-              <CountPill
-                key={name}
-                label={name}
-                cls={`rating-${sev}`}
-                n={otherCount[name]}
-              />
-            ))}
-            {Object.entries(medCount).map(([med, n]) => (
-              <CountPill key={med} label={med} cls="" n={n} />
-            ))}
+            {Object.entries(otherMap)
+              .sort(byFreq(otherCount))
+              .map(([name, sev]) => (
+                <CountPill
+                  key={name}
+                  label={name}
+                  cls={`rating-${sev}`}
+                  n={otherCount[name]}
+                />
+              ))}
+            {Object.entries(medCount)
+              .sort(([, a], [, b]) => b - a)
+              .map(([med, n]) => (
+                <CountPill key={med} label={med} cls="" n={n} />
+              ))}
           </div>
         </div>
       )}
@@ -436,13 +457,15 @@ export const Monthly = () => {
 
   const [selectedMonth, setSelectedMonth] = useState(defaultMonth);
   const selectedTileRef = useRef<HTMLDivElement>(null);
+  const monthScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    selectedTileRef.current?.scrollIntoView({
-      behavior: "smooth",
-      inline: "center",
-      block: "nearest",
-    });
+    const tile = selectedTileRef.current;
+    const container = monthScrollRef.current;
+    if (!tile || !container) return;
+    const target =
+      tile.offsetLeft - container.offsetWidth / 2 + tile.offsetWidth / 2;
+    container.scrollTo({ left: target, behavior: "smooth" });
   }, [selectedMonth]);
 
   const monthsByYear = useMemo(() => {
@@ -490,11 +513,14 @@ export const Monthly = () => {
           <Nav />
 
           {/* Months grouped by year — same structure as Days.tsx date/month groups */}
-          <div className="flex gap-2 px-4 overflow-x-auto overflow-y-hidden no-scrollbar">
+          <div
+            ref={monthScrollRef}
+            className="flex gap-0 px-4 overflow-x-auto overflow-y-hidden"
+          >
             {monthsByYear.map(([year, months], i) => (
               <Fragment key={year}>
                 {i > 0 && (
-                  <div className="self-stretch border-pink-200/60 border-l border-dotted" />
+                  <div className="self-stretch mx-1 border-pink-200/60 border-l border-dotted" />
                 )}
                 <div className="flex flex-col shrink-0">
                   <div className="mb-1 font-light text-pink-400 text-xs whitespace-nowrap">
