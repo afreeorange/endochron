@@ -221,7 +221,7 @@ export const TranscriptBlock = ({
   }
 
   return (
-    <div className="flex items-start gap-2 mt-6 mb-6">
+    <div className="flex items-start gap-2 mb-6">
       {showQuote && <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />}
       <div className="flex-1">
         <AnimatePresence mode="wait">

@@ -21,8 +21,11 @@ export const Yearly = () => {
     ? currentYear
     : years[years.length - 1];
   const [activeYear, setActiveYear] = useState(paramYear ?? defaultYear);
-  const [category, setCategory] = useState<YearlyCategory>("Overall");
   const navigate = useNavigate();
+  const [category, setCategory] = useState<YearlyCategory>(
+    () => (localStorage.getItem("reflect_category") as YearlyCategory) ?? "Overall",
+  );
+  useEffect(() => { localStorage.setItem("reflect_category", category); }, [category]);
 
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const scrollContainerRef = useRef<HTMLDivElement>(null);
