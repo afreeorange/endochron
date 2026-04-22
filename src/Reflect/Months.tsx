@@ -350,7 +350,7 @@ function MonthGrid({
 
   return (
     <div>
-      <div className="grid grid-cols-7 mb-1">
+      <div className="grid grid-cols-7 mr-2 mb-1">
         {DOW.map((d) => (
           <div
             key={d}
