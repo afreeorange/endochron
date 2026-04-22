@@ -230,7 +230,7 @@ export const TranscriptBlock = ({
               <textarea
                 ref={textareaRef}
                 defaultValue={transcript}
-                className="rounded-md w-full text-base textarea textarea-bordered"
+                className="rounded-md w-full text-sm textarea textarea-bordered"
                 rows={5}
               />
               <div className="grid grid-cols-2 mt-2 join">

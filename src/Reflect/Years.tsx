@@ -252,7 +252,7 @@ export const Yearly = () => {
                 getDayParts={getDayParts}
                 className="mx-auto w-full max-w-xl"
               >
-                <div className="gap-x-5 gap-y-5 grid grid-cols-3">
+                <div className="gap-x-5 gap-y-6 grid grid-cols-3">
                   {Array.from({ length: 12 }, (_, i) => (
                     <motion.div
                       key={i}

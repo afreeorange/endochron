@@ -6,7 +6,14 @@ import { motion, AnimatePresence } from "motion/react";
 import clsx from "clsx";
 import { PiPlusCircle } from "react-icons/pi";
 import data from "../data/syntheticData";
-import { Nav, YearlySelector, TranscriptBlock, emotionMap, sectionContainer, sectionItem } from "./Common";
+import {
+  Nav,
+  YearlySelector,
+  TranscriptBlock,
+  emotionMap,
+  sectionContainer,
+  sectionItem,
+} from "./Common";
 import type { YearlyCategory } from "./Common";
 import type { DayEntry } from "../data/dataTypes";
 
@@ -133,6 +140,14 @@ function MonthAggregatePills({ month }: { month: string }) {
     (counts: Record<string, number>) =>
     <T extends [string, ...unknown[]]>(a: T, b: T) =>
       (counts[b[0]] ?? 0) - (counts[a[0]] ?? 0);
+  const rankCls = (i: number, total: number, n: number) => {
+    if (n === 1) return "rating-Mild";
+    if (total <= 1) return "rating-Severe";
+    const t = i / (total - 1);
+    if (t < 0.34) return "rating-Severe";
+    if (t < 0.67) return "rating-Moderate";
+    return "rating-Mild";
+  };
   const worstSev = (map: Record<string, string>, key: string, sev: string) => {
     if (!map[key] || (SEV_RANK[sev] ?? 0) > (SEV_RANK[map[key]] ?? 0))
       map[key] = sev;
@@ -200,7 +215,12 @@ function MonthAggregatePills({ month }: { month: string }) {
   );
 
   return (
-    <motion.div className="mt-4" variants={sectionContainer} initial="hidden" animate="visible">
+    <motion.div
+      className="mt-4"
+      variants={sectionContainer}
+      initial="hidden"
+      animate="visible"
+    >
       {/* Overall */}
       <motion.div variants={sectionItem} className={section}>
         <Heading label="Overall" />
@@ -225,8 +245,13 @@ function MonthAggregatePills({ month }: { month: string }) {
           <div className="flex flex-wrap gap-1">
             {Object.entries(painMap)
               .sort(byFreq(painCount))
-              .map(([loc, sev]) => (
-                <CountPill key={loc} label={loc} cls={`rating-${sev}`} n={painCount[loc]} />
+              .map(([loc], i, arr) => (
+                <CountPill
+                  key={loc}
+                  label={loc}
+                  cls={rankCls(i, arr.length, painCount[loc])}
+                  n={painCount[loc]}
+                />
               ))}
           </div>
         </motion.div>
@@ -239,8 +264,13 @@ function MonthAggregatePills({ month }: { month: string }) {
           <div className="flex flex-wrap gap-1">
             {Object.entries(moodMap)
               .sort(byFreq(moodCount))
-              .map(([name, pol]) => (
-                <CountPill key={name} label={name} cls={pol === "POSITIVE" ? "bg-pink-100 text-pink-700" : "bg-pink-800 text-white border-pink-900"} n={moodCount[name]} />
+              .map(([name], i, arr) => (
+                <CountPill
+                  key={name}
+                  label={name}
+                  cls={rankCls(i, arr.length, moodCount[name])}
+                  n={moodCount[name]}
+                />
               ))}
           </div>
         </motion.div>
@@ -252,12 +282,24 @@ function MonthAggregatePills({ month }: { month: string }) {
           <Heading label="Period/Bleeding" />
           <div className="flex flex-wrap gap-1">
             {periodFlowMap.flow && (
-              <CountPill label={`${periodFlowMap.flow} flow`} cls={`rating-${periodFlowMap.flow}`} n={periodFlowCount} />
+              <CountPill
+                label={`${periodFlowMap.flow} flow`}
+                cls={`rating-${periodFlowMap.flow}`}
+                n={periodFlowCount}
+              />
             )}
             {[...periodOther]
-              .sort((a, b) => (periodOtherCount[b] ?? 0) - (periodOtherCount[a] ?? 0))
-              .map((o) => (
-                <CountPill key={o} label={o} cls="bg-pink-100 text-pink-700" n={periodOtherCount[o]} />
+              .sort(
+                (a, b) =>
+                  (periodOtherCount[b] ?? 0) - (periodOtherCount[a] ?? 0),
+              )
+              .map((o, i, arr) => (
+                <CountPill
+                  key={o}
+                  label={o}
+                  cls={rankCls(i, arr.length, periodOtherCount[o])}
+                  n={periodOtherCount[o]}
+                />
               ))}
           </div>
         </motion.div>
@@ -270,8 +312,13 @@ function MonthAggregatePills({ month }: { month: string }) {
           <div className="flex flex-wrap gap-1">
             {Object.entries(giMap)
               .sort(byFreq(giCount))
-              .map(([name, sev]) => (
-                <CountPill key={name} label={name} cls={`rating-${sev}`} n={giCount[name]} />
+              .map(([name], i, arr) => (
+                <CountPill
+                  key={name}
+                  label={name}
+                  cls={rankCls(i, arr.length, giCount[name])}
+                  n={giCount[name]}
+                />
               ))}
           </div>
         </motion.div>
@@ -284,8 +331,13 @@ function MonthAggregatePills({ month }: { month: string }) {
           <div className="flex flex-wrap gap-1">
             {Object.entries(hardToDoCount)
               .sort(([, a], [, b]) => b - a)
-              .map(([item, n]) => (
-                <CountPill key={item} label={item} cls="" n={n} />
+              .map(([item, n], i, arr) => (
+                <CountPill
+                  key={item}
+                  label={item}
+                  cls={rankCls(i, arr.length, n)}
+                  n={n}
+                />
               ))}
           </div>
         </motion.div>
@@ -297,21 +349,42 @@ function MonthAggregatePills({ month }: { month: string }) {
         <motion.div variants={sectionItem} className="py-2">
           <Heading label="Other" />
           <div className="flex flex-wrap gap-1">
-            {Object.entries(otherMap)
-              .sort(byFreq(otherCount))
-              .map(([name, sev]) => (
-                <CountPill
-                  key={name}
-                  label={name}
-                  cls={`rating-${sev}`}
-                  n={otherCount[name]}
-                />
-              ))}
-            {Object.entries(medCount)
-              .sort(([, a], [, b]) => b - a)
-              .map(([med, n]) => (
-                <CountPill key={med} label={med} cls="" n={n} />
-              ))}
+            {(() => {
+              const otherEntries = Object.entries(otherMap).sort(
+                byFreq(otherCount),
+              );
+              const medEntries = Object.entries(medCount).sort(
+                ([, a], [, b]) => b - a,
+              );
+              const combined = [
+                ...otherEntries.map(([n]) => n),
+                ...medEntries.map(([n]) => n),
+              ];
+              return (
+                <>
+                  {otherEntries.map(([name]) => (
+                    <CountPill
+                      key={name}
+                      label={name}
+                      cls={rankCls(
+                        combined.indexOf(name),
+                        combined.length,
+                        otherCount[name],
+                      )}
+                      n={otherCount[name]}
+                    />
+                  ))}
+                  {medEntries.map(([med, n]) => (
+                    <CountPill
+                      key={med}
+                      label={med}
+                      cls={rankCls(combined.indexOf(med), combined.length, n)}
+                      n={n}
+                    />
+                  ))}
+                </>
+              );
+            })()}
           </div>
         </motion.div>
       )}
