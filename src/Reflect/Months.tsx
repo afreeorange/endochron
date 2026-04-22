@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router";
 import { useState, useMemo, useRef, useEffect, Fragment } from "react";
 import { motion } from "motion/react";
 import clsx from "clsx";
+import { PiPlusCircle } from "react-icons/pi";
 import data from "../data/syntheticData";
 import { Nav, YearlySelector, TranscriptBlock, emotionMap } from "./Common";
 import type { YearlyCategory } from "./Common";
@@ -172,7 +173,12 @@ function MonthAggregatePills({ month }: { month: string }) {
   };
 
   const section = "py-2 border-pink-200 border-b border-dotted";
-  const heading = "mb-1 font-semibold text-xs text-pink-500";
+  const Heading = ({ label }: { label: string }) => (
+    <div className="flex items-center mb-1">
+      <span className="font-semibold text-xs text-pink-500 grow">{label}</span>
+      <PiPlusCircle className="opacity-50 text-lg" />
+    </div>
+  );
 
   const CountPill = ({
     label,
@@ -193,7 +199,7 @@ function MonthAggregatePills({ month }: { month: string }) {
     <div className="mt-4">
       {/* Overall */}
       <div className={section}>
-        <div className={heading}>Overall</div>
+        <Heading label="Overall" />
         <div className="flex flex-wrap gap-1">
           {(["BAD", "MANAGEABLE", "GOOD"] as const)
             .filter((o) => overallCounts[o])
@@ -211,7 +217,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* Pain */}
       {Object.keys(painMap).length > 0 && (
         <div className={section}>
-          <div className={heading}>Pain</div>
+          <Heading label="Pain" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(painMap).map(([loc, sev]) => (
               <CountPill
@@ -228,7 +234,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* Mood */}
       {Object.keys(moodMap).length > 0 && (
         <div className={section}>
-          <div className={heading}>Mood</div>
+          <Heading label="Mood" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(moodMap).map(([name, pol]) => (
               <CountPill
@@ -249,7 +255,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* Period/Bleeding */}
       {(periodFlowMap.flow || periodOther.size > 0) && (
         <div className={section}>
-          <div className={heading}>Period/Bleeding</div>
+          <Heading label="Period/Bleeding" />
           <div className="flex flex-wrap gap-1">
             {periodFlowMap.flow && (
               <CountPill
@@ -273,7 +279,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* GI/Urinary */}
       {Object.keys(giMap).length > 0 && (
         <div className={section}>
-          <div className={heading}>GI/Urinary</div>
+          <Heading label="GI/Urinary" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(giMap).map(([name, sev]) => (
               <CountPill
@@ -290,7 +296,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* Hard to Do */}
       {Object.keys(hardToDoCount).length > 0 && (
         <div className={section}>
-          <div className={heading}>Hard to Do</div>
+          <Heading label="Hard to Do" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(hardToDoCount).map(([item, n]) => (
               <CountPill key={item} label={item} cls="" n={n} />
@@ -303,7 +309,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {(Object.keys(otherMap).length > 0 ||
         Object.keys(medCount).length > 0) && (
         <div className="py-2">
-          <div className={heading}>Other</div>
+          <Heading label="Other" />
           <div className="flex flex-wrap gap-1">
             {Object.entries(otherMap).map(([name, sev]) => (
               <CountPill
