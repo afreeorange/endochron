@@ -213,7 +213,7 @@ export const Yearly = () => {
               className="mb-6"
             >
               <motion.h2
-                className="mb-2 font-black text-pink-500 text-sm tracking-tight"
+                className="mx-auto mb-2 max-w-xl font-black text-pink-500 text-sm"
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
