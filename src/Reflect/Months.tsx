@@ -231,7 +231,9 @@ export const Monthly = () => {
           <div className="flex gap-2 px-4 overflow-x-auto overflow-y-hidden no-scrollbar">
             {monthsByYear.map(([year, months], i) => (
               <Fragment key={year}>
-                {i > 0 && <div className="self-stretch border-l border-dotted border-pink-200/60" />}
+                {i > 0 && (
+                  <div className="self-stretch border-pink-200/60 border-l border-dotted" />
+                )}
                 <div className="flex flex-col shrink-0">
                   <div className="mb-1 font-light text-pink-400 text-xs whitespace-nowrap">
                     {year}
