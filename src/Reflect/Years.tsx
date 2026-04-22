@@ -6,9 +6,8 @@ import { useNavigate, useParams } from "react-router";
 import { motion } from "motion/react";
 import clsx from "clsx";
 import data from "../data/syntheticData";
-import { Nav, YearlySelector } from "./Common";
+import { Nav, YearlySelector, CATEGORY_LEGEND } from "./Common";
 import type { YearlyCategory } from "./Common";
-
 
 export const Yearly = () => {
   const dateKeys = Object.keys(data.days);
@@ -18,10 +17,11 @@ export const Yearly = () => {
 
   const currentYear = dayjs().format("YYYY");
   const { year: paramYear } = useParams();
-  const defaultYear = years.includes(currentYear) ? currentYear : years[years.length - 1];
+  const defaultYear = years.includes(currentYear)
+    ? currentYear
+    : years[years.length - 1];
   const [activeYear, setActiveYear] = useState(paramYear ?? defaultYear);
   const [category, setCategory] = useState<YearlyCategory>("Overall");
-  const [subCategory, setSubCategory] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -65,8 +65,10 @@ export const Yearly = () => {
 
         // Pick the topmost visible year by DOM position
         const topmost = [...visibleYears.current].reduce((best, y) => {
-          const a = sectionRefs.current[y]?.getBoundingClientRect().top ?? Infinity;
-          const b = sectionRefs.current[best]?.getBoundingClientRect().top ?? Infinity;
+          const a =
+            sectionRefs.current[y]?.getBoundingClientRect().top ?? Infinity;
+          const b =
+            sectionRefs.current[best]?.getBoundingClientRect().top ?? Infinity;
           return a < b ? y : best;
         });
 
@@ -106,56 +108,52 @@ export const Yearly = () => {
   );
 
   const getDayParts = useMemo(() => {
+    const rank: Record<string, number> = { Mild: 1, Moderate: 2, Severe: 3 };
+    const maxSev = (sevs: string[]): string | null =>
+      sevs.length === 0
+        ? null
+        : sevs.reduce((a, b) => ((rank[b] ?? 0) > (rank[a] ?? 0) ? b : a));
+
+    function baseRating(day: (typeof data.days)[string]): string {
+      if (!day) return "";
+      if (category === "Overall")
+        return ({ GOOD: "Good", MANAGEABLE: "Manageable", BAD: "Bad" } as Record<string, string>)[day.overall] ?? "";
+      if (category === "Pain")
+        return maxSev(day.data.pain.map(([, s]) => s)) ?? "";
+      if (category === "Mood") {
+        if (day.data.mood.some(([, pol]) => pol === "NEGATIVE")) return "Severe";
+        if (day.data.mood.some(([, pol]) => pol === "POSITIVE")) return "Mild";
+        return "";
+      }
+      if (category === "GI")
+        return maxSev(day.data.gi.map(([, s]) => s)) ?? "";
+      if (category === "Period")
+        return day.data.period?.flow ?? "";
+      return "";
+    }
+
     return function (date: Date): string {
       const d = dayjs(date);
       const key = d.format("YYYY-MM-DD");
       const day = data.days[key];
       if (!day) return "";
-      if (category === "Overall") {
-        const map: Record<string, string> = {
-          GOOD: "yearly-rating-Mild",
-          MANAGEABLE: "yearly-rating-Moderate",
-          BAD: "yearly-rating-Severe",
-        };
-        return map[day.overall] ?? "";
-      }
-      if (category === "PainLocation") {
-        const entry = day.data.pain.find(([loc]) => loc === subCategory);
-        return entry ? `yearly-rating-${entry[1]}` : "";
-      }
-      if (category === "Mood") {
-        const hasPositive = day.data.mood.some(([, pol]) => pol === "POSITIVE");
-        const hasNegative = day.data.mood.some(([, pol]) => pol === "NEGATIVE");
-        if (hasPositive) return "yearly-rating-Severe";
-        if (hasNegative) return "yearly-rating-Mild";
-        return "";
-      }
-      if (category === "GI") {
-        const entry = day.data.gi.find(([name]) => name === subCategory);
-        return entry ? `yearly-rating-${entry[1]}` : "";
-      }
-      if (category === "HardToDo") {
-        return day.data.hardToDo.includes(subCategory as never)
-          ? "yearly-rating-Moderate"
-          : "";
-      }
-      if (category === "Period") {
-        if (!day.data.period) return "";
-        const map: Record<string, string> = {
-          Light: "yearly-rating-Mild",
-          Medium: "yearly-rating-Moderate",
-          Heavy: "yearly-rating-Severe",
-        };
-        return map[day.data.period.flow] ?? "";
-      }
-      if (category === "PeriodType") {
-        return day.data.period?.other.includes(subCategory as never)
-          ? "yearly-rating-Moderate"
-          : "";
-      }
-      return "";
+      const rating = baseRating(day);
+      if (!rating) return "";
+      const full = `yearly-rating-${rating}`;
+
+      // Don't connect across week-row boundaries (Sun=0, Sat=6)
+      const dow = d.day();
+      const prevDay = dow !== 0 ? data.days[d.subtract(1, "day").format("YYYY-MM-DD")] : undefined;
+      const nextDay = dow !== 6 ? data.days[d.add(1, "day").format("YYYY-MM-DD")] : undefined;
+      const hasPrev = !!prevDay && `yearly-rating-${baseRating(prevDay)}` === full;
+      const hasNext = !!nextDay && `yearly-rating-${baseRating(nextDay)}` === full;
+
+      if (hasPrev && hasNext) return `${full} ${full}-middle`;
+      if (hasPrev) return `${full} ${full}-end`;
+      if (hasNext) return `${full} ${full}-start`;
+      return full;
     };
-  }, [category, subCategory]);
+  }, [category]);
 
   return (
     <Shell>
@@ -163,27 +161,37 @@ export const Yearly = () => {
         {/* Sticky Header */}
         <div className="z-20 bg-base-100 shrink-0">
           <Nav />
-          <div className="flex gap-2 px-4 pb-3 overflow-x-auto overflow-y-hidden">
-            {[...years].reverse().map((year) => (
-              <button
-                key={year}
-                className={clsx(
-                  "px-2 py-1 border border-pink-200 rounded-md font-semibold text-xl cursor-pointer shrink-0",
-                  year === activeYear && "bg-[oklch(60.4%_0.221_3.57)] text-white",
-                )}
-                onClick={() => scrollToYear(year)}
-              >
-                {year}
-              </button>
-            ))}
+          <div className="flex items-center gap-3 px-4 pb-3">
+            <div className="flex flex-1 gap-2 overflow-x-auto overflow-y-hidden">
+              {[...years].reverse().map((year) => (
+                <button
+                  key={year}
+                  className={clsx(
+                    "px-2 py-1 border border-pink-200 rounded-md font-semibold text-xl cursor-pointer shrink-0",
+                    year === activeYear &&
+                      "bg-[oklch(60.4%_0.221_3.57)] text-white",
+                  )}
+                  onClick={() => scrollToYear(year)}
+                >
+                  {year}
+                </button>
+              ))}
+            </div>
+            <div className="flex flex-row gap-3 shrink-0">
+              {CATEGORY_LEGEND[category].map(({ label, color, icon }) => (
+                <div key={label} className="flex items-center gap-1.5">
+                  {icon
+                    ? <span className="text-base leading-none" style={{ color }}>{icon}</span>
+                    : <span className="rounded-full w-2.5 h-2.5 shrink-0" style={{ backgroundColor: color }} />
+                  }
+                  <span className="text-pink-400 text-xs">{label}</span>
+                </div>
+              ))}
+            </div>
           </div>
           <YearlySelector
             category={category}
-            subCategory={subCategory}
-            onChange={(cat, sub) => {
-              setCategory(cat);
-              setSubCategory(sub);
-            }}
+            onChange={(cat) => setCategory(cat)}
           />
         </div>
 
@@ -199,13 +207,17 @@ export const Yearly = () => {
               ref={(el) => {
                 sectionRefs.current[year] = el;
               }}
-              className="mb-12"
+              className="mb-6"
             >
               <motion.h2
                 className="mb-2 font-black text-pink-500 text-sm tracking-tight"
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, ease: "easeOut", delay: yi * 0.08 }}
+                transition={{
+                  duration: 0.3,
+                  ease: "easeOut",
+                  delay: yi * 0.08,
+                }}
               >
                 {year}
               </motion.h2>

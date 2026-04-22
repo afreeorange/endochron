@@ -223,13 +223,13 @@ export const Daily = () => {
           </div>
 
           {!transcript && (
-            <div className="flex flex-col my-4 h-full">
+            <div className="flex flex-col h-full">
               <h2 className="grow">
                 Nothing here. Would you like to record something?
               </h2>
               <button
                 className={clsx(
-                  "block bg-pink-100 mx-auto mt-24 p-6 border border-pink-400 border-dotted rounded-full cursor-pointer",
+                  "block bg-pink-100 mx-auto mt-12 p-6 border border-pink-400 border-dotted rounded-full cursor-pointer",
                 )}
               >
                 <PiMicrophoneDuotone className={clsx("text-6xl")} />

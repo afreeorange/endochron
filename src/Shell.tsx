@@ -17,7 +17,7 @@ export const Shell = ({ children, disableDock, hideDock }: ShellProps) => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="flex-1 pb-24 min-h-0 overflow-y-auto">{children}</div>
+      <div className="flex-1 pb-16 min-h-0 overflow-y-auto">{children}</div>
 
       {!hideDock && (<div className="z-50 dock dock-md">
         <button
