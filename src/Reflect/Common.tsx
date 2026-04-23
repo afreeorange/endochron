@@ -17,7 +17,7 @@ export type YearlyCategory = "Overall" | "Pain" | "Mood" | "GI" | "Period";
 
 export type LegendItem = { label: string; color: string; icon?: ReactNode };
 
-const C = {
+export const C = {
   mild: "oklch(90% 0.06 340)",
   moderate: "oklch(75% 0.14 340)",
   severe: "oklch(45% 0.18 340)",
@@ -155,7 +155,14 @@ export const CategoryLegend = ({ category }: { category: YearlyCategory }) => (
             style={{ backgroundColor: color }}
           />
         )}
-        <span className="text-pink-400 text-xs">{label}</span>
+        <span
+          className="text-xs"
+          style={{
+            color,
+          }}
+        >
+          {label}
+        </span>
       </div>
     ))}
   </div>
@@ -166,13 +173,15 @@ export const CategoryLegend = ({ category }: { category: YearlyCategory }) => (
 export const YearlySelector = ({
   category,
   onChange,
+  actions,
 }: {
   category: YearlyCategory;
   onChange: (category: YearlyCategory) => void;
+  actions?: ReactNode;
 }) => (
-  <div className="px-4 pb-3 w-full">
+  <div className="flex items-center gap-2 px-4 pb-3 w-full">
     <select
-      className="w-full select-md md:select-lg select"
+      className="flex-1 select-md md:select-lg select"
       value={category}
       onChange={(e) => onChange(e.target.value as YearlyCategory)}
     >
@@ -182,6 +191,7 @@ export const YearlySelector = ({
       <option value="GI">GI Problems</option>
       <option value="Period">Period</option>
     </select>
+    {actions}
   </div>
 );
 
