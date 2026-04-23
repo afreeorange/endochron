@@ -10,6 +10,7 @@
 - Import data from period tracker.
 - Idea: Increased resolution from Year -> Month -> Week -> Day. Duh.
 - Layers persist across Month, Year.
+- In interactive iterative joint design process - We can iterate at the speed of thought thanks to Claude.
 
 ## User Reviews
 

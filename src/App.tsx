@@ -42,16 +42,16 @@ const App = () => (
       <footer>
         <ul className="flex justify-evenly gap-4 text-pink-300 text-sm tracking-wide">
           <li>
-            <NavLink to="/Terms">Terms</NavLink>
+            <NavLink to="/terms">Terms</NavLink>
           </li>
           <li>
-            <NavLink to="/Privacy">Privacy</NavLink>
+            <NavLink to="/privacy">Privacy</NavLink>
           </li>
           <li>
-            <NavLink to="/Support">Support</NavLink>
+            <NavLink to="/support">Support</NavLink>
           </li>
           <li>
-            <NavLink to="/Colophon">Colophon</NavLink>
+            <NavLink to="/colophon">Colophon</NavLink>
           </li>
         </ul>
       </footer>

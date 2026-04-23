@@ -15,6 +15,10 @@ import Days from "./Reflect/Days.tsx";
 import Weeks from "./Reflect/Weeks.tsx";
 import Years from "./Reflect/Years.tsx";
 import Months from "./Reflect/Months.tsx";
+import Terms from "./Pages/Terms.tsx";
+import Privacy from "./Pages/Privacy.tsx";
+import Support from "./Pages/Support.tsx";
+import Colophon from "./Pages/Colophon.tsx";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -41,6 +45,10 @@ const AnimatedRoutes = () => {
           <Route path="/reflect/months/:yearMonth" element={<Months />} />
           <Route path="/reflect/years" element={<Years />} />
           <Route path="/reflect/years/:year" element={<Years />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/support" element={<Support />} />
+          <Route path="/colophon" element={<Colophon />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
