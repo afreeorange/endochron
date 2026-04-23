@@ -37,7 +37,7 @@ TODO: Add them here.
 ## TODO
 
 - [x] View transitions
-- [ ] Colors
+- [x] Colors
 
 ## License
 

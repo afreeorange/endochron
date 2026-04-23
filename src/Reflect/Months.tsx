@@ -513,18 +513,11 @@ export const Monthly = () => {
                           month === selectedMonth ? selectedTileRef : undefined
                         }
                         className={clsx(
-                          "relative px-2 py-1 border border-pink-200 rounded-md w-16 cursor-pointer",
+                          "relative px-2 py-1 border border-pink-200 rounded-md w-16 cursor-pointer transition-colors duration-200",
                           !monthHasData(month) && "opacity-40",
+                          month === selectedMonth && "bg-pink-500 text-white",
                         )}
                         onClick={() => selectMonth(month)}
-                        animate={{
-                          backgroundColor:
-                            month === selectedMonth
-                              ? "oklch(60.4% 0.221 3.57)"
-                              : "transparent",
-                          color: month === selectedMonth ? "#fff" : "inherit",
-                        }}
-                        transition={{ duration: 0.2, ease: "easeInOut" }}
                       >
                         <div className="font-semibold text-xl">
                           {dayjs(`${month}-01`).format("MMM")}

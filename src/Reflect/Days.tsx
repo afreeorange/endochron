@@ -74,21 +74,14 @@ export const Daily = () => {
                       <motion.div
                         key={d}
                         className={clsx(
-                          "relative px-2 py-1 border border-pink-200 rounded-md w-16 text-xl cursor-pointer",
-                          { "opacity-40": !data.days[d] },
+                          "relative px-2 py-1 border border-pink-200 rounded-md w-16 text-xl cursor-pointer transition-colors duration-200",
+                          !data.days[d] && "opacity-40",
+                          d === selectedDate && "bg-pink-500 text-white",
                         )}
                         onClick={() => {
                           setSelectedDate(d);
                           navigate(`/reflect/days/${d}`, { replace: true });
                         }}
-                        animate={{
-                          backgroundColor:
-                            d === selectedDate
-                              ? "oklch(60.4% 0.221 3.57)"
-                              : "transparent",
-                          color: d === selectedDate ? "#fff" : "inherit",
-                        }}
-                        transition={{ duration: 0.2, ease: "easeInOut" }}
                       >
                         <div className="font-light text-xs">
                           {dayjs(d).format("ddd")}

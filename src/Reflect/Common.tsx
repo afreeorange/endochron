@@ -18,16 +18,16 @@ export type YearlyCategory = "Overall" | "Pain" | "Mood" | "GI" | "Period";
 export type LegendItem = { label: string; color: string; icon?: ReactNode };
 
 export const C = {
-  mild: "oklch(90% 0.06 340)",
-  moderate: "oklch(75% 0.14 340)",
-  severe: "oklch(45% 0.18 340)",
+  mild: "var(--color-pink-200)",
+  moderate: "var(--color-pink-300)",
+  severe: "var(--color-pink-700)",
 };
 
 export const CATEGORY_LEGEND: Record<YearlyCategory, LegendItem[]> = {
   Overall: [
-    { label: "Bad", color: "#eab308", icon: <PiSmileySadDuotone /> },
-    { label: "Manageable", color: "#f87171", icon: <PiSmileyMehDuotone /> },
-    { label: "Good", color: "#16a34a", icon: <PiSmileyDuotone /> },
+    { label: "Bad", color: "var(--color-red-500)", icon: <PiSmileySadDuotone /> },
+    { label: "Manageable", color: "var(--color-amber-400)", icon: <PiSmileyMehDuotone /> },
+    { label: "Good", color: "var(--color-green-500)", icon: <PiSmileyDuotone /> },
   ],
   Pain: [
     { label: "Mild", color: C.mild },
@@ -179,7 +179,7 @@ export const YearlySelector = ({
   onChange: (category: YearlyCategory) => void;
   actions?: ReactNode;
 }) => (
-  <div className="flex items-center gap-2 px-4 pb-3 w-full">
+  <div className="flex items-center gap-4 px-4 pb-3 w-full">
     <select
       className="flex-1 select-md md:select-lg select"
       value={category}

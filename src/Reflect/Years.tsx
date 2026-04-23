@@ -188,7 +188,7 @@ export const Yearly = () => {
                   className={clsx(
                     "px-2 py-1 border border-pink-200 rounded-md font-semibold text-xl cursor-pointer shrink-0",
                     year === activeYear &&
-                      "bg-[oklch(60.4%_0.221_3.57)] text-white",
+                      "bg-pink-500 text-white",
                   )}
                   onClick={() => scrollToYear(year)}
                 >

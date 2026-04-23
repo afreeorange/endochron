@@ -53,31 +53,31 @@ calendar-month::part(button) {
   @apply rounded-full w-2.5 sm:w-4 h-2.5 sm:h-4;
   font-size: 0;
   min-inline-size: 0;
-  background-color: oklch(95% 0.015 340);
+  background-color: var(--color-pink-100);
 }
 calendar-month::part(outside) {
   visibility: hidden;
 }
 calendar-month::part(button yearly-rating-Mild),
 calendar-month::part(button yearly-rating-Light) {
-  background-color: oklch(90% 0.06 340);
+  background-color: var(--color-pink-200);
 }
 calendar-month::part(button yearly-rating-Moderate),
 calendar-month::part(button yearly-rating-Medium) {
-  background-color: oklch(75% 0.14 340);
+  background-color: var(--color-pink-300);
 }
 calendar-month::part(button yearly-rating-Severe),
 calendar-month::part(button yearly-rating-Heavy) {
-  background-color: oklch(45% 0.18 340);
+  background-color: var(--color-pink-700);
 }
 calendar-month::part(button yearly-rating-Good) {
-  background-color: #16a34a;
+  background-color: var(--color-green-500);
 }
 calendar-month::part(button yearly-rating-Manageable) {
-  background-color: #f87171;
+  background-color: var(--color-amber-300);
 }
 calendar-month::part(button yearly-rating-Bad) {
-  background-color: #eab308;
+  background-color: var(--color-red-500);
 }
 
 .weekly-timeline li:first-of-type,
