@@ -180,11 +180,27 @@ export interface MonthEntry {
   summary: string;
 }
 
+// ----- Week -----
+
+export interface WeekEntry {
+  summary: string;
+  pain: string;
+  mood: string;
+  period: string;
+  gi: string;
+  hardToDo: string;
+  other: string;
+  medications: string;
+}
+
 // ----- Root -----
 
-// Date keys are ISO strings: "YYYY-MM-DD" for days, "YYYY-MM" for months.
+// Date keys are ISO strings:
+//   days:   "YYYY-MM-DD"
+//   months: "YYYY-MM"
+//   weeks:  "YYYY-MM-week-NN"  (NN is 01–05, indexed within each month)
 export interface Dataset {
   days: Record<string, Day>;
   months: Record<string, MonthEntry>;
-  weeks: Record<string, { summary: string }>;
+  weeks: Record<string, WeekEntry>;
 }

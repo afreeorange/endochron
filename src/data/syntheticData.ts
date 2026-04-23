@@ -6110,306 +6110,990 @@ export default {
     "2025-05-week-02": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+      pain: "Pain this week centered in your pelvis and lower back, with 2 of your logged days affected.",
+      mood: "Emotionally a heavy week — frustrated and indifferent dominated throughout.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work, socialize, and sit down.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-05-week-03": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and lower back, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and sad on hard days and relaxed and optimistic when things eased.",
+      period:
+        "Your period ran heavy for 2 days this week and aligned with the hardest pain.",
+      gi: "GI-wise, nausea and painful bowel movement showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work, prepare food, and stand.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 3 of your hard days this week.",
     },
     "2025-05-week-04": {
       summary:
         "GI symptoms like painful bowel movement shaped this week, making even basic things harder and pulling your overall mood down.",
+      pain: "Pain this week centered in your pelvis and rectum, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and sad on hard days and motivated and productive when things eased.",
+      period: "No period this week.",
+      gi: "Painful Bowel Movement came up this week on 1 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work and use toilet.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-05-week-05": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+      pain: "Your pelvis was the main pain site this week, showing up on 3 of the logged days.",
+      mood: "Emotionally you swung between guilty and indifferent on hard days and calm when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were walk, prepare food, and socialize.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-06-week-01": {
       summary:
         "A whiplash week — 3 good days flipped to 2 bad ones with no clear reason, the kind of unpredictability you've named as the hardest part.",
+      pain: "Pain this week centered in your pelvis and lower back, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated on hard days and optimistic and productive when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work and socialize.",
+      other: "No other symptoms of note this week.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-06-week-02": {
       summary:
         "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+      pain: "Pain this week centered in your abdomen and pelvis, with 2 of your logged days affected.",
+      mood: "Emotionally you swung between disgusted and indifferent on hard days and motivated and productive when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "GI-wise, endo belly, gas, and nausea showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were get dressed, work, and eat.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-06-week-03": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain this week centered in your pelvis and lower back, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and frustrated on hard days and relaxed when things eased.",
+      period: "One day of medium bleeding showed up this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work, prepare food, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 4 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-06-week-04": {
       summary:
         "A whiplash week — 2 good days flipped to 2 bad ones with no clear reason, the kind of unpredictability you've named as the hardest part.",
+      pain: "Your pelvis was the main pain site this week, showing up on 4 of the logged days.",
+      mood: "Emotionally you swung between guilty and frustrated on hard days and social and happy when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were walk, prepare food, and work.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-06-week-05": {
       summary:
         "A quiet, unremarkable week — pain stayed manageable and nothing dramatic happened either direction.",
+      pain: "Pain showed up in your pelvis on a couple of days but wasn't constant.",
+      mood: "Emotionally you swung between indifferent and anxious on hard days and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo: "The activities you struggled with most were prepare food.",
+      other: "No other symptoms of note this week.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2025-07-week-01": {
       summary:
         "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+      pain: "Pain this week centered in your pelvis and vagina, with 2 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and sad on hard days and motivated and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were have sex and work.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-07-week-02": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your lower back and pelvis, with 6 of your logged days affected.",
+      mood: "Emotionally a heavy week — frustrated and indifferent dominated throughout.",
+      period:
+        "Your period ran heavy for 3 days this week and aligned with the hardest pain.",
+      gi: "Nausea came up this week on 3 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, eat, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 4 of your logged days.",
+      medications: "You reached for naproxen on 6 of your hard days this week.",
     },
     "2025-07-week-03": {
       summary:
         "GI symptoms like painful bowel movement shaped this week, making even basic things harder and pulling your overall mood down.",
+      pain: "Pain this week centered in your pelvis and lower back, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and sad on hard days and relaxed and calm when things eased.",
+      period: "You had 2 period days this week, mixed flow.",
+      gi: "Painful Bowel Movement came up this week on 1 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, get out of bed, and use toilet.",
+      other:
+        "Fatigue was the background note of the week, showing up on 4 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-07-week-04": {
       summary:
         "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+      pain: "Pain in your pelvis showed up nearly every day this week and dominated the pattern.",
+      mood: "Emotionally you swung between anxious and guilty on hard days and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were walk, prepare food, and work.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 3 of your hard days this week.",
     },
     "2025-07-week-05": {
       summary:
         "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+      pain: "Pain showed up in your pelvis on a couple of days but wasn't constant.",
+      mood: "Emotionally a lighter week — you felt motivated and optimistic across most days.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "You got through your days without naming anything as hard — a sign of a smoother week.",
+      other: "No other symptoms of note this week.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2025-08-week-01": {
       summary:
         "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+      pain: "Pain this week centered in your pelvis and abdomen, with 3 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and disgusted on hard days and motivated and happy when things eased.",
+      period: "No period this week.",
+      gi: "GI-wise, endo belly, gas, and painful bowel movement showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work, get dressed, and use toilet.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-08-week-02": {
       summary:
         "Your period hit hard this week with diarrhea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain in your pelvis showed up nearly every day this week and dominated the pattern.",
+      mood: "Emotionally you swung between frustrated and overwhelmed on hard days and calm and relaxed when things eased.",
+      period:
+        "Your period ran heavy for 2 days this week and aligned with the hardest pain.",
+      gi: "Diarrhea came up this week on 1 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, sit down, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 4 of your logged days.",
+      medications: "You reached for naproxen on 3 of your hard days this week.",
     },
     "2025-08-week-03": {
       summary:
         "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+      pain: "Pain in your pelvis showed up nearly every day this week and dominated the pattern.",
+      mood: "Emotionally you swung between guilty and angry on hard days and calm and motivated when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were socialize, get out of bed, and walk.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-08-week-04": {
       summary:
         "A strong week — 4 good days in a row, you felt productive and present, even managing some walks or social time.",
+      pain: "Your pelvis was the main pain site this week, showing up on 4 of the logged days.",
+      mood: "Emotionally you swung between frustrated and indifferent on hard days and relaxed and optimistic when things eased.",
+      period: "Just light bleeding this week, tail end of a cycle.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "You got through your days without naming anything as hard — a sign of a smoother week.",
+      other: "No other symptoms of note this week.",
+      medications:
+        "Medications this week: Orilissa — mostly for pain management.",
     },
     "2025-08-week-05": {
       summary:
         "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+      pain: "No pain logged this week — a rare, welcome stretch.",
+      mood: "Emotionally a lighter week — you felt social and happy across most days.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "You got through your days without naming anything as hard — a sign of a smoother week.",
+      other: "No other symptoms of note this week.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2025-09-week-01": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and ovary, with 4 of your logged days affected.",
+      mood: "Emotionally a heavy week — frustrated and indifferent dominated throughout.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "Nausea came up this week on 1 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, stand, and sit down.",
+      other: "Fatigue ran through the week, alongside headache.",
+      medications:
+        "Medications this week: naproxen and Tylenol — mostly for pain management.",
     },
     "2025-09-week-02": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Your pelvis was the main pain site this week, showing up on 3 of the logged days.",
+      mood: "Emotionally you swung between frustrated and anxious on hard days and relaxed and optimistic when things eased.",
+      period: "Just light bleeding this week, tail end of a cycle.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo: "The activities you struggled with most were work.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-09-week-03": {
       summary:
         "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+      pain: "Pain this week centered in your pelvis and abdomen, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and disgusted on hard days and productive and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "GI-wise, endo belly, constipation, and uncomfortably full showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were eat, get dressed, and work.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications:
+        "Medications this week: stool softener and naproxen — mostly for pain management.",
     },
     "2025-09-week-04": {
       summary:
         "A quiet, unremarkable week — pain stayed manageable and nothing dramatic happened either direction.",
+      pain: "Pain showed up in your pelvis on a couple of days but wasn't constant.",
+      mood: "Emotionally you swung between sad and lonely on hard days and social and happy when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were socialize, walk, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-09-week-05": {
       summary:
         "A quiet, unremarkable week — pain stayed manageable and nothing dramatic happened either direction.",
+      pain: "Pain showed up in your pelvis on a couple of days but wasn't constant.",
+      mood: "Emotionally a heavy week — indifferent and mentally foggy dominated throughout.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "You got through your days without naming anything as hard — a sign of a smoother week.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2025-10-week-01": {
       summary:
         "Mostly a middle-ground week: pain sat around a three, you worked through the days, and nothing notable stood out one way or the other.",
+      pain: "Your pelvis was the main pain site this week, showing up on 4 of the logged days.",
+      mood: "Emotionally you swung between indifferent and frustrated on hard days and calm and motivated when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were prepare food, work, and stand.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-10-week-02": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and lower back, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and frustrated on hard days and relaxed when things eased.",
+      period:
+        "Your period ran heavy for 2 days this week and aligned with the hardest pain.",
+      gi: "Nausea came up this week on 2 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, get out of bed, and eat.",
+      other:
+        "Fatigue was the background note of the week, showing up on 5 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-10-week-03": {
       summary:
         "A whiplash week — 2 good days flipped to 2 bad ones with no clear reason, the kind of unpredictability you've named as the hardest part.",
+      pain: "Pain this week centered in your pelvis and ovary, with 3 of your logged days affected.",
+      mood: "Emotionally you swung between worried and scared on hard days and motivated and happy when things eased.",
+      period: "No period this week.",
+      gi: "GI-wise, nausea and vomiting showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work, prepare food, and stand.",
+      other: "Fatigue ran through the week, alongside dizziness.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-10-week-04": {
       summary:
         "Mostly a middle-ground week: pain sat around a three, you worked through the days, and nothing notable stood out one way or the other.",
+      pain: "Pain in your pelvis showed up nearly every day this week and dominated the pattern.",
+      mood: "Emotionally you swung between indifferent and sad on hard days and optimistic and calm when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were socialize, walk, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-10-week-05": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+      pain: "Your pelvis was the main pain site this week, showing up on 3 of the logged days.",
+      mood: "Emotionally you swung between anxious and indifferent on hard days and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were prepare food, socialize, and walk.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-11-week-01": {
       summary:
         "A rough week — you logged 4 bad days, with pain concentrated in your pelvis and rectum and most activities feeling out of reach.",
+      pain: "Pain this week centered in your pelvis and rectum, with 6 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and angry on hard days and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "Painful Bowel Movement came up this week on 1 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, get out of bed, and socialize.",
+      other:
+        "Fatigue was the background note of the week, showing up on 4 of your logged days.",
+      medications: "You reached for naproxen on 3 of your hard days this week.",
     },
     "2025-11-week-02": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and lower back, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between sad and indifferent on hard days and relaxed and calm when things eased.",
+      period:
+        "Your period ran heavy for 2 days this week and aligned with the hardest pain.",
+      gi: "GI-wise, nausea and diarrhea showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work, get out of bed, and eat.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2025-11-week-03": {
       summary:
         "A solid, mostly pain-free week with 3 good days and the rest manageable; the kind of stretch you said you try not to jinx.",
+      pain: "Your pelvis was the main pain site this week, showing up on 3 of the logged days.",
+      mood: "Emotionally you swung between indifferent on hard days and relaxed and calm when things eased.",
+      period: "Just light bleeding this week, tail end of a cycle.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo: "The activities you struggled with most were prepare food.",
+      other: "No other symptoms of note this week.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2025-11-week-04": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain this week centered in your pelvis and lower back, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent on hard days and relaxed and productive when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2025-11-week-05": {
       summary:
         "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+      pain: "Pain showed up in your pelvis on a couple of days but wasn't constant.",
+      mood: "Emotionally a lighter week — you felt relaxed and optimistic across most days.",
+      period: "Just light bleeding this week, tail end of a cycle.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "You got through your days without naming anything as hard — a sign of a smoother week.",
+      other: "No other symptoms of note this week.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2025-12-week-01": {
       summary:
         "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+      pain: "Pain this week centered in your pelvis and abdomen, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and disgusted on hard days and calm and relaxed when things eased.",
+      period: "No period this week.",
+      gi: "GI-wise, endo belly and gas showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were prepare food and get dressed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications:
+        "Medications this week: Orilissa — mostly for pain management.",
     },
     "2025-12-week-02": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and lower back, with 6 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and indifferent on hard days and relaxed when things eased.",
+      period:
+        "Your period ran heavy for 3 days this week and aligned with the hardest pain.",
+      gi: "Nausea came up this week on 3 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, eat, and get out of bed.",
+      other: "Fatigue ran through the week, alongside headache.",
+      medications:
+        "Medications this week: naproxen and Tylenol — mostly for pain management.",
     },
     "2025-12-week-03": {
       summary:
         "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+      pain: "Pain this week centered in your pelvis and lower back, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and guilty on hard days and optimistic and relaxed when things eased.",
+      period: "Just light bleeding this week, tail end of a cycle.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work, socialize, and walk.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-12-week-04": {
       summary:
         "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+      pain: "Pain this week centered in your pelvis and abdomen, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and frustrated on hard days and happy and calm when things eased.",
+      period: "No period this week.",
+      gi: "GI-wise, endo belly and gas showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were get out of bed, work, and get dressed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2025-12-week-05": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your lower back.",
+      pain: "Pain showed up in your lower back on a couple of days but wasn't constant.",
+      mood: "Emotionally a heavy week — sad and frustrated dominated throughout.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work, stand, and kneel.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-01-week-01": {
       summary:
         "A mixed week with 2 good, 1 bad, and 2 in-between days, pain mostly in your pelvis.",
+      pain: "Your pelvis was the main pain site this week, showing up on 3 of the logged days.",
+      mood: "Emotionally you swung between frustrated and indifferent on hard days and happy and affectionate when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work and sit down.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications:
+        "Medications this week: Orilissa and naproxen — mostly for pain management.",
     },
     "2026-01-week-02": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and lower back, with 7 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and indifferent on hard days and relaxed and optimistic when things eased.",
+      period:
+        "Your period ran heavy for 3 days this week and aligned with the hardest pain.",
+      gi: "GI-wise, nausea and diarrhea showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work, eat, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 5 of your logged days.",
+      medications: "You reached for naproxen on 4 of your hard days this week.",
     },
     "2026-01-week-03": {
       summary:
         "A mixed week with 2 good, 1 bad, and 1 in-between days, pain mostly in your pelvis.",
+      pain: "Your pelvis was the main pain site this week, showing up on 3 of the logged days.",
+      mood: "Emotionally you swung between anxious and indifferent on hard days and optimistic and relaxed when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were walk and prepare food.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-01-week-04": {
       summary:
         "A mixed week with 1 good, 2 bad, and 1 in-between days, pain mostly in your pelvis.",
+      pain: "Your pelvis was the main pain site this week, showing up on 4 of the logged days.",
+      mood: "Emotionally you swung between anxious and sad on hard days and optimistic and motivated when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were socialize, walk, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2026-01-week-05": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain this week centered in your pelvis and lower back, with 3 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and mentally foggy on hard days and relaxed when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were get out of bed, work, and socialize.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2026-02-week-01": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain this week centered in your pelvis and abdomen, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and disgusted on hard days and productive and optimistic when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "GI-wise, endo belly, gas, and nausea showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were get dressed, work, and eat.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-02-week-02": {
       summary:
         "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+      pain: "Your pelvis was the main pain site this week, showing up on 3 of the logged days.",
+      mood: "Emotionally a heavy week — indifferent dominated throughout.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo: "The activities you struggled with most were prepare food.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2026-02-week-03": {
       summary:
         "A mixed week with 3 good, 1 bad, and 1 in-between days, pain mostly in your pelvis.",
+      pain: "Pain this week centered in your pelvis and lower back, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and anxious on hard days and relaxed and optimistic when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were get out of bed, work, and socialize.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2026-02-week-04": {
       summary:
         "A mixed week with 1 good, 2 bad, and 2 in-between days, pain mostly in your pelvis.",
+      pain: "Pain this week centered in your pelvis and upper chest, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between mentally foggy and indifferent on hard days and calm and productive when things eased.",
+      period: "No period this week.",
+      gi: "GI-wise, nausea and vomiting showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were eat, work, and prepare food.",
+      other: "Fatigue ran through the week, alongside dizziness.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-03-week-01": {
       summary:
         "Your period hit hard this week, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and lower back, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and indifferent on hard days and relaxed and optimistic when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work, get out of bed, and stand.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 3 of your hard days this week.",
     },
     "2026-03-week-02": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and lower back, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and sad on hard days and relaxed and optimistic when things eased.",
+      period:
+        "Your period ran heavy for 3 days this week and aligned with the hardest pain.",
+      gi: "Nausea came up this week on 2 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, prepare food, and stand.",
+      other: "Fatigue ran through the week, alongside headache.",
+      medications:
+        "Medications this week: naproxen and Tylenol — mostly for pain management.",
     },
     "2026-03-week-03": {
       summary:
         "A mixed week with 3 good, 1 bad, and 2 in-between days, pain mostly in your pelvis.",
+      pain: "Pain this week centered in your pelvis and ovary, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and worried on hard days and happy and affectionate when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo: "The activities you struggled with most were work and stand.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-03-week-04": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain this week centered in your pelvis and lower back, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent on hard days and affectionate and relaxed when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2026-03-week-05": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+      pain: "Pain showed up in your pelvis on a couple of days but wasn't constant.",
+      mood: "Emotionally you swung between guilty and sad on hard days and social and happy when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were socialize, get out of bed, and walk.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-04-week-01": {
       summary:
         "A quiet, unremarkable week — pain stayed manageable and nothing dramatic happened either direction.",
+      pain: "Pain this week centered in your pelvis and lower back, with 1 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and overwhelmed on hard days and happy and productive when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "Nausea came up this week on 1 day(s).",
+      hardToDo: "The activities you struggled with most were work and eat.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-04-week-02": {
       summary:
         "Your period hit hard this week with diarrhea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and rectum, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between sad and guilty on hard days and relaxed and optimistic when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "GI-wise, diarrhea and painful bowel movement showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work, shower, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-04-week-03": {
       summary:
         "A strong week — 4 good days in a row, you felt productive and present, even managing some walks or social time.",
+      pain: "Pain this week centered in your pelvis and abdomen, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between anxious and scared on hard days and optimistic and relaxed when things eased.",
+      period: "No period this week.",
+      gi: "GI-wise, endo belly and gas showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work and get dressed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2026-04-week-04": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+      pain: "Pain this week centered in your pelvis and lower back, with 3 of your logged days affected.",
+      mood: "Emotionally you swung between sad and frustrated on hard days and motivated and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "GI-wise, nausea and vomiting showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work, stand, and kneel.",
+      other: "Fatigue ran through the week, alongside dizziness.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-04-week-05": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+      pain: "Pain this week centered in your pelvis and upper chest, with 2 of your logged days affected.",
+      mood: "Emotionally you swung between worried and mentally foggy on hard days and relaxed when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "GI-wise, nausea and vomiting showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work, eat, and prepare food.",
+      other: "Fatigue ran through the week, alongside dizziness.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2026-05-week-01": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain this week centered in your pelvis and lower back, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and indifferent on hard days and affectionate and relaxed when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "Nausea came up this week on 1 day(s).",
+      hardToDo: "The activities you struggled with most were work and eat.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications:
+        "Medications this week: Orilissa and naproxen — mostly for pain management.",
     },
     "2026-05-week-02": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain this week centered in your pelvis and lower back, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and sad on hard days and relaxed and optimistic when things eased.",
+      period: "Your period started heavy and tapered off across the week.",
+      gi: "Diarrhea came up this week on 1 day(s).",
+      hardToDo:
+        "The activities you struggled with most were get out of bed, work, and shower.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You didn't need to reach for any medications this week.",
     },
     "2026-05-week-03": {
       summary:
         "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+      pain: "Pain this week centered in your pelvis and abdomen, with 5 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and sad on hard days and calm and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "GI-wise, endo belly and gas showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were prepare food, socialize, and walk.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-05-week-04": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain this week centered in your pelvis and lower back, with 2 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and frustrated on hard days and relaxed and affectionate when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications:
+        "Medications this week: Orilissa — mostly for pain management.",
     },
     "2026-05-week-05": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+      pain: "Your pelvis was the main pain site this week, showing up on 3 of the logged days.",
+      mood: "Emotionally you swung between sad and lonely on hard days and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were socialize, walk, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2026-06-week-01": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and lower back, with 6 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and indifferent on hard days and affectionate and relaxed when things eased.",
+      period:
+        "Your period ran heavy for 2 days this week and aligned with the hardest pain.",
+      gi: "Nausea came up this week on 2 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, stand, and eat.",
+      other: "Fatigue ran through the week, alongside headache.",
+      medications:
+        "Medications this week: naproxen and Tylenol — mostly for pain management.",
     },
     "2026-06-week-02": {
       summary:
         "A mixed week with 1 good, 1 bad, and 1 in-between days, pain mostly in your pelvis.",
+      pain: "Your pelvis was the main pain site this week, showing up on 3 of the logged days.",
+      mood: "Emotionally a heavy week — indifferent and sad dominated throughout.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were prepare food, socialize, and walk.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-06-week-03": {
       summary:
         "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+      pain: "Pain this week centered in your pelvis and lower back, with 6 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and indifferent on hard days and calm and optimistic when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work, socialize, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 3 of your logged days.",
+      medications:
+        "Medications this week: naproxen and Orilissa — mostly for pain management.",
     },
     "2026-06-week-04": {
       summary:
         "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+      pain: "Pain this week centered in your pelvis and lower back, with 5 of your logged days affected.",
+      mood: "Emotionally a heavy week — indifferent and frustrated dominated throughout.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work, prepare food, and sit down.",
+      other:
+        "Fatigue was the background note of the week, showing up on 4 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2026-06-week-05": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your lower back.",
+      pain: "Pain showed up in your lower back on a couple of days but wasn't constant.",
+      mood: "Emotionally a heavy week — sad and frustrated dominated throughout.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were work, stand, and kneel.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-07-week-01": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain this week centered in your pelvis and abdomen, with 6 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and disgusted on hard days and motivated and optimistic when things eased.",
+      period: "Just light bleeding this week, tail end of a cycle.",
+      gi: "GI-wise, endo belly, constipation, and uncomfortably full showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were get dressed, eat, and prepare food.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications:
+        "Medications this week: stool softener and Orilissa — mostly for pain management.",
     },
     "2026-07-week-02": {
       summary:
         "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your lower back and pelvis, with 4 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and frustrated on hard days and social and happy when things eased.",
+      period:
+        "Your period ran heavy for 2 days this week and aligned with the hardest pain.",
+      gi: "Nausea came up this week on 1 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, prepare food, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 4 of your logged days.",
+      medications: "You reached for naproxen on 3 of your hard days this week.",
     },
     "2026-07-week-03": {
       summary:
         "GI symptoms like painful bowel movement shaped this week, making even basic things harder and pulling your overall mood down.",
+      pain: "Pain this week centered in your pelvis and lower back, with 7 of your logged days affected.",
+      mood: "Emotionally you swung between indifferent and frustrated on hard days and relaxed and calm when things eased.",
+      period: "Just light bleeding this week, tail end of a cycle.",
+      gi: "Painful Bowel Movement came up this week on 1 day(s).",
+      hardToDo:
+        "The activities you struggled with most were work, get out of bed, and use toilet.",
+      other:
+        "Fatigue was the background note of the week, showing up on 4 of your logged days.",
+      medications: "You reached for naproxen on 2 of your hard days this week.",
     },
     "2026-07-week-04": {
       summary:
         "A mixed week with 1 good, 1 bad, and 1 in-between days, pain mostly in your pelvis.",
+      pain: "Pain showed up in your pelvis on a couple of days but wasn't constant.",
+      mood: "Emotionally you swung between anxious and sad on hard days and motivated and productive when things eased.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo:
+        "The activities you struggled with most were socialize, walk, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 1 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-07-week-05": {
       summary:
         "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+      pain: "Pain this week centered in your pelvis and outer hip, with 2 of your logged days affected.",
+      mood: "Emotionally you swung between frustrated and mentally foggy on hard days and relaxed and social when things eased.",
+      period: "Just light bleeding this week, tail end of a cycle.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo: "The activities you struggled with most were work and stand.",
+      other: "Fatigue ran through the week, alongside headache.",
+      medications:
+        "Medications this week: Tylenol and naproxen — mostly for pain management.",
     },
     "2026-08-week-01": {
       summary:
         "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+      pain: "Pain this week centered in your pelvis and outer hip, with 2 of your logged days affected.",
+      mood: "Emotionally a heavy week — frustrated and indifferent dominated throughout.",
+      period: "No period this week.",
+      gi: "No GI symptoms logged this week.",
+      hardToDo: "The activities you struggled with most were work and stand.",
+      other: "Fatigue ran through the week, alongside headache.",
+      medications:
+        "Medications this week: Orilissa, Tylenol, and naproxen — mostly for pain management.",
     },
     "2026-08-week-02": {
       summary:
         "Your period hit hard this week with diarrhea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+      pain: "Pain this week centered in your pelvis and lower back, with 6 of your logged days affected.",
+      mood: "Emotionally you swung between sad and guilty on hard days and relaxed and optimistic when things eased.",
+      period:
+        "Your period ran heavy for 3 days this week and aligned with the hardest pain.",
+      gi: "GI-wise, diarrhea and nausea showed up this week, clustering around your period days.",
+      hardToDo:
+        "The activities you struggled with most were work, get out of bed, and shower.",
+      other:
+        "Fatigue was the background note of the week, showing up on 4 of your logged days.",
+      medications: "You reached for naproxen on 1 of your hard days this week.",
     },
     "2026-08-week-03": {
       summary:
         "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+      pain: "Pain in your pelvis showed up nearly every day this week and dominated the pattern.",
+      mood: "Emotionally you swung between sad and lonely on hard days and relaxed and optimistic when things eased.",
+      period: "One day of heavy bleeding showed up this week.",
+      gi: "Painful Bowel Movement came up this week on 1 day(s).",
+      hardToDo:
+        "The activities you struggled with most were socialize, walk, and get out of bed.",
+      other:
+        "Fatigue was the background note of the week, showing up on 2 of your logged days.",
+      medications:
+        "Medications this week: naproxen and Orilissa — mostly for pain management.",
     },
   },
   months: {

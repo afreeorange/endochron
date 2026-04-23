@@ -130,6 +130,21 @@ function weekDateRange(weekStart: string): string {
     : `${start.format("MMM DD")}–${end.format("MMM DD")}`;
 }
 
+function weekSummaryKey(category: YearlyCategory) {
+  switch (category) {
+    case "Pain":
+      return "pain" as const;
+    case "Mood":
+      return "mood" as const;
+    case "Period":
+      return "period" as const;
+    case "GI":
+      return "gi" as const;
+    default:
+      return "summary" as const;
+  }
+}
+
 function getDaysForWeek(weekStart: string): string[] {
   return Array.from({ length: 7 }, (_, i) =>
     dayjs(weekStart).add(i, "day").format("YYYY-MM-DD"),
@@ -258,8 +273,11 @@ export const Weekly = () => {
               {weeks.map((weekStart, weekIdx) => {
                 const days = getDaysForWeek(weekStart);
                 const weekKey = `${selectedMonth}-week-${String(weekIdx + 1).padStart(2, "0")}`;
+                const draftKey = `${weekKey}-${category}`;
                 const summary =
-                  weekDrafts[weekKey] ?? data.weeks[weekKey]?.summary ?? null;
+                  weekDrafts[draftKey] ??
+                  data.weeks[weekKey]?.[weekSummaryKey(category)] ??
+                  null;
                 return (
                   <motion.div
                     key={weekStart}
@@ -344,7 +362,7 @@ export const Weekly = () => {
                             <div className="timeline-middle">
                               <div
                                 className={clsx(
-                                  "rounded-full w-2.5 h-2.5",
+                                  "w-0.5 h-3",
                                   !hasData(day, category) && "opacity-20",
                                 )}
                                 style={{
@@ -386,12 +404,12 @@ export const Weekly = () => {
                     {summary && (
                       <TranscriptBlock
                         transcript={summary}
-                        animKey={weekKey}
+                        animKey={draftKey}
                         className="mt-2"
                         label="AI weekly summary. Tap to edit."
                         showQuote={false}
                         onSave={(text) =>
-                          setWeekDrafts((d) => ({ ...d, [weekKey]: text }))
+                          setWeekDrafts((d) => ({ ...d, [draftKey]: text }))
                         }
                       />
                     )}

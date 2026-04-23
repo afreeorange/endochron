@@ -109,7 +109,7 @@ export const Record = () => {
           <motion.div
             className={clsx(
               "flex flex-col justify-end items-center w-full h-full",
-              phase === "done" ? "pb-16" : "pb-24",
+              phase === "done" ? "pb-0" : "pb-8",
             )}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -193,7 +193,7 @@ export const Record = () => {
                       &mdash; <strong>nothing more</strong>. <br />{" "}
                       <em>All audio is deleted</em>{" "}
                       <button
-                        className="border border-pink-400 btn btn-sm"
+                        className="border border-pink-400 btn btn-xs"
                         onClick={() => setPrivacyDismissed(true)}
                       >
                         Got it
