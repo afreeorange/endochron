@@ -138,7 +138,7 @@ export const Weekly = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={`${selectedMonth}-${view}`}
-              className={view === "vertical" ? "flex gap-4" : undefined}
+              className={view === "vertical" ? "flex gap-4 overflow-y-scroll" : undefined}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}

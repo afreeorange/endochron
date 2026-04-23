@@ -80,6 +80,10 @@ calendar-month::part(button yearly-rating-Bad) {
   background-color: var(--color-red-500);
 }
 
+.weekly-timeline.timeline-vertical {
+  /* margin-left: -2rem; */
+}
+
 .weekly-timeline li:first-of-type,
 .weekly-timeline li:last-of-type {
   /* flex: none; */

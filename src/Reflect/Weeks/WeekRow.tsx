@@ -38,7 +38,7 @@ export const WeekRow = ({
     <motion.div
       className={clsx(
         isVertical
-          ? "shrink-0 w-48 flex flex-col"
+          ? "shrink-0 w-42 h-96 flex flex-col"
           : "mb-6 pt-2 border-pink-200/60 border-t first:border-t-0 border-dotted",
       )}
       initial={{ opacity: 0, y: 8 }}
@@ -64,10 +64,10 @@ export const WeekRow = ({
 
       <motion.ul
         className={clsx(
-          "timeline",
+          "timeline weekly-timeline",
           isVertical
-            ? "timeline-vertical h-full"
-            : "w-full timeline-horizontal weekly-timeline",
+            ? "timeline-vertical min-h-[65vh]"
+            : "w-full timeline-horizontal",
         )}
         initial="hidden"
         animate="visible"
