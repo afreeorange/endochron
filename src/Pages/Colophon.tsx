@@ -30,7 +30,14 @@ const Colophon = () => (
   <Page title="Colophon">
     <p className="mb-6 text-sm leading-relaxed">
       EndoChron is built for people living with endometriosis who want a clear,
-      calm view of their own data.
+      calm view of their own data. This is an{" "}
+      <a
+        href="https://github.com/afreeorange/endochron"
+        className="text-pink-600 underline underline-offset-2"
+      >
+        open-source application
+      </a>
+      .
     </p>
 
     <section className="mb-8">
@@ -59,7 +66,7 @@ const Colophon = () => (
           href="https://wicky.nillia.ms/cally"
         />
         <Row label="Dates" value="Day.js" href="https://day.js.org" />
-        <Row label="UI" value="Inter" href="https://rsms.me/inter" />
+        <Row label="Typeface" value="Inter" href="https://rsms.me/inter" />
       </div>
     </section>
 
