@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { streamText, useAnimatedText } from "./textStream";
 import { WaveformVisualizer } from "./WaveformVisualizer";
 import { NavLink } from "react-router";
+import { sample } from "lodash-es";
 
 type Phase = "idle" | "recording" | "done";
 
@@ -87,7 +88,11 @@ export const Record = () => {
                     ? "Listening&hellip;"
                     : phase === "done"
                       ? "Listened."
-                      : "What&#8217;s on your mind, Mischa?",
+                      : sample([
+                          "What&#8217;s on your mind, Mischa?",
+                          // "What&#8217;s going on, Mischa?",
+                          // "What do you want to say, Mischa?",
+                        ]),
               }}
             />
           </AnimatePresence>
