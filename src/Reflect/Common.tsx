@@ -223,7 +223,7 @@ export const emotionMap = (selected: boolean | null) => ({
     <PiSmileyMehDuotone
       className={clsx(
         selected === null || !selected
-          ? "text-red-400"
+          ? "text-yellow-500"
           : "text-white opacity-100",
       )}
     />
@@ -232,7 +232,7 @@ export const emotionMap = (selected: boolean | null) => ({
     <PiSmileySadDuotone
       className={clsx(
         selected === null || !selected
-          ? "text-yellow-500"
+          ? "text-red-400"
           : "text-white opacity-100",
       )}
     />
