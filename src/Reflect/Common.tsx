@@ -25,9 +25,21 @@ export const C = {
 
 export const CATEGORY_LEGEND: Record<YearlyCategory, LegendItem[]> = {
   Overall: [
-    { label: "Bad", color: "var(--color-red-500)", icon: <PiSmileySadDuotone /> },
-    { label: "Manageable", color: "var(--color-amber-400)", icon: <PiSmileyMehDuotone /> },
-    { label: "Good", color: "var(--color-green-500)", icon: <PiSmileyDuotone /> },
+    {
+      label: "Bad",
+      color: "var(--color-red-500)",
+      icon: <PiSmileySadDuotone />,
+    },
+    {
+      label: "Manageable",
+      color: "var(--color-amber-400)",
+      icon: <PiSmileyMehDuotone />,
+    },
+    {
+      label: "Good",
+      color: "var(--color-green-500)",
+      icon: <PiSmileyDuotone />,
+    },
   ],
   Pain: [
     { label: "Mild", color: C.mild },

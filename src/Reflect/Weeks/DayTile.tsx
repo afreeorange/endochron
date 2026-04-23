@@ -7,7 +7,7 @@ import type { YearlyCategory } from "../Common";
 import type { DayEntry } from "../../data/dataTypes";
 import { dayColor, hasCategoryData, COLOR_EMPTY } from "./colors";
 import type { WeekView } from "./WeekRow";
-import { PiPlusCircle } from "react-icons/pi";
+import { PiPlusCircleDuotone } from "react-icons/pi";
 
 const itemVariant = {
   hidden: { opacity: 0, y: 6 },
@@ -28,7 +28,7 @@ function ColoredHr({
   const active = hasCategoryData(day, category);
   return (
     <hr
-      className={clsx(!active && "opacity-20")}
+      className={clsx(!active && "opacity-20", "rounded-none")}
       style={active ? { backgroundColor: dayColor(day, category) } : undefined}
     />
   );
@@ -80,7 +80,8 @@ export const DayTile = ({
   );
 
   const dot = (
-    <PiPlusCircle
+    <PiPlusCircleDuotone
+      className="-mx-0.5"
       style={{
         color: active ? dayColor(day, category) : COLOR_EMPTY,
       }}
