@@ -369,23 +369,26 @@ export const DayPills = ({
   day,
   category,
   margin = "mx-0",
+  isVertical = false
 }: {
   day: DayEntry;
   category: YearlyCategory;
   margin?: string;
+  isVertical?: boolean;
 }) => {
+  const mt = isVertical ? "" : "mt-1.5";
   const pill = `text-xs px-0.5 leading-tight rounded-sm truncate block ${margin}`;
 
   switch (category) {
     case "Overall":
       return (
-        <div className="flex justify-center mt-1.5 text-2xl">
+        <div className={`flex justify-center ${mt} text-2xl`}>
           {emotionMap(false)[day.overall]}
         </div>
       );
     case "Pain":
       return day.data.pain.length > 0 ? (
-        <div className="flex flex-col gap-0.5 mt-1.5">
+        <div className={`flex flex-col gap-0.5 ${mt}`}>
           {day.data.pain.map(([loc, sev]) => (
             <span key={loc} className={clsx(pill, `rating-${sev}`)}>
               {loc}
@@ -395,7 +398,7 @@ export const DayPills = ({
       ) : null;
     case "Mood":
       return day.data.mood.length > 0 ? (
-        <div className="flex flex-col gap-0.5 mt-1.5">
+        <div className={`flex flex-col gap-0.5 ${mt}`}>
           {day.data.mood.map(([name, pol]) => (
             <span
               key={name}
@@ -413,7 +416,7 @@ export const DayPills = ({
       ) : null;
     case "Period":
       return day.data.period ? (
-        <div className="flex flex-col gap-0.5 mt-1.5">
+        <div className={`flex flex-col gap-0.5 ${mt}`}>
           <span className={clsx(pill, `rating-${day.data.period.flow}`)}>
             {day.data.period.flow}
           </span>
@@ -426,7 +429,7 @@ export const DayPills = ({
       ) : null;
     case "GI":
       return day.data.gi.length > 0 ? (
-        <div className="flex flex-col gap-0.5 mt-1.5">
+        <div className={`flex flex-col gap-0.5 ${mt}`}>
           {day.data.gi.map(([name, sev]) => (
             <span key={name} className={clsx(pill, `rating-${sev}`)}>
               {name}

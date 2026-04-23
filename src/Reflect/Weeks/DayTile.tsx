@@ -55,7 +55,7 @@ export const DayTile = ({
 
   const dayLabel = (
     <div className={clsx(isVertical ? "text-right" : "text-center")}>
-      <div className="font-semibold text-sm">
+      <div className="inline font-semibold text-sm">
         {dayjs(dateKey).format("ddd")}
       </div>
       <div className="font-light text-pink-400 text-xs">
@@ -67,7 +67,7 @@ export const DayTile = ({
   const dayData = (
     <div className={clsx("overflow-hidden", !isVertical && "w-full")}>
       {day ? (
-        <DayPills day={day} category={category} margin="mx-0.5" />
+        <DayPills day={day} category={category} margin="mx-0.5" isVertical={isVertical} />
       ) : (
         <div
           className={clsx(
