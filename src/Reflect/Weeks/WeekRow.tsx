@@ -59,7 +59,7 @@ export const WeekRow = ({
             {!isVertical && <span>&ndash;</span>} {weekDateRange(weekStart)}
           </span>
         </div>
-        {!isVertical && <PiPlusCircle className="opacity-50 text-lg" />}
+        {!isVertical && <PiPlusCircle className="text-lg" />}
       </div>
 
       <motion.ul

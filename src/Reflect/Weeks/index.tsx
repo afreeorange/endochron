@@ -3,7 +3,7 @@ import Shell from "../../Shell";
 import { useParams, useNavigate, useSearchParams } from "react-router";
 import { useState, useMemo, useRef, useEffect, Fragment } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { PiRows, PiColumns } from "react-icons/pi";
+import { PiAlignCenterVerticalDuotone } from "react-icons/pi";
 import { Nav, YearlySelector, CategoryLegend } from "../Common";
 import type { YearlyCategory } from "../Common";
 import type { WeekView } from "./WeekRow";
@@ -124,11 +124,9 @@ export const Weekly = () => {
                 }
                 aria-label="Toggle view"
               >
-                {view === "horizontal" ? (
-                  <PiColumns className="text-lg" />
-                ) : (
-                  <PiRows className="text-lg" />
-                )}
+                <PiAlignCenterVerticalDuotone
+                  className={`text-2xl transition-transform duration-300 ${view === "vertical" ? "rotate-90" : ""}`}
+                />
               </button>
             }
           />
@@ -147,7 +145,7 @@ export const Weekly = () => {
         >
           <AnimatePresence mode="wait">
             <motion.div
-              key={selectedMonth}
+              key={`${selectedMonth}-${view}`}
               className={view === "vertical" ? "flex gap-4" : undefined}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
