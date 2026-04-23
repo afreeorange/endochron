@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import { motion } from "motion/react";
 import clsx from "clsx";
 import data from "../data/syntheticData";
-import { Nav, YearlySelector, CATEGORY_LEGEND, SEV_RANK } from "./Common";
+import { Nav, YearlySelector, CategoryLegend, SEV_RANK } from "./Common";
 import type { YearlyCategory } from "./Common";
 
 export const Yearly = () => {
@@ -117,7 +117,9 @@ export const Yearly = () => {
     const maxSev = (sevs: string[]): string | null =>
       sevs.length === 0
         ? null
-        : sevs.reduce((a, b) => ((SEV_RANK[b] ?? 0) > (SEV_RANK[a] ?? 0) ? b : a));
+        : sevs.reduce((a, b) =>
+            (SEV_RANK[b] ?? 0) > (SEV_RANK[a] ?? 0) ? b : a,
+          );
 
     function baseRating(day: (typeof data.days)[string]): string {
       if (!day) return "";
@@ -194,28 +196,14 @@ export const Yearly = () => {
                 </button>
               ))}
             </div>
-            <div className="flex flex-row gap-3 shrink-0">
-              {CATEGORY_LEGEND[category].map(({ label, color, icon }) => (
-                <div key={label} className="flex items-center gap-1">
-                  {icon ? (
-                    <span className="text-base leading-none" style={{ color }}>
-                      {icon}
-                    </span>
-                  ) : (
-                    <span
-                      className="rounded-full w-2.5 h-2.5 shrink-0"
-                      style={{ backgroundColor: color }}
-                    />
-                  )}
-                  <span className="text-pink-400 text-xs">{label}</span>
-                </div>
-              ))}
-            </div>
           </div>
           <YearlySelector
             category={category}
             onChange={(cat) => setCategory(cat)}
           />
+          <div className="px-4 pb-3">
+            <CategoryLegend category={category} />
+          </div>
         </div>
 
         {/* Scrollable list of all years */}

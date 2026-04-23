@@ -133,7 +133,31 @@ export const CountPill = ({
 }) => (
   <div className="join">
     <span className={clsx("badge badge-sm join-item", cls)}>{label}</span>
-    <span className="badge badge-sm join-item !bg-pink-200 !text-pink-800">{n}</span>
+    <span className="!bg-pink-200 !text-pink-800 badge badge-sm join-item">
+      {n}
+    </span>
+  </div>
+);
+
+// ── CategoryLegend ────────────────────────────────────────────────────────────
+
+export const CategoryLegend = ({ category }: { category: YearlyCategory }) => (
+  <div className="flex flex-row gap-3 shrink-0">
+    {CATEGORY_LEGEND[category].map(({ label, color, icon }) => (
+      <div key={label} className="flex items-center gap-1">
+        {icon ? (
+          <span className="text-base leading-none" style={{ color }}>
+            {icon}
+          </span>
+        ) : (
+          <span
+            className="rounded-full w-2.5 h-2.5 shrink-0"
+            style={{ backgroundColor: color }}
+          />
+        )}
+        <span className="text-pink-400 text-xs">{label}</span>
+      </div>
+    ))}
   </div>
 );
 
@@ -167,21 +191,27 @@ export const emotionMap = (selected: boolean | null) => ({
   GOOD: (
     <PiSmileyDuotone
       className={clsx(
-        selected === null || !selected ? "text-green-600" : "text-white opacity-100",
+        selected === null || !selected
+          ? "text-green-600"
+          : "text-white opacity-100",
       )}
     />
   ),
   MANAGEABLE: (
     <PiSmileyMehDuotone
       className={clsx(
-        selected === null || !selected ? "text-red-400" : "text-white opacity-100",
+        selected === null || !selected
+          ? "text-red-400"
+          : "text-white opacity-100",
       )}
     />
   ),
   BAD: (
     <PiSmileySadDuotone
       className={clsx(
-        selected === null || !selected ? "text-yellow-500" : "text-white opacity-100",
+        selected === null || !selected
+          ? "text-yellow-500"
+          : "text-white opacity-100",
       )}
     />
   ),
@@ -198,11 +228,36 @@ export const Nav = () => {
 
   return (
     <div className="grid grid-cols-5 px-4 py-2 w-full join">
-      <button className={btn("/reflect/days")} onClick={() => navigate("/reflect/days")}>Days</button>
-      <button className={btn("/reflect/weeks")} onClick={() => navigate("/reflect/weeks")}>Weeks</button>
-      <button className={btn("/reflect/months")} onClick={() => navigate("/reflect/months")}>Months</button>
-      <button className={btn("/reflect/years")} onClick={() => navigate("/reflect/years")}>Years</button>
-      <button className={btn("/reflect/any")} onClick={() => navigate("/reflect/any")}>Any</button>
+      <button
+        className={btn("/reflect/days")}
+        onClick={() => navigate("/reflect/days")}
+      >
+        Days
+      </button>
+      <button
+        className={btn("/reflect/weeks")}
+        onClick={() => navigate("/reflect/weeks")}
+      >
+        Weeks
+      </button>
+      <button
+        className={btn("/reflect/months")}
+        onClick={() => navigate("/reflect/months")}
+      >
+        Months
+      </button>
+      <button
+        className={btn("/reflect/years")}
+        onClick={() => navigate("/reflect/years")}
+      >
+        Years
+      </button>
+      <button
+        className={btn("/reflect/any")}
+        onClick={() => navigate("/reflect/any")}
+      >
+        Any
+      </button>
     </div>
   );
 };
@@ -215,12 +270,14 @@ export const TranscriptBlock = ({
   animKey,
   label = "AI transcription. Tap to edit.",
   showQuote = true,
+  className,
 }: {
   transcript: string | null;
   onSave: (text: string) => void;
   animKey?: string;
   label?: string;
   showQuote?: boolean;
+  className?: string;
 }) => {
   const [editing, setEditing] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -239,7 +296,7 @@ export const TranscriptBlock = ({
   }
 
   return (
-    <div className="flex items-start gap-2 mb-6">
+    <div className={clsx("flex items-start gap-2 mb-6", className)}>
       {showQuote && <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />}
       <div className="flex-1">
         <AnimatePresence mode="wait">
@@ -252,17 +309,26 @@ export const TranscriptBlock = ({
                 rows={5}
               />
               <div className="grid grid-cols-2 mt-2 join">
-                <button className="btn btn-sm btn-primary join-item" onClick={confirm}>
+                <button
+                  className="btn btn-sm btn-primary join-item"
+                  onClick={confirm}
+                >
                   Edit
                 </button>
-                <button className="btn btn-sm join-item" onClick={() => setEditing(false)}>
+                <button
+                  className="btn btn-sm join-item"
+                  onClick={() => setEditing(false)}
+                >
                   Cancel
                 </button>
               </div>
             </motion.div>
           ) : (
-            <motion.div key={animKey ? `view-${animKey}` : "view"} {...fadeAnim}>
-              <div className="text-sm cursor-pointer" onClick={startEdit}>
+            <motion.div
+              key={animKey ? `view-${animKey}` : "view"}
+              {...fadeAnim}
+            >
+              <div className="text-xs cursor-pointer" onClick={startEdit}>
                 {transcript}
               </div>
               <p className="opacity-25 mt-1 text-xs">{label}</p>
@@ -274,30 +340,126 @@ export const TranscriptBlock = ({
   );
 };
 
+// ── DayPills ──────────────────────────────────────────────────────────────────
+// Compact stacked pills for a single day, filtered by category.
+
+export const DayPills = ({
+  day,
+  category,
+  margin = "mx-0",
+}: {
+  day: DayEntry;
+  category: YearlyCategory;
+  margin?: string;
+}) => {
+  const pill = `text-xs px-0.5 leading-tight rounded-sm truncate block ${margin}`;
+
+  switch (category) {
+    case "Overall":
+      return (
+        <div className="flex justify-center mt-1.5 text-2xl">
+          {emotionMap(false)[day.overall]}
+        </div>
+      );
+    case "Pain":
+      return day.data.pain.length > 0 ? (
+        <div className="flex flex-col gap-0.5 mt-1.5">
+          {day.data.pain.map(([loc, sev]) => (
+            <span key={loc} className={clsx(pill, `rating-${sev}`)}>
+              {loc}
+            </span>
+          ))}
+        </div>
+      ) : null;
+    case "Mood":
+      return day.data.mood.length > 0 ? (
+        <div className="flex flex-col gap-0.5 mt-1.5">
+          {day.data.mood.map(([name, pol]) => (
+            <span
+              key={name}
+              className={clsx(
+                pill,
+                pol === "POSITIVE"
+                  ? "bg-pink-100 text-pink-700"
+                  : "bg-pink-800 text-white",
+              )}
+            >
+              {name}
+            </span>
+          ))}
+        </div>
+      ) : null;
+    case "Period":
+      return day.data.period ? (
+        <div className="flex flex-col gap-0.5 mt-1.5">
+          <span className={clsx(pill, `rating-${day.data.period.flow}`)}>
+            {day.data.period.flow}
+          </span>
+          {day.data.period.other.map((o) => (
+            <span key={o} className={clsx(pill, "bg-pink-100 text-pink-700")}>
+              {o}
+            </span>
+          ))}
+        </div>
+      ) : null;
+    case "GI":
+      return day.data.gi.length > 0 ? (
+        <div className="flex flex-col gap-0.5 mt-1.5">
+          {day.data.gi.map(([name, sev]) => (
+            <span key={name} className={clsx(pill, `rating-${sev}`)}>
+              {name}
+            </span>
+          ))}
+        </div>
+      ) : null;
+    default:
+      return null;
+  }
+};
+
 // ── DaySections ───────────────────────────────────────────────────────────────
 
 export const DaySections = ({ day }: { day: DayEntry }) => (
   <motion.div variants={sectionContainer} initial="hidden" animate="visible">
-    <motion.div variants={sectionItem} className="py-2 border-pink-200 border-b border-dotted">
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
       <SectionHeading label="Pain" />
-      <motion.div className="flex gap-x-1 overflow-x-auto overflow-y-hidden" variants={badgeContainer}>
+      <motion.div
+        className="flex gap-x-1 overflow-x-auto overflow-y-hidden"
+        variants={badgeContainer}
+      >
         {day.data.pain.map(([loc, sev]) => (
           <motion.div key={loc} variants={badgeItem} className="w-fit join">
             <div className="badge badge-sm join-item">{loc}</div>
-            <div className={`whitespace-nowrap join-item badge badge-sm rating-${sev}`}>{sev}</div>
+            <div
+              className={`whitespace-nowrap join-item badge badge-sm rating-${sev}`}
+            >
+              {sev}
+            </div>
           </motion.div>
         ))}
       </motion.div>
     </motion.div>
 
-    <motion.div variants={sectionItem} className="py-2 border-pink-200 border-b border-dotted">
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
       <SectionHeading label="Mood" />
-      <motion.div className="flex gap-x-1 overflow-x-auto" variants={badgeContainer}>
+      <motion.div
+        className="flex gap-x-1 overflow-x-auto"
+        variants={badgeContainer}
+      >
         {day.data.mood.map(([name, pol]) => (
           <motion.div
             key={name}
             variants={badgeItem}
-            className={clsx("whitespace-nowrap badge badge-sm", pol === "POSITIVE" && "bg-pink-100")}
+            className={clsx(
+              "whitespace-nowrap badge badge-sm",
+              pol === "POSITIVE" && "bg-pink-100",
+            )}
           >
             {name}
           </motion.div>
@@ -305,40 +467,63 @@ export const DaySections = ({ day }: { day: DayEntry }) => (
       </motion.div>
     </motion.div>
 
-    <motion.div variants={sectionItem} className="py-2 border-pink-200 border-b border-dotted">
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
       <SectionHeading label="Period/Bleeding" />
       {day.data.period && (
         <motion.div className="flex flex-wrap gap-1" variants={badgeContainer}>
           <motion.div variants={badgeItem} className="w-fit join">
-            <div className={`badge badge-sm join-item rating-${day.data.period.flow}`}>
+            <div
+              className={`badge badge-sm join-item rating-${day.data.period.flow}`}
+            >
               {day.data.period.flow}
             </div>
-            <div className="whitespace-nowrap join-item badge badge-sm">Flow</div>
+            <div className="whitespace-nowrap join-item badge badge-sm">
+              Flow
+            </div>
           </motion.div>
           {day.data.period.other.map((o) => (
-            <motion.div key={o} variants={badgeItem} className="badge badge-sm">{o}</motion.div>
+            <motion.div key={o} variants={badgeItem} className="badge badge-sm">
+              {o}
+            </motion.div>
           ))}
         </motion.div>
       )}
     </motion.div>
 
-    <motion.div variants={sectionItem} className="py-2 border-pink-200 border-b border-dotted">
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
       <SectionHeading label="GI/Urinary" />
       <motion.div className="flex flex-wrap gap-1" variants={badgeContainer}>
         {day.data.gi.map(([name, sev]) => (
           <motion.div key={name} variants={badgeItem} className="w-fit join">
-            <div className="whitespace-nowrap join-item badge badge-sm">{name}</div>
-            <div className={`join-item badge badge-sm rating-${sev}`}>{sev}</div>
+            <div className="whitespace-nowrap join-item badge badge-sm">
+              {name}
+            </div>
+            <div className={`join-item badge badge-sm rating-${sev}`}>
+              {sev}
+            </div>
           </motion.div>
         ))}
       </motion.div>
     </motion.div>
 
-    <motion.div variants={sectionItem} className="py-2 border-pink-200 border-b border-dotted">
+    <motion.div
+      variants={sectionItem}
+      className="py-2 border-pink-200 border-b border-dotted"
+    >
       <SectionHeading label="Hard to Do" />
       <motion.div className="flex flex-wrap gap-1" variants={badgeContainer}>
         {day.data.hardToDo.map((item) => (
-          <motion.div key={item} variants={badgeItem} className="whitespace-nowrap badge badge-sm">
+          <motion.div
+            key={item}
+            variants={badgeItem}
+            className="whitespace-nowrap badge badge-sm"
+          >
             {item}
           </motion.div>
         ))}
@@ -350,12 +535,18 @@ export const DaySections = ({ day }: { day: DayEntry }) => (
       <motion.div className="flex flex-wrap gap-1" variants={badgeContainer}>
         {day.data.other.map(([name, sev]) => (
           <motion.div key={name} variants={badgeItem} className="w-fit join">
-            <div className="whitespace-nowrap join-item badge badge-sm">{name}</div>
-            <div className={`join-item badge badge-sm rating-${sev}`}>{sev}</div>
+            <div className="whitespace-nowrap join-item badge badge-sm">
+              {name}
+            </div>
+            <div className={`join-item badge badge-sm rating-${sev}`}>
+              {sev}
+            </div>
           </motion.div>
         ))}
         {day.data.medications.map((med) => (
-          <motion.div key={med} variants={badgeItem} className="badge badge-sm">{med}</motion.div>
+          <motion.div key={med} variants={badgeItem} className="badge badge-sm">
+            {med}
+          </motion.div>
         ))}
       </motion.div>
     </motion.div>

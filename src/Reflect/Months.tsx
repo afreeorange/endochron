@@ -10,15 +10,15 @@ import {
   Nav,
   YearlySelector,
   TranscriptBlock,
-  emotionMap,
   sectionContainer,
   sectionItem,
+  DayPills,
+  CategoryLegend,
 } from "./Common";
 import type { YearlyCategory } from "./Common";
-import type { DayEntry } from "../data/dataTypes";
 
 const allDayKeys = Object.keys(data.days);
-const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const DOW = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
 
 const SEV_RANK: Record<string, number> = {
   Mild: 1,
@@ -30,84 +30,6 @@ const SEV_RANK: Record<string, number> = {
 };
 
 // ── DayPills ─────────────────────────────────────────────────────────────────
-// Compact pills shown below the date number in each calendar cell
-
-function DayPills({
-  day,
-  category,
-}: {
-  day: DayEntry;
-  category: YearlyCategory;
-}) {
-  const pill = "text-xs px-0.5 leading-tight rounded-sm truncate block";
-
-  switch (category) {
-    case "Overall":
-      return (
-        <div className="flex justify-end mt-1.5 -mr-1 text-2xl">
-          {emotionMap(false)[day.overall]}
-        </div>
-      );
-
-    case "Pain":
-      return day.data.pain.length > 0 ? (
-        <div className="flex flex-col gap-0.5 mt-1.5">
-          {day.data.pain.map(([loc, sev]) => (
-            <span key={loc} className={clsx(pill, `rating-${sev}`)}>
-              {loc}
-            </span>
-          ))}
-        </div>
-      ) : null;
-
-    case "Mood":
-      return day.data.mood.length > 0 ? (
-        <div className="flex flex-col gap-0.5 mt-1.5">
-          {day.data.mood.map(([name, pol]) => (
-            <span
-              key={name}
-              className={clsx(
-                pill,
-                pol === "POSITIVE"
-                  ? "bg-pink-100 text-pink-700"
-                  : "bg-pink-800 text-white",
-              )}
-            >
-              {name}
-            </span>
-          ))}
-        </div>
-      ) : null;
-
-    case "Period":
-      return day.data.period ? (
-        <div className="flex flex-col gap-0.5 mt-1.5">
-          <span className={clsx(pill, `rating-${day.data.period.flow}`)}>
-            {day.data.period.flow}
-          </span>
-          {day.data.period.other.map((o) => (
-            <span key={o} className={clsx(pill, "bg-pink-100 text-pink-700")}>
-              {o}
-            </span>
-          ))}
-        </div>
-      ) : null;
-
-    case "GI":
-      return day.data.gi.length > 0 ? (
-        <div className="flex flex-col gap-0.5 mt-1.5">
-          {day.data.gi.map(([name, sev]) => (
-            <span key={name} className={clsx(pill, `rating-${sev}`)}>
-              {name}
-            </span>
-          ))}
-        </div>
-      ) : null;
-
-    default:
-      return null;
-  }
-}
 
 // ── MonthAggregatePills ───────────────────────────────────────────────────────
 
@@ -405,7 +327,7 @@ function MonthGrid({
 }) {
   const start = dayjs(`${month}-01`);
   const cells: (string | null)[] = [
-    ...Array<null>(start.day()).fill(null),
+    ...Array<null>((start.day() + 1) % 7).fill(null),
     ...Array.from({ length: start.daysInMonth() }, (_, i) =>
       start.add(i, "day").format("YYYY-MM-DD"),
     ),
@@ -617,6 +539,9 @@ export const Monthly = () => {
         </div>
 
         <YearlySelector category={category} onChange={setCategory} />
+        <div className="px-4 pb-3">
+          <CategoryLegend category={category} />
+        </div>
 
         {/* Scrollable content */}
         <div className="flex-1 px-4 pb-12 overflow-y-auto">
@@ -631,7 +556,9 @@ export const Monthly = () => {
               <MonthGrid
                 month={selectedMonth}
                 category={category}
-                onWeekClick={(w) => navigate(`/reflect/weeks/${w}`)}
+                onWeekClick={(w) =>
+                  navigate(`/reflect/weeks/${selectedMonth}?week=${w}`)
+                }
               />
 
               {monthSummary && (

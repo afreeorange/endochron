@@ -5863,7 +5863,10 @@ export default {
           ["Indifferent", "NEGATIVE"],
         ],
         period: null,
-        gi: [],
+        gi: [
+          ["Constipation", "Mild"],
+          ["Gas", "Moderate"],
+        ],
         hardToDo: [],
         other: [],
         medications: ["Orilissa"],
@@ -5886,7 +5889,7 @@ export default {
           ["Mentally Foggy", "NEGATIVE"],
         ],
         period: null,
-        gi: [],
+        gi: [["Gas", "Mild"]],
         hardToDo: ["Work", "Stand"],
         other: [
           ["Headache", "Moderate"],
@@ -6101,6 +6104,312 @@ export default {
         medications: ["naproxen"],
       },
       overall: "GOOD",
+    },
+  },
+  weeks: {
+    "2025-05-week-02": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+    },
+    "2025-05-week-03": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2025-05-week-04": {
+      summary:
+        "GI symptoms like painful bowel movement shaped this week, making even basic things harder and pulling your overall mood down.",
+    },
+    "2025-05-week-05": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+    },
+    "2025-06-week-01": {
+      summary:
+        "A whiplash week — 3 good days flipped to 2 bad ones with no clear reason, the kind of unpredictability you've named as the hardest part.",
+    },
+    "2025-06-week-02": {
+      summary:
+        "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+    },
+    "2025-06-week-03": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2025-06-week-04": {
+      summary:
+        "A whiplash week — 2 good days flipped to 2 bad ones with no clear reason, the kind of unpredictability you've named as the hardest part.",
+    },
+    "2025-06-week-05": {
+      summary:
+        "A quiet, unremarkable week — pain stayed manageable and nothing dramatic happened either direction.",
+    },
+    "2025-07-week-01": {
+      summary:
+        "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+    },
+    "2025-07-week-02": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2025-07-week-03": {
+      summary:
+        "GI symptoms like painful bowel movement shaped this week, making even basic things harder and pulling your overall mood down.",
+    },
+    "2025-07-week-04": {
+      summary:
+        "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+    },
+    "2025-07-week-05": {
+      summary:
+        "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+    },
+    "2025-08-week-01": {
+      summary:
+        "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+    },
+    "2025-08-week-02": {
+      summary:
+        "Your period hit hard this week with diarrhea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2025-08-week-03": {
+      summary:
+        "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+    },
+    "2025-08-week-04": {
+      summary:
+        "A strong week — 4 good days in a row, you felt productive and present, even managing some walks or social time.",
+    },
+    "2025-08-week-05": {
+      summary:
+        "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+    },
+    "2025-09-week-01": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2025-09-week-02": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2025-09-week-03": {
+      summary:
+        "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+    },
+    "2025-09-week-04": {
+      summary:
+        "A quiet, unremarkable week — pain stayed manageable and nothing dramatic happened either direction.",
+    },
+    "2025-09-week-05": {
+      summary:
+        "A quiet, unremarkable week — pain stayed manageable and nothing dramatic happened either direction.",
+    },
+    "2025-10-week-01": {
+      summary:
+        "Mostly a middle-ground week: pain sat around a three, you worked through the days, and nothing notable stood out one way or the other.",
+    },
+    "2025-10-week-02": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2025-10-week-03": {
+      summary:
+        "A whiplash week — 2 good days flipped to 2 bad ones with no clear reason, the kind of unpredictability you've named as the hardest part.",
+    },
+    "2025-10-week-04": {
+      summary:
+        "Mostly a middle-ground week: pain sat around a three, you worked through the days, and nothing notable stood out one way or the other.",
+    },
+    "2025-10-week-05": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+    },
+    "2025-11-week-01": {
+      summary:
+        "A rough week — you logged 4 bad days, with pain concentrated in your pelvis and rectum and most activities feeling out of reach.",
+    },
+    "2025-11-week-02": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2025-11-week-03": {
+      summary:
+        "A solid, mostly pain-free week with 3 good days and the rest manageable; the kind of stretch you said you try not to jinx.",
+    },
+    "2025-11-week-04": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2025-11-week-05": {
+      summary:
+        "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+    },
+    "2025-12-week-01": {
+      summary:
+        "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+    },
+    "2025-12-week-02": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2025-12-week-03": {
+      summary:
+        "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+    },
+    "2025-12-week-04": {
+      summary:
+        "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+    },
+    "2025-12-week-05": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your lower back.",
+    },
+    "2026-01-week-01": {
+      summary:
+        "A mixed week with 2 good, 1 bad, and 2 in-between days, pain mostly in your pelvis.",
+    },
+    "2026-01-week-02": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2026-01-week-03": {
+      summary:
+        "A mixed week with 2 good, 1 bad, and 1 in-between days, pain mostly in your pelvis.",
+    },
+    "2026-01-week-04": {
+      summary:
+        "A mixed week with 1 good, 2 bad, and 1 in-between days, pain mostly in your pelvis.",
+    },
+    "2026-01-week-05": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2026-02-week-01": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2026-02-week-02": {
+      summary:
+        "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+    },
+    "2026-02-week-03": {
+      summary:
+        "A mixed week with 3 good, 1 bad, and 1 in-between days, pain mostly in your pelvis.",
+    },
+    "2026-02-week-04": {
+      summary:
+        "A mixed week with 1 good, 2 bad, and 2 in-between days, pain mostly in your pelvis.",
+    },
+    "2026-03-week-01": {
+      summary:
+        "Your period hit hard this week, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2026-03-week-02": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2026-03-week-03": {
+      summary:
+        "A mixed week with 3 good, 1 bad, and 2 in-between days, pain mostly in your pelvis.",
+    },
+    "2026-03-week-04": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2026-03-week-05": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+    },
+    "2026-04-week-01": {
+      summary:
+        "A quiet, unremarkable week — pain stayed manageable and nothing dramatic happened either direction.",
+    },
+    "2026-04-week-02": {
+      summary:
+        "Your period hit hard this week with diarrhea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2026-04-week-03": {
+      summary:
+        "A strong week — 4 good days in a row, you felt productive and present, even managing some walks or social time.",
+    },
+    "2026-04-week-04": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+    },
+    "2026-04-week-05": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+    },
+    "2026-05-week-01": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2026-05-week-02": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2026-05-week-03": {
+      summary:
+        "Bloating and endo belly ran the week, with pain in your abdomen and everything feeling uncomfortable even on calmer days.",
+    },
+    "2026-05-week-04": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2026-05-week-05": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+    },
+    "2026-06-week-01": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2026-06-week-02": {
+      summary:
+        "A mixed week with 1 good, 1 bad, and 1 in-between days, pain mostly in your pelvis.",
+    },
+    "2026-06-week-03": {
+      summary:
+        "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+    },
+    "2026-06-week-04": {
+      summary:
+        "A hard stretch with 3 bad days, your pelvis taking the brunt of it and little room to do much beyond get through the day.",
+    },
+    "2026-06-week-05": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your lower back.",
+    },
+    "2026-07-week-01": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
+    },
+    "2026-07-week-02": {
+      summary:
+        "Your period hit hard this week with nausea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2026-07-week-03": {
+      summary:
+        "GI symptoms like painful bowel movement shaped this week, making even basic things harder and pulling your overall mood down.",
+    },
+    "2026-07-week-04": {
+      summary:
+        "A mixed week with 1 good, 1 bad, and 1 in-between days, pain mostly in your pelvis.",
+    },
+    "2026-07-week-05": {
+      summary:
+        "A reasonably good week overall — more good days than bad, though some fatigue and background pain throughout.",
+    },
+    "2026-08-week-01": {
+      summary:
+        "Leaned harder this week, with more bad days than good and pain showing up in your pelvis.",
+    },
+    "2026-08-week-02": {
+      summary:
+        "Your period hit hard this week with diarrhea, dominating most of the days with heavy bleeding and severe pelvic pain.",
+    },
+    "2026-08-week-03": {
+      summary:
+        "You came out the back end of your period this week — bleeding tapered off and pain dropped to something manageable, though fatigue lingered.",
     },
   },
   months: {

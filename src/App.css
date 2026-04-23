@@ -80,6 +80,11 @@ calendar-month::part(button yearly-rating-Bad) {
   background-color: #eab308;
 }
 
+.weekly-timeline li:first-of-type,
+.weekly-timeline li:last-of-type {
+  /* flex: none; */
+}
+
 /*
 PILLS BRO!
 NOTE: They hated it. All of them.

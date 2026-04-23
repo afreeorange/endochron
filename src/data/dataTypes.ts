@@ -186,4 +186,5 @@ export interface MonthEntry {
 export interface Dataset {
   days: Record<string, Day>;
   months: Record<string, MonthEntry>;
+  weeks: Record<string, { summary: string }>;
 }

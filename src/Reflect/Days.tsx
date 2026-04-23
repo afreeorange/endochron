@@ -4,9 +4,16 @@ import { PiMicrophoneDuotone } from "react-icons/pi";
 import clsx from "clsx";
 import { useState, Fragment } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { useParams, useNavigate } from "react-router";
 
 import data from "../data/syntheticData";
-import { emotionMap, fadeAnim, Nav, TranscriptBlock, DaySections } from "./Common";
+import {
+  emotionMap,
+  fadeAnim,
+  Nav,
+  TranscriptBlock,
+  DaySections,
+} from "./Common";
 
 const REF_DATE = dayjs("2026-08-19");
 
@@ -23,11 +30,14 @@ function relativeDay(date: string) {
 type Mood = keyof ReturnType<typeof emotionMap>;
 const moodKeys: Mood[] = ["GOOD", "MANAGEABLE", "BAD"];
 
-
 export const Daily = () => {
+  const { date: dateParam } = useParams<{ date: string }>();
+  const navigate = useNavigate();
   const dateKeys = Object.keys(data.days).reverse();
 
-  const [selectedDate, setSelectedDate] = useState(dateKeys[0]);
+  const [selectedDate, setSelectedDate] = useState(
+    dateParam && data.days[dateParam] ? dateParam : dateKeys[0],
+  );
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [moods, setMoods] = useState<Record<string, Mood>>({});
   const [pickingMood, setPickingMood] = useState(false);
@@ -67,7 +77,10 @@ export const Daily = () => {
                           "relative px-2 py-1 border border-pink-200 rounded-md w-16 text-xl cursor-pointer",
                           { "opacity-40": !data.days[d] },
                         )}
-                        onClick={() => setSelectedDate(d)}
+                        onClick={() => {
+                          setSelectedDate(d);
+                          navigate(`/reflect/days/${d}`, { replace: true });
+                        }}
                         animate={{
                           backgroundColor:
                             d === selectedDate
