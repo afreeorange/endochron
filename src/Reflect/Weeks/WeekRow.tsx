@@ -52,10 +52,15 @@ export const WeekRow = ({
           isVertical ? "mb-2" : "mb-1",
         )}
       >
-        <div className={clsx(isVertical ? "w-full text-center" : "grow")}>
+        <div className={clsx(isVertical ? "w-full text-left px-1" : "grow")}>
           Week {weekIdx + 1}
           {isVertical && <br />}
-          <span className="opacity-50 ml-1 font-light">
+          <span
+            className={clsx(
+              "opacity-50 font-light",
+              isVertical ? "ml-0" : "ml-1",
+            )}
+          >
             {!isVertical && <span>&ndash;</span>} {weekDateRange(weekStart)}
           </span>
         </div>
@@ -66,7 +71,7 @@ export const WeekRow = ({
         className={clsx(
           "timeline weekly-timeline",
           isVertical
-            ? "timeline-vertical min-h-[65vh]"
+            ? "timeline-vertical min-h-[65vh] px-1.5"
             : "w-full timeline-horizontal",
         )}
         initial="hidden"

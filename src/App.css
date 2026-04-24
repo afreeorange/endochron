@@ -112,6 +112,21 @@ calendar-month::part(button yearly-rating-Bad) {
   /* flex: none; */
 }
 
+/* Vertical weekly timeline: bar flush left, content flush left beside it.
+   Overrides daisyUI .timeline-vertical grid-template-columns (default 1fr auto 1fr). */
+.weekly-timeline.timeline-vertical > li {
+  --timeline-col-start: 0;
+  justify-items: start;
+}
+.weekly-timeline.timeline-vertical .timeline-end {
+  place-self: center flex-start;
+  margin-left: 0.5rem;
+  text-align: left;
+}
+.weekly-timeline.timeline-vertical > li > hr {
+  justify-self: start;
+}
+
 /*
 PILLS BRO!
 NOTE: They hated it. All of them.

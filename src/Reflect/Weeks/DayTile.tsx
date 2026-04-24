@@ -54,7 +54,7 @@ export const DayTile = ({
   const isVertical = view === "vertical";
 
   const dayLabel = (
-    <div className={clsx(isVertical ? "text-right" : "text-center")}>
+    <div className={clsx(isVertical ? "text-left shrink-0" : "text-center")}>
       <div className="inline font-semibold text-sm">
         {dayjs(dateKey).format("ddd")}
       </div>
@@ -81,7 +81,7 @@ export const DayTile = ({
 
   const dot = (
     <PiPlusCircleDuotone
-      className="-mx-0.5"
+      className={clsx(isVertical ? "-mx-1.5 -my-0.5" : "-mx-0.5")}
       style={{
         color: active ? dayColor(day, category) : COLOR_EMPTY,
       }}
@@ -96,13 +96,23 @@ export const DayTile = ({
     >
       {!isFirst && <ColoredHr day={day} category={category} />}
 
-      <div className={clsx("timeline-start", isVertical && "text-xs")}>
-        {isVertical ? dayLabel : dayData}
-      </div>
-
-      <div className="timeline-middle">{dot}</div>
-
-      <div className="timeline-end">{isVertical ? dayData : dayLabel}</div>
+      {isVertical ? (
+        <>
+          <div className="timeline-middle">{dot}</div>
+          <div className="timeline-end">
+            <div className="flex items-center gap-2">
+              {dayLabel}
+              {dayData}
+            </div>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="timeline-start">{dayData}</div>
+          <div className="timeline-middle">{dot}</div>
+          <div className="timeline-end">{dayLabel}</div>
+        </>
+      )}
 
       {!isLast && <ColoredHr day={day} category={category} />}
     </motion.li>
