@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import Shell from "../Shell";
 import { PiMicrophoneDuotone } from "react-icons/pi";
 import clsx from "clsx";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useParams, useNavigate } from "react-router";
 
@@ -42,6 +42,17 @@ export const Daily = () => {
   const [moods, setMoods] = useState<Record<string, Mood>>({});
   const [pickingMood, setPickingMood] = useState(false);
 
+  const dateScrollRef = useRef<HTMLDivElement>(null);
+  const selectedDateTileRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const tile = selectedDateTileRef.current;
+    const container = dateScrollRef.current;
+    if (!tile || !container) return;
+    const target =
+      tile.offsetLeft - container.offsetWidth / 2 + tile.offsetWidth / 2;
+    container.scrollTo({ left: target, behavior: "smooth" });
+  }, [selectedDate]);
+
   const transcript =
     (drafts[selectedDate] ?? data.days[selectedDate]?.transcript) || null;
   const mood: Mood =
@@ -53,7 +64,10 @@ export const Daily = () => {
         <Nav />
         {/* Sticky header: dates */}
         <div className="z-20 bg-base-100 px-4 pb-2 shrink-0">
-          <div className="flex gap-2 overflow-x-auto overflow-y-hidden">
+          <div
+            ref={dateScrollRef}
+            className="flex gap-2 overflow-x-auto overflow-y-hidden"
+          >
             {Object.entries(
               dateKeys.reduce<Record<string, string[]>>((acc, d) => {
                 const key = dayjs(d).format("MMMM YYYY");
@@ -73,6 +87,7 @@ export const Daily = () => {
                     {dates.map((d) => (
                       <motion.div
                         key={d}
+                        ref={d === selectedDate ? selectedDateTileRef : undefined}
                         className={clsx(
                           "relative px-2 py-1 border border-pink-200 rounded-md w-16 text-xl cursor-pointer transition-colors duration-200",
                           !data.days[d] && "opacity-40",
