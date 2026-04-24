@@ -382,7 +382,7 @@ export const DayPills = ({
   switch (category) {
     case "Overall":
       return (
-        <div className={`flex justify-center ${mt} text-2xl`}>
+        <div className={`flex justify-end ${mt} text-2xl`}>
           {emotionMap(false)[day.overall]}
         </div>
       );
