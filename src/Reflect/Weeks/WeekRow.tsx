@@ -71,7 +71,7 @@ export const WeekRow = ({
         className={clsx(
           "timeline weekly-timeline",
           isVertical
-            ? "timeline-vertical min-h-[65vh] px-1.5"
+            ? "timeline-vertical min-h-[65vh]"
             : "w-full timeline-horizontal",
         )}
         initial="hidden"

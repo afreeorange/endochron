@@ -54,7 +54,7 @@ export const DayTile = ({
   const isVertical = view === "vertical";
 
   const dayLabel = (
-    <div className={clsx(isVertical ? "text-left shrink-0" : "text-center")}>
+    <div className={clsx(isVertical ? "text-right shrink-0 w-7" : "text-center")}>
       <div className="inline font-semibold text-sm">
         {dayjs(dateKey).format("ddd")}
       </div>
@@ -98,13 +98,9 @@ export const DayTile = ({
 
       {isVertical ? (
         <>
+          <div className="timeline-start">{dayLabel}</div>
           <div className="timeline-middle">{dot}</div>
-          <div className="timeline-end">
-            <div className="flex items-center gap-2">
-              {dayLabel}
-              {dayData}
-            </div>
-          </div>
+          <div className="timeline-end">{dayData}</div>
         </>
       ) : (
         <>

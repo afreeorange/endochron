@@ -112,19 +112,18 @@ calendar-month::part(button yearly-rating-Bad) {
   /* flex: none; */
 }
 
-/* Vertical weekly timeline: bar flush left, content flush left beside it.
+/* Vertical weekly timeline: label on left (fixed-width col), bar next to label, pills fill rest.
    Overrides daisyUI .timeline-vertical grid-template-columns (default 1fr auto 1fr). */
 .weekly-timeline.timeline-vertical > li {
-  --timeline-col-start: 0;
-  justify-items: start;
+  --timeline-col-start: auto;
+}
+.weekly-timeline.timeline-vertical .timeline-start {
+  margin: 0 0.75rem 0 0;
 }
 .weekly-timeline.timeline-vertical .timeline-end {
   place-self: center flex-start;
-  margin-left: 0.5rem;
+  margin-left: 0.75rem;
   text-align: left;
-}
-.weekly-timeline.timeline-vertical > li > hr {
-  justify-self: start;
 }
 
 /*
