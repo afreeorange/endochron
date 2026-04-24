@@ -8,6 +8,7 @@ body,
 #root {
   height: 100%;
   font-family: "84204FFF-79F6-4EF4-94F5-6CD6CA6CA761";
+  background-color: var(--color-base-100);
 }
 
 p {

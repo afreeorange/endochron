@@ -25,7 +25,12 @@ export const Weekly = () => {
   const monthsByYear = useMemo(() => groupMonthsByYear(months), [months]);
 
   const [weekDrafts, setWeekDrafts] = useState<Record<string, string>>({});
-  const [view, setView] = useState<WeekView>("horizontal");
+  const [view, setView] = useState<WeekView>(
+    () => (localStorage.getItem("reflect_weeks_view") as WeekView) ?? "horizontal",
+  );
+  useEffect(() => {
+    localStorage.setItem("reflect_weeks_view", view);
+  }, [view]);
   const [category, setCategory] = useState<YearlyCategory>(
     () =>
       (localStorage.getItem("reflect_category") as YearlyCategory) ?? "Overall",

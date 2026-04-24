@@ -89,9 +89,9 @@ export const Record = () => {
                     : phase === "done"
                       ? "Listened."
                       : sample([
-                          "What&#8217;s on your mind, Mischa?",
-                          // "What&#8217;s going on, Mischa?",
-                          // "What do you want to say, Mischa?",
+                          "What&#8217;s on your mind Mischa?",
+                          "What&#8217;s going on Mischa?",
+                          "What do you want to say Mischa?",
                         ]),
               }}
             />
@@ -195,8 +195,8 @@ export const Record = () => {
                       )}
                     >
                       Your <strong>voice</strong> in <strong>words</strong>{" "}
-                      &mdash; <strong>nothing more</strong>. <br />{" "}
-                      <em>All audio is deleted</em>{" "}
+                      &ndash; <strong>nothing more</strong>. <br /> Tap to
+                      record. <em>All audio is deleted</em>{" "}
                       <button
                         className="border border-pink-400 btn btn-xs"
                         onClick={() => setPrivacyDismissed(true)}
