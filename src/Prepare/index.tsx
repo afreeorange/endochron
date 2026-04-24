@@ -1,13 +1,16 @@
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { PiArrowDownDuotone } from "react-icons/pi";
 import dayjs from "dayjs";
 import clsx from "clsx";
 import { motion, AnimatePresence } from "motion/react";
 import Shell from "../Shell";
 import data from "../data/syntheticData";
+import { TranscriptBlock } from "../Reflect/Common";
 import type {
   PainLocation,
   OtherName,
   GIName,
+  PrepareSummaries,
   Severity,
 } from "../data/dataTypes";
 
@@ -22,12 +25,16 @@ type Zone =
   | "toes"
   | "lowerBack";
 
-const RANGES = [
-  { label: "Last week", days: 7 },
-  { label: "Two weeks", days: 14 },
-  { label: "Last month", days: 30 },
-  { label: "6 months", days: 180 },
-] as const;
+const RANGES: {
+  label: string;
+  days: number;
+  prepareKey: keyof PrepareSummaries;
+}[] = [
+  { label: "Last week", days: 7, prepareKey: "lastWeek" },
+  { label: "Two weeks", days: 14, prepareKey: "twoWeeks" },
+  { label: "Last month", days: 30, prepareKey: "lastMonth" },
+  { label: "6 months", days: 180, prepareKey: "sixMonths" },
+];
 
 const ZONE_PAIN: Record<Zone, PainLocation[]> = {
   head: [],
@@ -248,27 +255,56 @@ const ZoneSummary = ({
     [zone, daysWindow],
   );
   const empty = pain.size + gi.size + other.size === 0;
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [showScrollHint, setShowScrollHint] = useState(false);
+  useLayoutEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const update = () => {
+      const overflow = el.scrollHeight > el.clientHeight + 1;
+      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 2;
+      setShowScrollHint(overflow && !atBottom);
+    };
+    update();
+    el.addEventListener("scroll", update);
+    return () => el.removeEventListener("scroll", update);
+  }, [pain.size, gi.size, other.size]);
   return (
     <motion.div
-      className="bg-base-100 px-4 py-3 border-pink-200 border-t max-h-[40vh] overflow-y-auto shrink-0"
+      ref={scrollRef}
+      className="bg-base-100 px-4 py-3 border-pink-200 border-t max-h-[20vh] overflow-y-auto shrink-0"
       initial={{ y: "100%", opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: "100%", opacity: 0 }}
       transition={{ duration: 0.28, ease: "easeOut" }}
     >
-      <div className="flex justify-between items-center mb-2">
-        <h2 className="text-pink-500 text-sm">
+      <div className="relative mb-2">
+        <h2 className="pr-10 text-pink-500 text-sm">
           <span className="font-semibold">{ZONE_LABEL[zone]}</span> &ndash;{" "}
           <span className="opacity-60">{rangeLabel}</span>
         </h2>
-        <button
-          type="button"
-          className="btn btn-xs btn-circle"
-          onClick={onClose}
-          aria-label="Close summary"
-        >
-          ✕
-        </button>
+        <div className="top-0 right-0 absolute flex flex-col items-center gap-1">
+          <button
+            type="button"
+            className="btn btn-xs btn-circle"
+            onClick={onClose}
+            aria-label="Close summary"
+          >
+            ✕
+          </button>
+          <AnimatePresence>
+            {showScrollHint && (
+              <motion.div
+                initial={{ opacity: 0, y: -2 }}
+                animate={{ opacity: 0.6, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <PiArrowDownDuotone className="text-lg" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
       {empty ? (
         <p className="opacity-60 text-xs">No symptoms logged in this range.</p>
@@ -419,6 +455,21 @@ export const Prepare = () => {
               </button>
             ))}
           </div>
+        </motion.div>
+        <motion.div
+          className="px-4 pb-2 shrink-0"
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut", delay: 0.15 }}
+        >
+          <TranscriptBlock
+            transcript={data.prepare[range.prepareKey]}
+            animKey={range.prepareKey}
+            showQuote={false}
+            collapseLines={3}
+            textClassName="text-sm"
+            onSave={() => {}}
+          />
         </motion.div>
         <div className="flex flex-1 gap-4 px-4 py-4 min-h-0 overflow-auto">
           <BodyMap

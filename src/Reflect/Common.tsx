@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useState, useRef, type ReactNode } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   PiSmileyDuotone,
@@ -344,6 +344,8 @@ export const TranscriptBlock = ({
   label = "AI transcription. Tap to edit.",
   showQuote = true,
   className,
+  collapseLines,
+  textClassName,
 }: {
   transcript: string | null;
   onSave: (text: string) => void;
@@ -351,9 +353,17 @@ export const TranscriptBlock = ({
   label?: string;
   showQuote?: boolean;
   className?: string;
+  collapseLines?: number;
+  textClassName?: string;
 }) => {
   const [editing, setEditing] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Reset collapse when the content key changes (e.g. switching ranges).
+  useEffect(() => {
+    setExpanded(false);
+  }, [animKey]);
 
   if (!transcript) return null;
 
@@ -362,14 +372,35 @@ export const TranscriptBlock = ({
     setTimeout(() => textareaRef.current?.focus(), 0);
   }
 
+  function handleTap() {
+    if (collapseLines && !expanded) setExpanded(true);
+    else startEdit();
+  }
+
   function confirm() {
     const val = textareaRef.current?.value ?? transcript ?? "";
     onSave(val);
     setEditing(false);
   }
 
+  const clampStyle =
+    collapseLines && !expanded
+      ? {
+          display: "-webkit-box",
+          WebkitLineClamp: collapseLines,
+          WebkitBoxOrient: "vertical" as const,
+          overflow: "hidden",
+        }
+      : undefined;
+
+  const effectiveLabel = collapseLines
+    ? expanded
+      ? "Tap to edit"
+      : "Tap to read more"
+    : label;
+
   return (
-    <div className={clsx("flex items-start gap-2 mb-6", className)}>
+    <div className={clsx("flex items-start gap-2 mb-0", className)}>
       {showQuote && <PiQuotesDuotone className="text-lg rotate-180 shrink-0" />}
       <div className="flex-1">
         <AnimatePresence mode="wait">
@@ -378,7 +409,10 @@ export const TranscriptBlock = ({
               <textarea
                 ref={textareaRef}
                 defaultValue={transcript}
-                className="rounded-md w-full textarea textarea-bordered"
+                className={clsx(
+                  "rounded-md w-full textarea textarea-bordered",
+                  textClassName,
+                )}
                 rows={5}
               />
               <div className="grid grid-cols-2 mt-2 join">
@@ -400,11 +434,32 @@ export const TranscriptBlock = ({
             <motion.div
               key={animKey ? `view-${animKey}` : "view"}
               {...fadeAnim}
+              className="relative"
             >
-              <div className="cursor-pointer" onClick={startEdit}>
+              {collapseLines && expanded && (
+                <button
+                  type="button"
+                  aria-label="Collapse"
+                  className="top-0 right-0 absolute btn btn-xs btn-circle"
+                  onClick={() => setExpanded(false)}
+                >
+                  ✕
+                </button>
+              )}
+              <div
+                className={clsx(
+                  "cursor-pointer",
+                  textClassName,
+                  collapseLines && expanded && "pr-8",
+                )}
+                style={clampStyle}
+                onClick={handleTap}
+              >
                 {transcript}
               </div>
-              <p className="opacity-25 mt-1 text-xs">{label}</p>
+              {effectiveLabel && (
+                <p className="opacity-25 mt-1 text-xs">{effectiveLabel}</p>
+              )}
             </motion.div>
           )}
         </AnimatePresence>

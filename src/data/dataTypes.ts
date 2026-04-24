@@ -193,14 +193,16 @@ export interface WeekEntry {
   medications: string;
 }
 
-// ----- Root -----
+export interface PrepareSummaries {
+  lastWeek: string;
+  twoWeeks: string;
+  lastMonth: string;
+  sixMonths: string;
+}
 
-// Date keys are ISO strings:
-//   days:   "YYYY-MM-DD"
-//   months: "YYYY-MM"
-//   weeks:  "YYYY-MM-week-NN"  (NN is 01–05, indexed within each month)
 export interface Dataset {
   days: Record<string, Day>;
   months: Record<string, MonthEntry>;
   weeks: Record<string, WeekEntry>;
+  prepare: PrepareSummaries;
 }

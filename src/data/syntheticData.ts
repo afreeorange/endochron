@@ -7162,4 +7162,14 @@ export default {
         "This was a harder month \u2014 5 of your 13 logged days were bad, compared to 3 good ones. Pain showed up mostly in your pelvis and lower back, though most days it stayed manageable. Emotionally, you were frustrated and indifferent on your hard days and relaxed and optimistic when things eased up. Your period ran heavy for several days, and lined up with your hardest pain. GI-wise, diarrhea and nausea showed up repeatedly, mostly around your period. The activities that gave you the most trouble were work, get out of bed, shower. You skipped logging on 6 days.",
     },
   },
+  prepare: {
+    lastWeek:
+      "Logged every day: 1 bad, 3 manageable, 3 good. Pain came up on 7 days, mostly in your pelvis. A period started on Aug 19. GI: painful bowel movement, clustering around your period days. Hardest activities: prepare food, socialize, and walk. Fatigue on 2 days. Medications: naproxen on 2 days and Orilissa noted 1 day. Emotionally, you were indifferent and sad on hard days and relaxed and optimistic when things eased.",
+    twoWeeks:
+      "Logged 12 of 14 days: 5 bad, 4 manageable, 3 good. Pain came up on 12 days, mostly in your pelvis, lower back, and outer hip. One period (Aug 8–Aug 19), heavy for 4 days. GI: diarrhea, nausea, and painful bowel movement, clustering around your period days. Hardest activities: work, get out of bed, and shower. Fatigue on 7 days, alongside headache. Medications: naproxen on 4 days, Tylenol on 1 day, and Orilissa noted 1 day. Emotionally, you were frustrated and sad on hard days and relaxed and optimistic when things eased.",
+    lastMonth:
+      "Logged 20 of 30 days: 8 bad, 6 manageable, 6 good. Pain came up on 18 days, mostly in your pelvis, lower back, and outer hip. 2 periods in total, with 4 days of heavy bleeding. GI: diarrhea, nausea, and painful bowel movement, clustering around your period days. Hardest activities: work, get out of bed, and stand. Fatigue on 10 days, alongside headache. Medications: naproxen on 7 days, Tylenol on 2 days, and Orilissa noted 2 days. Emotionally, you were frustrated and sad on hard days and relaxed and optimistic when things eased.",
+    sixMonths:
+      "Logged 128 of 180 days: 51 bad, 44 manageable, 33 good. Pain came up on 113 days, mostly in your pelvis, lower back, and outer hip. 10 periods in total, with 19 days of heavy bleeding. GI: nausea, diarrhea, and endo belly, clustering around your period days. Hardest activities: work, get out of bed, and prepare food. Fatigue on 70 days, alongside headache. Medications: naproxen on 40 days, Tylenol on 4 days, Orilissa noted 6 days, and stool softener once. Emotionally, you were indifferent and frustrated on hard days and relaxed and optimistic when things eased.",
+  },
 } as Dataset;
