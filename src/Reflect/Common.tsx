@@ -7,6 +7,7 @@ import {
   PiSmileySadDuotone,
   PiQuotesDuotone,
   PiPencilDuotone,
+  PiMagnifyingGlassDuotone,
 } from "react-icons/pi";
 import { useNavigate, useLocation, useSearchParams } from "react-router";
 import dayjs from "dayjs";
@@ -327,8 +328,8 @@ export const Nav = () => {
       <button className={btn("/reflect/years")} onClick={() => go("years")}>
         Years
       </button>
-      <button className={btn("/reflect/any")} onClick={() => go("any")}>
-        Any
+      <button className={btn("/reflect/search")} onClick={() => go("any")}>
+        <PiMagnifyingGlassDuotone className="text-xl" />
       </button>
     </div>
   );

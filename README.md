@@ -11,6 +11,7 @@
 - Idea: Increased resolution from Year -> Month -> Week -> Day. Duh.
 - Layers persist across Month, Year.
 - In interactive iterative joint design process - We can iterate at the speed of thought thanks to Claude.
+- Search, open-ended: "What was the worst time of this year for me?" "When was I really struggling?" "What are my worst pains?"
 
 ## References
 
