@@ -6,7 +6,7 @@ import {
   PiSmileyMehDuotone,
   PiSmileySadDuotone,
   PiQuotesDuotone,
-  PiPlusCircle,
+  PiPencilDuotone,
 } from "react-icons/pi";
 import { useNavigate, useLocation } from "react-router";
 import type { DayEntry } from "../data/dataTypes";
@@ -128,7 +128,7 @@ export const badgeItem = {
 export const SectionHeading = ({ label }: { label: string }) => (
   <div className="flex items-center mb-1">
     <span className="font-semibold text-xs grow">{label}</span>
-    <PiPlusCircle className="opacity-50 text-lg" />
+    <PiPencilDuotone className="opacity-50 text-xl" />
   </div>
 );
 

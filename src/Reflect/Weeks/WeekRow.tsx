@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { motion } from "motion/react";
-import { PiPlusCircle } from "react-icons/pi";
+import { PiPencilDuotone } from "react-icons/pi";
 import data from "../../data/syntheticData";
 import { TranscriptBlock } from "../Common";
 import type { YearlyCategory } from "../Common";
@@ -64,7 +64,7 @@ export const WeekRow = ({
             {!isVertical && <span>&ndash;</span>} {weekDateRange(weekStart)}
           </span>
         </div>
-        {!isVertical && <PiPlusCircle className="text-lg" />}
+        {!isVertical && <PiPencilDuotone className="text-xl" />}
       </div>
 
       <motion.ul

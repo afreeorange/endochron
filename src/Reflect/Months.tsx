@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router";
 import { useState, useMemo, useRef, useEffect, Fragment } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import clsx from "clsx";
-import { PiPlusCircle } from "react-icons/pi";
+import { PiPencilDuotone } from "react-icons/pi";
 import data from "../data/syntheticData";
 import {
   Nav,
@@ -117,7 +117,7 @@ function MonthAggregatePills({ month }: { month: string }) {
   const Heading = ({ label }: { label: string }) => (
     <div className="flex items-center mb-1">
       <span className="font-semibold text-pink-500 text-xs grow">{label}</span>
-      <PiPlusCircle className="opacity-50 text-lg" />
+      <PiPencilDuotone className="opacity-50 text-xl" />
     </div>
   );
 
