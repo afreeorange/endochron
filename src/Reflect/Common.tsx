@@ -194,7 +194,7 @@ export const YearlySelector = ({
 }) => (
   <div className="flex items-center gap-4 px-4 pb-3 w-full">
     <select
-      className="flex-1 select-md md:select-lg select"
+      className="flex-1 select-md md:select-lg select border-4 border-double border-pink-400"
       value={category}
       onChange={(e) => onChange(e.target.value as YearlyCategory)}
     >
@@ -250,37 +250,50 @@ export const Nav = () => {
   const btn = (path: string) =>
     clsx("btn-sm join-item btn", pathname.startsWith(path) && "btn-primary");
 
-  // Derive a date anchor from the current URL so level switches stay in context.
-  const anchor = (() => {
+  // Derive context from the URL. `yearMonth` is tracked separately from
+  // `date` because the week-start date on /weeks/:ym?week=... can live in the
+  // previous month — we want the displayed month for month/week targets.
+  const context = (() => {
     const m = pathname.match(/^\/reflect\/(days|weeks|months|years)(?:\/([^/]+))?/);
     if (!m) return null;
     const [, section, param] = m;
     if (!param) return null;
-    if (section === "days") return dayjs(param);
+    if (section === "days") {
+      const date = dayjs(param);
+      return { date, yearMonth: date.format("YYYY-MM"), year: date.format("YYYY") };
+    }
     if (section === "weeks") {
       const week = searchParams.get("week");
-      return week ? dayjs(week) : dayjs(`${param}-01`);
+      const date = week ? dayjs(week) : dayjs(`${param}-01`);
+      return { date, yearMonth: param, year: param.slice(0, 4) };
     }
-    if (section === "months") return dayjs(`${param}-01`);
-    if (section === "years") return dayjs(`${param}-01-01`);
+    if (section === "months") {
+      return { date: dayjs(`${param}-01`), yearMonth: param, year: param.slice(0, 4) };
+    }
+    if (section === "years") {
+      return {
+        date: dayjs(`${param}-01-01`),
+        yearMonth: `${param}-01`,
+        year: param,
+      };
+    }
     return null;
   })();
 
   const go = (section: "days" | "weeks" | "months" | "years" | "any") => {
-    if (!anchor || section === "any") {
+    if (!context || section === "any") {
       navigate(`/reflect/${section}`);
       return;
     }
     if (section === "days") {
-      navigate(`/reflect/days/${anchor.format("YYYY-MM-DD")}`);
+      navigate(`/reflect/days/${context.date.format("YYYY-MM-DD")}`);
     } else if (section === "weeks") {
-      const ym = anchor.format("YYYY-MM");
-      const wk = anchor.startOf("week").format("YYYY-MM-DD");
-      navigate(`/reflect/weeks/${ym}?week=${wk}`);
+      const wk = context.date.startOf("week").format("YYYY-MM-DD");
+      navigate(`/reflect/weeks/${context.yearMonth}?week=${wk}`);
     } else if (section === "months") {
-      navigate(`/reflect/months/${anchor.format("YYYY-MM")}`);
+      navigate(`/reflect/months/${context.yearMonth}`);
     } else if (section === "years") {
-      navigate(`/reflect/years/${anchor.format("YYYY")}`);
+      navigate(`/reflect/years/${context.year}`);
     }
   };
 
