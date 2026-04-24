@@ -500,13 +500,13 @@ export const DaySections = ({ day }: { day: DayEntry }) => (
       {day.data.period && (
         <motion.div className="flex flex-wrap gap-1" variants={badgeContainer}>
           <motion.div variants={badgeItem} className="w-fit join">
+            <div className="whitespace-nowrap join-item badge badge-sm">
+              Flow
+            </div>
             <div
               className={`badge badge-sm join-item rating-${day.data.period.flow}`}
             >
               {day.data.period.flow}
-            </div>
-            <div className="whitespace-nowrap join-item badge badge-sm">
-              Flow
             </div>
           </motion.div>
           {day.data.period.other.map((o) => (
