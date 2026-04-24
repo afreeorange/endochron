@@ -44,12 +44,23 @@ export const Daily = () => {
 
   const dateScrollRef = useRef<HTMLDivElement>(null);
   const selectedDateTileRef = useRef<HTMLDivElement>(null);
+  const userInitiatedRef = useRef(false);
   useEffect(() => {
+    // Tile taps update selectedDate themselves — no scroll needed (tile is
+    // already visible). Only center on mount / external route changes.
+    if (userInitiatedRef.current) {
+      userInitiatedRef.current = false;
+      return;
+    }
     const tile = selectedDateTileRef.current;
     const container = dateScrollRef.current;
     if (!tile || !container) return;
+    const tileRect = tile.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const tileLeftInContent =
+      tileRect.left - containerRect.left + container.scrollLeft;
     const target =
-      tile.offsetLeft - container.offsetWidth / 2 + tile.offsetWidth / 2;
+      tileLeftInContent - container.clientWidth / 2 + tile.offsetWidth / 2;
     container.scrollTo({ left: target, behavior: "smooth" });
   }, [selectedDate]);
 
@@ -94,6 +105,7 @@ export const Daily = () => {
                           d === selectedDate && "bg-pink-500 text-white",
                         )}
                         onClick={() => {
+                          userInitiatedRef.current = true;
                           setSelectedDate(d);
                           navigate(`/reflect/days/${d}`, { replace: true });
                         }}

@@ -8,7 +8,8 @@ import {
   PiQuotesDuotone,
   PiPencilDuotone,
 } from "react-icons/pi";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate, useLocation, useSearchParams } from "react-router";
+import dayjs from "dayjs";
 import type { DayEntry } from "../data/dataTypes";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -244,40 +245,60 @@ export const emotionMap = (selected: boolean | null) => ({
 export const Nav = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const [searchParams] = useSearchParams();
 
   const btn = (path: string) =>
     clsx("btn-sm join-item btn", pathname.startsWith(path) && "btn-primary");
 
+  // Derive a date anchor from the current URL so level switches stay in context.
+  const anchor = (() => {
+    const m = pathname.match(/^\/reflect\/(days|weeks|months|years)(?:\/([^/]+))?/);
+    if (!m) return null;
+    const [, section, param] = m;
+    if (!param) return null;
+    if (section === "days") return dayjs(param);
+    if (section === "weeks") {
+      const week = searchParams.get("week");
+      return week ? dayjs(week) : dayjs(`${param}-01`);
+    }
+    if (section === "months") return dayjs(`${param}-01`);
+    if (section === "years") return dayjs(`${param}-01-01`);
+    return null;
+  })();
+
+  const go = (section: "days" | "weeks" | "months" | "years" | "any") => {
+    if (!anchor || section === "any") {
+      navigate(`/reflect/${section}`);
+      return;
+    }
+    if (section === "days") {
+      navigate(`/reflect/days/${anchor.format("YYYY-MM-DD")}`);
+    } else if (section === "weeks") {
+      const ym = anchor.format("YYYY-MM");
+      const wk = anchor.startOf("week").format("YYYY-MM-DD");
+      navigate(`/reflect/weeks/${ym}?week=${wk}`);
+    } else if (section === "months") {
+      navigate(`/reflect/months/${anchor.format("YYYY-MM")}`);
+    } else if (section === "years") {
+      navigate(`/reflect/years/${anchor.format("YYYY")}`);
+    }
+  };
+
   return (
     <div className="grid grid-cols-5 px-4 py-2 w-full join">
-      <button
-        className={btn("/reflect/days")}
-        onClick={() => navigate("/reflect/days")}
-      >
+      <button className={btn("/reflect/days")} onClick={() => go("days")}>
         Days
       </button>
-      <button
-        className={btn("/reflect/weeks")}
-        onClick={() => navigate("/reflect/weeks")}
-      >
+      <button className={btn("/reflect/weeks")} onClick={() => go("weeks")}>
         Weeks
       </button>
-      <button
-        className={btn("/reflect/months")}
-        onClick={() => navigate("/reflect/months")}
-      >
+      <button className={btn("/reflect/months")} onClick={() => go("months")}>
         Months
       </button>
-      <button
-        className={btn("/reflect/years")}
-        onClick={() => navigate("/reflect/years")}
-      >
+      <button className={btn("/reflect/years")} onClick={() => go("years")}>
         Years
       </button>
-      <button
-        className={btn("/reflect/any")}
-        onClick={() => navigate("/reflect/any")}
-      >
+      <button className={btn("/reflect/any")} onClick={() => go("any")}>
         Any
       </button>
     </div>
