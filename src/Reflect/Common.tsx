@@ -434,24 +434,19 @@ export const TranscriptBlock = ({
             <motion.div
               key={animKey ? `view-${animKey}` : "view"}
               {...fadeAnim}
-              className="relative"
             >
               {collapseLines && expanded && (
                 <button
                   type="button"
                   aria-label="Collapse"
-                  className="top-0 right-0 absolute btn btn-xs btn-circle"
+                  className="float-right mb-2 ml-2 btn btn-xl btn-circle"
                   onClick={() => setExpanded(false)}
                 >
                   ✕
                 </button>
               )}
               <div
-                className={clsx(
-                  "cursor-pointer",
-                  textClassName,
-                  collapseLines && expanded && "pr-8",
-                )}
+                className={clsx("cursor-pointer", textClassName)}
                 style={clampStyle}
                 onClick={handleTap}
               >
