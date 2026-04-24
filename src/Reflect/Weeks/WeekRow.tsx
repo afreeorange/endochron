@@ -38,7 +38,7 @@ export const WeekRow = ({
     <motion.div
       className={clsx(
         isVertical
-          ? "shrink-0 w-42 h-96 flex flex-col"
+          ? "shrink-0 w-42 h-96 flex flex-col pl-3 border-pink-200/60 border-l first:border-l-0 border-dotted"
           : "mb-6 pt-2 border-pink-200/60 border-t first:border-t-0 border-dotted",
       )}
       initial={{ opacity: 0, y: 8 }}
