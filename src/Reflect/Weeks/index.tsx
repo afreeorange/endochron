@@ -113,24 +113,23 @@ export const Weekly = () => {
             category={category}
             onChange={setCategory}
             actions={
-              <div className="flex items-center gap-1 shrink-0">
-                <button
-                  className="btn btn-square btn-md"
-                  onClick={() =>
-                    setView((v) =>
-                      v === "horizontal" ? "vertical" : "horizontal",
-                    )
-                  }
-                  aria-label="Toggle view"
-                >
-                  <PiAlignCenterVerticalDuotone
-                    className={`text-2xl transition-transform duration-300 ${view === "vertical" ? "rotate-90" : ""}`}
-                  />
-                </button>
-                <span className="ml-2 text-sm">
+              <button
+                type="button"
+                onClick={() =>
+                  setView((v) =>
+                    v === "horizontal" ? "vertical" : "horizontal",
+                  )
+                }
+                aria-label="Toggle view"
+                className="flex items-center gap-2 shrink-0 px-3 py-1.5 border-4 border-double border-pink-400 rounded-(--radius-field) cursor-pointer"
+              >
+                <PiAlignCenterVerticalDuotone
+                  className={`text-2xl transition-transform duration-300 ${view === "vertical" ? "rotate-90" : ""}`}
+                />
+                <span className="text-sm">
                   {view === "vertical" ? "Long" : "Short"}
                 </span>
-              </div>
+              </button>
             }
           />
           <div className="px-4 pb-3">
