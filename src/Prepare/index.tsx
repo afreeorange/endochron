@@ -22,10 +22,10 @@ type Zone =
   | "lowerBack";
 
 const RANGES = [
-  { label: "A week ago", days: 7 },
-  { label: "Two weeks ago", days: 14 },
+  { label: "Last week", days: 7 },
+  { label: "Two weeks", days: 14 },
   { label: "Last month", days: 30 },
-  { label: "Last 6 months", days: 180 },
+  { label: "6 months", days: 180 },
 ] as const;
 
 const ZONE_PAIN: Record<Zone, PainLocation[]> = {
@@ -333,27 +333,19 @@ export const Prepare = () => {
     <Shell>
       <div className="flex flex-col h-full">
         <div className="px-4 pt-4 pb-2 shrink-0">
-          {/* <h1 className="mb-4 text-4xl">Prepare</h1> */}
-          {/* <div className="mb-2 font-semibold text-sm">{range.label}</div> */}
-          <input
-            type="range"
-            min={0}
-            max={RANGES.length - 1}
-            step={1}
-            value={rangeIdx}
-            onChange={(e) => setRangeIdx(Number(e.target.value))}
-            className="w-full range range-primary"
-          />
-          <div className="flex justify-between opacity-60 mt-1 text-xs">
+          <div className="grid grid-cols-4 w-full join">
             {RANGES.map((r, i) => (
-              <span
+              <button
                 key={r.label}
-                className={
-                  i === rangeIdx ? "opacity-100 font-semibold" : undefined
-                }
+                type="button"
+                onClick={() => setRangeIdx(i)}
+                className={clsx(
+                  "btn-sm join-item btn",
+                  i === rangeIdx && "btn-primary",
+                )}
               >
                 {r.label}
-              </span>
+              </button>
             ))}
           </div>
         </div>
