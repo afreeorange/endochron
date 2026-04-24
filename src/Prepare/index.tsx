@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import dayjs from "dayjs";
 import clsx from "clsx";
+import { motion, AnimatePresence } from "motion/react";
 import Shell from "../Shell";
 import data from "../data/syntheticData";
 import type {
@@ -170,6 +171,16 @@ function entriesForZone(zone: Zone, daysWindow: number) {
   return { pain, gi, other };
 }
 
+const pillVariants = {
+  hidden: { opacity: 0, y: 6, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.22, ease: "easeOut" as const },
+  },
+};
+
 const Pill = ({
   name,
   days,
@@ -179,7 +190,7 @@ const Pill = ({
   days: number;
   sev: Severity;
 }) => (
-  <div className="w-fit join">
+  <motion.div className="w-fit join" variants={pillVariants}>
     <div className="badge badge-sm join-item">{name}</div>
     <div className="whitespace-nowrap badge badge-sm join-item">
       {days} {days === 1 ? "day" : "days"}
@@ -192,7 +203,7 @@ const Pill = ({
     >
       {sev}
     </div>
-  </div>
+  </motion.div>
 );
 
 const PillGroup = ({
@@ -206,11 +217,17 @@ const PillGroup = ({
   return (
     <div className="mb-2 last:mb-0">
       <div className="mb-1 font-semibold text-pink-500 text-xs">{label}</div>
-      <div className="flex flex-wrap gap-1">
+      <motion.div
+        className="flex flex-wrap gap-1"
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.04 } },
+        }}
+      >
         {entries.map(([n, e]) => (
           <Pill key={n} name={n} days={e.days.size} sev={e.sev} />
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
@@ -232,7 +249,13 @@ const ZoneSummary = ({
   );
   const empty = pain.size + gi.size + other.size === 0;
   return (
-    <div className="bg-base-100 px-4 py-3 border-pink-200 border-t max-h-[40vh] overflow-y-auto shrink-0">
+    <motion.div
+      className="bg-base-100 px-4 py-3 border-pink-200 border-t max-h-[40vh] overflow-y-auto shrink-0"
+      initial={{ y: "100%", opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: "100%", opacity: 0 }}
+      transition={{ duration: 0.28, ease: "easeOut" }}
+    >
       <div className="flex justify-between items-center mb-2">
         <h2 className="text-pink-500 text-sm">
           <span className="font-semibold">{ZONE_LABEL[zone]}</span> &ndash;{" "}
@@ -250,14 +273,32 @@ const ZoneSummary = ({
       {empty ? (
         <p className="opacity-60 text-xs">No symptoms logged in this range.</p>
       ) : (
-        <>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.06, delayChildren: 0.1 },
+            },
+          }}
+        >
           <PillGroup label="Pain" entries={[...pain]} />
           <PillGroup label="GI" entries={[...gi]} />
           <PillGroup label="Other" entries={[...other]} />
-        </>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
+};
+
+const markerVariants = {
+  hidden: { opacity: 0, scale: 0.2 },
+  visible: {
+    opacity: 0.4,
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" as const },
+  },
 };
 
 const Marker = ({
@@ -273,21 +314,26 @@ const Marker = ({
 }) => {
   if (!sev) return null;
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={clsx(
-        "absolute opacity-40 hover:opacity-70 active:opacity-90 rounded-full w-10 h-10 transition-opacity cursor-pointer",
-        `yearly-rating-${sev}`,
-        sev === "Severe" && "marker-pulse",
-      )}
+    <div
+      className="absolute"
       style={{
         left: `${x}%`,
         top: `${y}%`,
         transform: "translate(-50%, -50%)",
       }}
-      aria-label={`${sev} symptom`}
-    />
+    >
+      <motion.button
+        type="button"
+        variants={markerVariants}
+        onClick={onClick}
+        className={clsx(
+          "opacity-40 hover:opacity-70 active:opacity-90 rounded-full w-10 h-10 transition-opacity cursor-pointer",
+          `yearly-rating-${sev}`,
+          sev === "Severe" && "marker-pulse",
+        )}
+        aria-label={`${sev} symptom`}
+      />
+    </div>
   );
 };
 
@@ -297,14 +343,34 @@ const BodyMap = ({
   markers,
   severities,
   onZoneClick,
+  delay,
 }: {
   src: string;
   alt: string;
   markers: { zone: Zone; x: number; y: number }[];
   severities: Record<Zone, Severity | null>;
   onZoneClick: (z: Zone) => void;
+  delay: number;
 }) => (
-  <div className="relative h-[80vh] aspect-627/1404 shrink-0">
+  <motion.div
+    className="relative h-[80vh] aspect-627/1404 shrink-0"
+    initial="hidden"
+    animate="visible"
+    variants={{
+      hidden: { opacity: 0, y: 12 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.35,
+          ease: "easeOut",
+          delay,
+          staggerChildren: 0.08,
+          delayChildren: delay + 0.3,
+        },
+      },
+    }}
+  >
     <img
       src={src}
       alt={alt}
@@ -320,7 +386,7 @@ const BodyMap = ({
         onClick={() => onZoneClick(m.zone)}
       />
     ))}
-  </div>
+  </motion.div>
 );
 
 export const Prepare = () => {
@@ -332,7 +398,12 @@ export const Prepare = () => {
   return (
     <Shell>
       <div className="flex flex-col h-full">
-        <div className="px-4 pt-4 pb-2 shrink-0">
+        <motion.div
+          className="px-4 pt-4 pb-2 shrink-0"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
           <div className="grid grid-cols-4 w-full join">
             {RANGES.map((r, i) => (
               <button
@@ -348,7 +419,7 @@ export const Prepare = () => {
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
         <div className="flex flex-1 gap-4 px-4 py-4 min-h-0 overflow-auto">
           <BodyMap
             src="/anterior.png"
@@ -356,6 +427,7 @@ export const Prepare = () => {
             markers={ANTERIOR_MARKERS}
             severities={severities}
             onZoneClick={setSelectedZone}
+            delay={0.25}
           />
           <BodyMap
             src="/posterior.png"
@@ -363,16 +435,20 @@ export const Prepare = () => {
             markers={POSTERIOR_MARKERS}
             severities={severities}
             onZoneClick={setSelectedZone}
+            delay={0.5}
           />
         </div>
-        {selectedZone && (
-          <ZoneSummary
-            zone={selectedZone}
-            rangeLabel={range.label}
-            daysWindow={range.days}
-            onClose={() => setSelectedZone(null)}
-          />
-        )}
+        <AnimatePresence>
+          {selectedZone && (
+            <ZoneSummary
+              key={selectedZone}
+              zone={selectedZone}
+              rangeLabel={range.label}
+              daysWindow={range.days}
+              onClose={() => setSelectedZone(null)}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </Shell>
   );
