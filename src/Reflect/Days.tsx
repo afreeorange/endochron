@@ -24,7 +24,7 @@ function relativeDay(date: string) {
   if (diff === 0) return "Today";
   if (diff === 1) return "Yesterday";
   if (diff < 7) return `On ${d.format("dddd")}`;
-  return d.format("MMM DD 'YY");
+  return d.format("MMM DD ‘YY");
 }
 
 type Mood = keyof ReturnType<typeof emotionMap>;
@@ -100,7 +100,7 @@ export const Daily = () => {
                         key={d}
                         ref={d === selectedDate ? selectedDateTileRef : undefined}
                         className={clsx(
-                          "relative px-2 py-1 border border-pink-200 rounded-md w-16 text-xl cursor-pointer transition-colors duration-200",
+                          "relative px-2 py-1 border border-pink-200 rounded-md w-16 text-xl transition-colors duration-200 cursor-pointer",
                           !data.days[d] && "opacity-40",
                           d === selectedDate && "bg-pink-500 text-white",
                         )}
