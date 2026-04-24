@@ -26,7 +26,8 @@ export const Weekly = () => {
 
   const [weekDrafts, setWeekDrafts] = useState<Record<string, string>>({});
   const [view, setView] = useState<WeekView>(
-    () => (localStorage.getItem("reflect_weeks_view") as WeekView) ?? "horizontal",
+    () =>
+      (localStorage.getItem("reflect_weeks_view") as WeekView) ?? "vertical",
   );
   useEffect(() => {
     localStorage.setItem("reflect_weeks_view", view);
@@ -112,19 +113,24 @@ export const Weekly = () => {
             category={category}
             onChange={setCategory}
             actions={
-              <button
-                className="btn btn-square btn-md shrink-0"
-                onClick={() =>
-                  setView((v) =>
-                    v === "horizontal" ? "vertical" : "horizontal",
-                  )
-                }
-                aria-label="Toggle view"
-              >
-                <PiAlignCenterVerticalDuotone
-                  className={`text-2xl transition-transform duration-300 ${view === "vertical" ? "rotate-90" : ""}`}
-                />
-              </button>
+              <div className="flex items-center gap-1 shrink-0">
+                <button
+                  className="btn btn-square btn-md"
+                  onClick={() =>
+                    setView((v) =>
+                      v === "horizontal" ? "vertical" : "horizontal",
+                    )
+                  }
+                  aria-label="Toggle view"
+                >
+                  <PiAlignCenterVerticalDuotone
+                    className={`text-2xl transition-transform duration-300 ${view === "vertical" ? "rotate-90" : ""}`}
+                  />
+                </button>
+                <span className="ml-2 text-sm">
+                  {view === "vertical" ? "Long" : "Short"}
+                </span>
+              </div>
             }
           />
           <div className="px-4 pb-3">
@@ -143,7 +149,11 @@ export const Weekly = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={`${selectedMonth}-${view}`}
-              className={view === "vertical" ? "mx-auto flex gap-4 overflow-y-scroll" : undefined}
+              className={
+                view === "vertical"
+                  ? "mx-auto flex gap-4 overflow-y-scroll"
+                  : undefined
+              }
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}

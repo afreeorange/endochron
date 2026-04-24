@@ -194,9 +194,7 @@ export const Record = () => {
                         privacyDismissed && "invisible",
                       )}
                     >
-                      Your <strong>voice</strong> in <strong>words</strong>{" "}
-                      &ndash; <strong>nothing more</strong>. <br /> Tap to
-                      record. <em>All audio is deleted</em>{" "}
+                      Tap to record. <em>All audio is deleted</em>{" "}
                       <button
                         className="border border-pink-400 btn btn-xs"
                         onClick={() => setPrivacyDismissed(true)}

@@ -128,8 +128,14 @@ export const badgeItem = {
 
 export const SectionHeading = ({ label }: { label: string }) => (
   <div className="flex items-center mb-1">
-    <span className="font-semibold text-xs grow">{label}</span>
-    <PiPencilDuotone className="opacity-50 text-xl" />
+    <span className="font-semibold text-sm grow">{label}</span>
+    <button
+      type="button"
+      aria-label={`Edit ${label}`}
+      className="btn btn-sm btn-circle"
+    >
+      <PiPencilDuotone className="text-xl" />
+    </button>
   </div>
 );
 
@@ -248,7 +254,7 @@ export const Nav = () => {
   const [searchParams] = useSearchParams();
 
   const btn = (path: string) =>
-    clsx("btn-sm join-item btn", pathname.startsWith(path) && "btn-primary");
+    clsx("join-item btn", pathname.startsWith(path) && "btn-primary");
 
   // Derive context from the URL. `yearMonth` is tracked separately from
   // `date` because the week-start date on /weeks/:ym?week=... can live in the

@@ -116,8 +116,14 @@ function MonthAggregatePills({ month }: { month: string }) {
   const section = "py-2 border-pink-200 border-b border-dotted";
   const Heading = ({ label }: { label: string }) => (
     <div className="flex items-center mb-1">
-      <span className="font-semibold text-pink-500 text-xs grow">{label}</span>
-      <PiPencilDuotone className="opacity-50 text-xl" />
+      <span className="font-semibold text-pink-500 text-sm grow">{label}</span>
+      <button
+        type="button"
+        aria-label={`Edit ${label}`}
+        className="btn btn-sm btn-circle"
+      >
+        <PiPencilDuotone className="text-xl" />
+      </button>
     </div>
   );
 

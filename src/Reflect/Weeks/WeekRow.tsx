@@ -48,7 +48,7 @@ export const WeekRow = ({
       <div
         ref={weekRef}
         className={clsx(
-          "flex font-semibold text-pink-500 text-xs",
+          "flex items-center font-semibold text-pink-500 text-sm",
           isVertical ? "mb-2" : "mb-1",
         )}
       >
@@ -64,7 +64,15 @@ export const WeekRow = ({
             {!isVertical && <span>&ndash;</span>} {weekDateRange(weekStart)}
           </span>
         </div>
-        {!isVertical && <PiPencilDuotone className="text-xl" />}
+        {!isVertical && (
+          <button
+            type="button"
+            aria-label="Edit week"
+            className="btn btn-sm btn-circle"
+          >
+            <PiPencilDuotone className="text-xl" />
+          </button>
+        )}
       </div>
 
       <motion.ul
