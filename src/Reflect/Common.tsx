@@ -194,7 +194,7 @@ export const YearlySelector = ({
 }) => (
   <div className="flex items-center gap-4 px-4 pb-3 w-full">
     <select
-      className="flex-1 select-md md:select-lg select border-4 border-double border-pink-400"
+      className="flex-1 border-4 border-pink-400 border-double select-md md:select-lg select"
       value={category}
       onChange={(e) => onChange(e.target.value as YearlyCategory)}
     >
@@ -254,13 +254,19 @@ export const Nav = () => {
   // `date` because the week-start date on /weeks/:ym?week=... can live in the
   // previous month — we want the displayed month for month/week targets.
   const context = (() => {
-    const m = pathname.match(/^\/reflect\/(days|weeks|months|years)(?:\/([^/]+))?/);
+    const m = pathname.match(
+      /^\/reflect\/(days|weeks|months|years)(?:\/([^/]+))?/,
+    );
     if (!m) return null;
     const [, section, param] = m;
     if (!param) return null;
     if (section === "days") {
       const date = dayjs(param);
-      return { date, yearMonth: date.format("YYYY-MM"), year: date.format("YYYY") };
+      return {
+        date,
+        yearMonth: date.format("YYYY-MM"),
+        year: date.format("YYYY"),
+      };
     }
     if (section === "weeks") {
       const week = searchParams.get("week");
@@ -268,7 +274,11 @@ export const Nav = () => {
       return { date, yearMonth: param, year: param.slice(0, 4) };
     }
     if (section === "months") {
-      return { date: dayjs(`${param}-01`), yearMonth: param, year: param.slice(0, 4) };
+      return {
+        date: dayjs(`${param}-01`),
+        yearMonth: param,
+        year: param.slice(0, 4),
+      };
     }
     if (section === "years") {
       return {
@@ -361,7 +371,7 @@ export const TranscriptBlock = ({
               <textarea
                 ref={textareaRef}
                 defaultValue={transcript}
-                className="rounded-md w-full text-sm textarea textarea-bordered"
+                className="rounded-md w-full textarea textarea-bordered"
                 rows={5}
               />
               <div className="grid grid-cols-2 mt-2 join">
@@ -384,7 +394,7 @@ export const TranscriptBlock = ({
               key={animKey ? `view-${animKey}` : "view"}
               {...fadeAnim}
             >
-              <div className="text-xs cursor-pointer" onClick={startEdit}>
+              <div className="cursor-pointer" onClick={startEdit}>
                 {transcript}
               </div>
               <p className="opacity-25 mt-1 text-xs">{label}</p>
@@ -403,7 +413,7 @@ export const DayPills = ({
   day,
   category,
   margin = "mx-0",
-  isVertical = false
+  isVertical = false,
 }: {
   day: DayEntry;
   category: YearlyCategory;
