@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import {
   BrowserRouter,
-  Navigate,
   Outlet,
   Route,
   Routes,
@@ -19,6 +18,7 @@ import Terms from "./Pages/Terms.tsx";
 import Privacy from "./Pages/Privacy.tsx";
 import Support from "./Pages/Support.tsx";
 import Colophon from "./Pages/Colophon.tsx";
+import NotFound from "./Pages/404.tsx";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -49,7 +49,10 @@ const AnimatedRoutes = () => {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/support" element={<Support />} />
           <Route path="/colophon" element={<Colophon />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="/reflect/any" element={<NotFound />} />
+          <Route path="/prepare" element={<NotFound />} />
+          <Route path="/settings" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </AnimatePresence>

@@ -1,14 +1,16 @@
 import type { PropsWithChildren } from "react";
 import { useNavigate } from "react-router";
 import { PiArrowLeftDuotone } from "react-icons/pi";
+import Shell from "./Shell";
 
 interface PageProps extends PropsWithChildren {
   title?: string;
+  showDock?: boolean;
 }
 
-export const Page = ({ children, title }: PageProps) => {
+export const Page = ({ children, title, showDock }: PageProps) => {
   const navigate = useNavigate();
-  return (
+  const body = (
     <div className="mx-auto p-5 pb-6 max-w-2xl h-full overflow-y-auto">
       {title && (
         <div className="relative flex items-center mb-8">
@@ -26,4 +28,5 @@ export const Page = ({ children, title }: PageProps) => {
       {children}
     </div>
   );
+  return showDock ? <Shell>{body}</Shell> : body;
 };
