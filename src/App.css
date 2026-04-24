@@ -73,6 +73,15 @@ p {
   background-color: var(--color-pink-700);
 }
 
+/* Radiating pulse ring — used by severe markers on the body map. */
+@keyframes marker-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(190, 24, 93, 0.6); }
+  100% { box-shadow: 0 0 0 22px rgba(190, 24, 93, 0); }
+}
+.marker-pulse {
+  animation: marker-pulse 1.8s cubic-bezier(0.66, 0, 0, 1) infinite;
+}
+
 /* Yearly calendar */
 calendar-date::part(header) {
   display: none;

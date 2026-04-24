@@ -22,8 +22,8 @@ type Zone =
   | "lowerBack";
 
 const RANGES = [
-  { label: "Last week", days: 7 },
-  { label: "Last 2 weeks", days: 14 },
+  { label: "A week ago", days: 7 },
+  { label: "Two weeks ago", days: 14 },
   { label: "Last month", days: 30 },
   { label: "Last 6 months", days: 180 },
 ] as const;
@@ -78,10 +78,10 @@ const ZONE_OTHER: Record<Zone, OtherName[]> = {
 
 // Marker positions as % of the body image (x, y).
 const ANTERIOR_MARKERS: { zone: Zone; x: number; y: number }[] = [
-  { zone: "head", x: 49.5, y: 7.5 },
+  { zone: "head", x: 50.5, y: 5 },
   { zone: "chest", x: 50, y: 25 },
   { zone: "gi", x: 50, y: 36 },
-  { zone: "pelvis", x: 49, y: 47 },
+  { zone: "pelvis", x: 50, y: 48 },
   { zone: "fingertips", x: 22, y: 53 },
   { zone: "fingertips", x: 78, y: 53 },
   { zone: "toes", x: 41, y: 95 },
@@ -133,37 +133,57 @@ function severitiesByZone(daysWindow: number): Record<Zone, Severity | null> {
   return result;
 }
 
+type ZoneEntry = { sev: Severity; days: Set<string> };
+
 function entriesForZone(zone: Zone, daysWindow: number) {
   const start = REF_DATE.subtract(daysWindow, "day").format("YYYY-MM-DD");
-  const pain = new Map<PainLocation, Severity>();
-  const gi = new Map<GIName, Severity>();
-  const other = new Map<OtherName, Severity>();
+  const pain = new Map<PainLocation, ZoneEntry>();
+  const gi = new Map<GIName, ZoneEntry>();
+  const other = new Map<OtherName, ZoneEntry>();
   const painLocs = new Set<PainLocation>(ZONE_PAIN[zone]);
   const otherNames = new Set<OtherName>(ZONE_OTHER[zone]);
   const includeGI = ZONE_GI.has(zone);
-  const bump = <K,>(m: Map<K, Severity>, k: K, s: Severity) =>
-    m.set(k, maxSev(m.get(k) ?? null, s));
+  const bump = <K,>(m: Map<K, ZoneEntry>, k: K, s: Severity, date: string) => {
+    const cur = m.get(k);
+    if (cur) {
+      cur.sev = maxSev(cur.sev, s);
+      cur.days.add(date);
+    } else {
+      m.set(k, { sev: s, days: new Set([date]) });
+    }
+  };
 
   for (const dateKey of Object.keys(data.days)) {
     if (dateKey < start) continue;
     const day = data.days[dateKey];
     if (!day) continue;
     for (const [loc, sev] of day.data.pain) {
-      if (painLocs.has(loc)) bump(pain, loc, sev);
+      if (painLocs.has(loc)) bump(pain, loc, sev, dateKey);
     }
     if (includeGI) {
-      for (const [name, sev] of day.data.gi) bump(gi, name, sev);
+      for (const [name, sev] of day.data.gi) bump(gi, name, sev, dateKey);
     }
     for (const [name, sev] of day.data.other) {
-      if (otherNames.has(name)) bump(other, name, sev);
+      if (otherNames.has(name)) bump(other, name, sev, dateKey);
     }
   }
   return { pain, gi, other };
 }
 
-const Pill = ({ name, sev }: { name: string; sev: Severity }) => (
+const Pill = ({
+  name,
+  days,
+  sev,
+}: {
+  name: string;
+  days: number;
+  sev: Severity;
+}) => (
   <div className="w-fit join">
     <div className="badge badge-sm join-item">{name}</div>
+    <div className="whitespace-nowrap badge badge-sm join-item">
+      {days} {days === 1 ? "day" : "days"}
+    </div>
     <div
       className={clsx(
         "whitespace-nowrap badge badge-sm join-item",
@@ -180,15 +200,15 @@ const PillGroup = ({
   entries,
 }: {
   label: string;
-  entries: [string, Severity][];
+  entries: [string, ZoneEntry][];
 }) => {
   if (entries.length === 0) return null;
   return (
     <div className="mb-2 last:mb-0">
       <div className="mb-1 font-semibold text-pink-500 text-xs">{label}</div>
       <div className="flex flex-wrap gap-1">
-        {entries.map(([n, s]) => (
-          <Pill key={n} name={n} sev={s} />
+        {entries.map(([n, e]) => (
+          <Pill key={n} name={n} days={e.days.size} sev={e.sev} />
         ))}
       </div>
     </div>
@@ -259,6 +279,7 @@ const Marker = ({
       className={clsx(
         "absolute opacity-40 hover:opacity-70 active:opacity-90 rounded-full w-10 h-10 transition-opacity cursor-pointer",
         `yearly-rating-${sev}`,
+        sev === "Severe" && "marker-pulse",
       )}
       style={{
         left: `${x}%`,
@@ -283,7 +304,7 @@ const BodyMap = ({
   severities: Record<Zone, Severity | null>;
   onZoneClick: (z: Zone) => void;
 }) => (
-  <div className="relative h-[80vh] aspect-1024/1536 shrink-0">
+  <div className="relative h-[80vh] aspect-627/1404 shrink-0">
     <img
       src={src}
       alt={alt}
