@@ -19,6 +19,7 @@ import Privacy from "./Pages/Privacy.tsx";
 import Support from "./Pages/Support.tsx";
 import Colophon from "./Pages/Colophon.tsx";
 import NotFound from "./Pages/404.tsx";
+import Prepare from "./Prepare";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -50,7 +51,7 @@ const AnimatedRoutes = () => {
           <Route path="/support" element={<Support />} />
           <Route path="/colophon" element={<Colophon />} />
           <Route path="/reflect/any" element={<NotFound />} />
-          <Route path="/prepare" element={<NotFound />} />
+          <Route path="/prepare" element={<Prepare />} />
           <Route path="/settings" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Route>

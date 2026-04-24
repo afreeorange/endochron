@@ -59,6 +59,20 @@ p {
   @apply bg-pink-700 text-white;
 }
 
+/* Generic yearly-rating swatch classes (the calendar uses ::part scoping). */
+.yearly-rating-Mild,
+.yearly-rating-Light {
+  background-color: var(--color-pink-200);
+}
+.yearly-rating-Moderate,
+.yearly-rating-Medium {
+  background-color: var(--color-pink-300);
+}
+.yearly-rating-Severe,
+.yearly-rating-Heavy {
+  background-color: var(--color-pink-700);
+}
+
 /* Yearly calendar */
 calendar-date::part(header) {
   display: none;
