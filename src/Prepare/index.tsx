@@ -471,7 +471,7 @@ export const Prepare = () => {
             onSave={() => {}}
           />
         </motion.div>
-        <div className="flex flex-1 gap-4 px-4 py-4 min-h-0 overflow-auto">
+        <div className="flex flex-1 md:justify-center gap-4 px-4 py-4 min-h-0 overflow-auto">
           <BodyMap
             src="/anterior.png"
             alt="Front view"
