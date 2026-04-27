@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { PiArrowDownDuotone } from "react-icons/pi";
+import { PiArrowDownDuotone, PiPencilDuotone } from "react-icons/pi";
 import dayjs from "dayjs";
 import clsx from "clsx";
 import { motion, AnimatePresence } from "motion/react";
@@ -284,14 +284,24 @@ const ZoneSummary = ({
           <span className="opacity-60">{rangeLabel}</span>
         </h2>
         <div className="top-0 right-0 absolute flex flex-col items-center gap-1">
-          <button
-            type="button"
-            className="btn btn-xs btn-circle"
-            onClick={onClose}
-            aria-label="Close summary"
-          >
-            ✕
-          </button>
+          <div className="flex gap-x-4">
+            <button
+              type="button"
+              className="btn btn-xs btn-circle"
+              onClick={onClose}
+              aria-label="Close summary"
+            >
+              <PiPencilDuotone className="text-xl" />
+            </button>
+            <button
+              type="button"
+              className="btn btn-xs btn-circle"
+              onClick={onClose}
+              aria-label="Close summary"
+            >
+              ✕
+            </button>
+          </div>
           <AnimatePresence>
             {showScrollHint && (
               <motion.div
