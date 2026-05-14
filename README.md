@@ -31,14 +31,28 @@
 
 8. Adrienne Pichon, Lena Mamykina, and Noémie Elhadad. "Betrayal!: Contending with Misalignments in Temporal Health Status Representations with Self-Tracked Data". In: *Proceedings of the ACM on Human-Computer Interaction* 9.CSCW (2025), pp. 1–47. DOI: 10.1145/nnnnnnn.nnnnnnn.
 
+### Other
+
+- [First Principles of Interaction Design](https://asktog.com/atc/principles-of-interaction-design/)
+
 ## User Reviews
 
 TODO: Add them here.
+
+## Miscellaneous
+
+- Baseline chars: gender, age, sexual, education, income, work location, smoking, phendo user, active user, menstrual chars, periods in the last three months, pelvic pain during last period, hormones to lessen pain, type of home location, work don’t work, severity of pain during last period
+- 5-class: Great > Good > Manageable > Bad > Unbearable
+- Binary: Non flareup / Flareup
+- [On Endometriosis](https://www.youtube.com/watch?v=4frPUbB_Xvo)
+- [Nancy's Nook](https://www.facebook.com/groups/NancysNookEndoEd/) on Facebook -- endo community
+- [Endometriosis: One Of The Most Painful Conditions](https://www.youtube.com/watch?v=CNjQFX-tUh0)
 
 ## TODO
 
 - [x] View transitions
 - [x] Colors
+- [ ] Onboarding
 
 ## License
 
