@@ -2,15 +2,11 @@
 
 ## Notes
 
+- Not just an app: to VCs this is "_a novel representational infrastructure that enables collaborative clinical cognition._"
 - SUMMARIZATION IS HARD, HARD, HARD.
 - "Why are you wasting everybody's time like this Nikki?" -- Dad
 - Right-handed bias in UI
-- Went to MyEndometriosisTeam.org to gather experiences to use Claude to generate 'authentic sounding' text.
-- 446 synthetic testimonies based on 'seed' data from blog posts on Endometriosis and public Reddit posts, ~30% missing (persona: 37-year old mixed-race woman from Brooklyn, works at a design firm, no kids, married, Pisces, not religious.)
-- Import data from period tracker.
-- Idea: Increased resolution from Year -> Month -> Week -> Day. Duh.
-- Layers persist across Month, Year.
-- In interactive iterative joint design process - We can iterate at the speed of thought thanks to Claude.
+- Import data from period tracker?
 - Search, open-ended: "What was the worst time of this year for me?" "When was I really struggling?" "What are my worst pains?"
 
 ## References
@@ -47,6 +43,10 @@ TODO: Add them here.
 - [On Endometriosis](https://www.youtube.com/watch?v=4frPUbB_Xvo)
 - [Nancy's Nook](https://www.facebook.com/groups/NancysNookEndoEd/) on Facebook -- endo community
 - [Endometriosis: One Of The Most Painful Conditions](https://www.youtube.com/watch?v=CNjQFX-tUh0)
+
+### Synthetic Data
+
+- [Generation Chat](https://claude.ai/share/ff426b10-270d-47d5-a83d-675aabccae50)
 
 ## TODO
 
