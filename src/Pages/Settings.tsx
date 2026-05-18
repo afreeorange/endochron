@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router";
-import { PiArrowCounterClockwiseDuotone } from "react-icons/pi";
+import {
+  PiArrowCounterClockwiseDuotone,
+  PiEnvelopeOpenDuotone,
+  PiPhoneDuotone,
+} from "react-icons/pi";
 import { Page } from "../Page";
 import { useOnboarding } from "../Onboarding";
 
@@ -16,7 +20,7 @@ const Settings = () => {
   return (
     <Page title="Settings" showDock>
       <section>
-        {/* <h2 className="mb-2 font-semibold text-pink-600 text-sm">Help</h2> */}
+        <h2 className="mb-2 pb-1 font-semibold text-pink-600 text-sm">Help</h2>
         <button
           type="button"
           onClick={replay}
@@ -28,6 +32,31 @@ const Settings = () => {
             <div className="text-pink-400 text-xs">
               See the quick walkthrough again
             </div>
+          </div>
+        </button>
+      </section>
+      <section className="mt-6">
+        <h2 className="mb-2 pb-1 font-semibold text-pink-600 text-sm">
+          Support
+        </h2>
+        <button
+          type="button"
+          className="flex items-center gap-3 p-3 border border-pink-200 rounded-xl w-full text-sm text-left"
+        >
+          <PiPhoneDuotone className="text-pink-400 text-2xl shrink-0" />
+          <div>
+            <div className="font-medium">Call us</div>
+            <div className="text-pink-400 text-xs">About anything</div>
+          </div>
+        </button>
+        <button
+          type="button"
+          className="flex items-center gap-3 mt-4 p-3 border border-pink-200 rounded-xl w-full text-sm text-left"
+        >
+          <PiEnvelopeOpenDuotone className="text-pink-400 text-2xl shrink-0" />
+          <div>
+            <div className="font-medium">Email us</div>
+            <div className="text-pink-400 text-xs">About anything</div>
           </div>
         </button>
       </section>
