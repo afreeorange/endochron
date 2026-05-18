@@ -64,12 +64,6 @@ TODO: Add them here.
 
 - [Generation Chat](https://claude.ai/share/ff426b10-270d-47d5-a83d-675aabccae50)
 
-## TODO
-
-- [x] View transitions
-- [x] Colors
-- [x] Onboarding
-
 ## License
 
 WTFPL

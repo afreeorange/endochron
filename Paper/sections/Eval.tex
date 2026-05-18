@@ -1,0 +1,62 @@
+\subsection{Phase II: Clinical Efficacy RCT (Proposed)}
+\label{sec:efficacy-rct}
+
+In this phase, we will build an initial, fully-functional version of EndoChron per the design requirements identified in Phase I and described in Table \ref{tab:needs-goals-features}. Our research question would be: \textit{Among Phendo users with Endometriosis, does adding EndoChron for eight weeks preceding an OB/GYN visit improve patient-reported preparedness and self-efficacy, compared to Phendo alone?}
+
+We will note that \textbf{we are not contrasting the efficacies of Phendo and EndoChron in this design}. For one, we would be comparing two different self-tracking modalities and not isolating EndoChron's contribution (if any.) We also wish to avoid ethical and recruitment issues: Phendo users are recruited into Phendo for a research study. Telling them to cease using Phendo for 8–12 weeks and use EndoChron instead asks them to drop out of a study they are enrolled in. We believe that our design is a protocol \textit{amendment} since both arms are still comprised of Phendo users. Comparing Phendo to EndoChron might necessitate a separate protocol.
+
+Patient-reported visit preparedness and self-efficacy would measured by the Perceived Efficacy in Patient--Physician Interactions Scale\cite{Maly1998PEPPI,tenKlooster2012PEPPI} (PEPPI-5), a validated and brief instrument with strong psychometric properties in chronic disease populations\cite{tenKlooster2012PEPPI}. The instrument is conceptually aligned with EndoChron’s grounding in Distributed Cognition because EndoChron is explicitly designed to reduce cognitive burden during clinical encounters by transforming fragmented lived experiences into collaboratively referenced, persistent external representations. PEPPI-5 will be administered within 24~hours \textit{before} the index visit and is the primary outcome of interest.
+
+Our Null hypothesis is that there will be no difference in patient-reported preparedness and self-efficacy between patients who use Phendo with EndoChron and patients who only use Phendo.
+
+Our Alternative hypothesis is that \textit{patients who use EndoChron will arrive at their clinical visit with \circled{1} a more complete representation of their longitudinal experience, \circled{2} greater perceived self-efficacy in patient--provider interaction, and \circled{3} higher satisfaction with communication post-visit, than patients using Phendo alone.}
+
+Statistically, we hypothesize that \textit{the mean PEPPI-5 score at the index visit will be higher in those using both Phendo and EndoChron than in those using just Phendo, by Cohen's} $d \geq 0.5$.
+
+\subsubsection{Design}
+
+We propose a two-arm RCT with 1:1 allocation and patient-level randomization. The design is a \textit{superiority trial}\cite{kishore2020superiority} in that both arms continue usual Phendo use but the intervention arm additionally receives EndoChron. This isolates the marginal effect of EndoChron beyond the self-tracking baseline and rules out attributing any effect to attention or to general self-tracking. Randomization will be stratified on the level of Phendo use/engagement (Regulars and Usuals vs.\ Occasionals and Seldoms\cite{Urteaga2022Engagement})\footnote{We argue that this \textit{may} tenably be associated with the primary outcome and is ascertainable at baseline from the Phendo usage data.}.
+
+\textit{Intervention Arm.} EndoChron is installed on the participant's device alongside Phendo. Participants are encouraged but not required to use the app. The eight-week period preceding the index visit is the active intervention window. In the 48~hours preceding the visit, the intervention is augmented with a structured nudge to complete the Prepare view, but use remains the participant's choice (consistent with DG2 and the `no coercion' requirement.)
+
+\textit{Control Arm.} Continued use of Phendo as before, with no access to EndoChron. To address the Hawthorne Effect\cite{Hutchins1995Cognition}, control participants will complete equivalent baseline and outcome instruments.
+
+\subsubsection{Participants, Sample Size, Power, and Analysis}
+
+We plan on recruiting participants through the Phendo research panel and Citizen Endo community, under the existing IRB protocol \texttt{\#AAAQ9812}\cite{Urteaga2022Engagement}. We will \textbf{include} adults 18+ with confirmed endometriosis, $\geq$4 months of Phendo use, a scheduled OB/GYN visit within 8--12 weeks of enrollment, a modern smartphone, English proficiency for the speech interface and PEPPI-5. We will \textbf{exclude} those with active hospitalization for endometriosis or prior EndoChron usability participation. All participants and will receive the same compensation. EndoChron will be offered to controls after the index visit.
+
+Studies have reported PEPPI-5 standard deviations ranging from 5 to 8 points, depending on the scoring scale and study population \cite{raymond2011selfefficacy,tenKlooster2012PEPPI}. Assuming a conservative standard deviation of $\sigma = 8.0$ on the standard scale, a clinically relevant raw difference of 4.0 points between groups corresponds to a medium effect size (Cohen's $d \gtrsim 0.5$). To detect this with a two-sided significance level of $\alpha = 0.05$ and a power of $1 - \beta = 0.80$, an independent samples $t$-test requires $n = 64$ evaluable participants per arm. Factoring in an anticipated 20\% attrition or non-participation rate ($\frac{n}{0.8}$), the initial enrollment target is $n = 80$ per arm, yielding a total required sample size of $N = 160$. This target is highly feasible within Phendo's existing research infrastructure ($N = 4{,}993$ as of 2022 \cite{Urteaga2022Engagement}).
+
+The primary analysis will be a comparison of mean PEPPI-5 score between arms using a two-sample Welch's $t$-test\cite{Welch1947Generalization} which is robust to unequal variances. A secondary ANCOVA model will include the baseline PEPPI-5 score and engagement strata (Regulars and Usuals vs.\ Occasionals and Seldoms) as covariates to improve precision and assess potential differences in response across baseline engagement levels.
+
+A secondary sensitivity analysis \textit{might} examine whether the effect varies by engagement level which would require a larger sample. At this time, we will deem this analysis tentative, exploratory, and hypothesis-generating.
+
+\subsubsection{Outcomes}
+
+Our \textit{Primary} outcome of interest is the PEPPI-5 score, administered within 24~hours before the index visit. Our \textit{Secondary} outcomes may be:
+
+\begin{itemize}
+  \item \textbf{Post-visit Communication Quality:} the CAHPS Clinician \& Group Survey communication composite\cite{Dyer2012CAHPS}, administered 72~hours after the index visit.
+  \item \textbf{Patient Autonomy:} the Autonomy subscale of the Health Care Climate Questionnaire\cite{Williams1996Autonomy}, grounded in Self-Determination Theory (SDT). This outcome is motivated by the SDT framing in original Phendo motivations research\cite{McKillop2016Participatory}\footnote{``\textit{This 15-item scale assesses participants' perceptions of the degree of autonomy support (vs. controllingness) of the relevant health-care providers. It includes items such as “I feel that the staff has provided me with choices and options.” Answers are rated on a 5-point scale ranging from not true at all to very true. The HCCQ has an alpha of .95 based on a sample of 276 patients who visited a Rochester-area internal medicine office.}''}.
+  \item \textbf{Provider-Rated Information Quality:} a brief 4-to-5 item questionnaire based on the Coiera Common-Ground Framework\cite{Coiera2000ConversationModel}, asking the provider (blinded to arm allocation) to rate the completeness, clarity, and clinical utility of the information the patient brought to the visit (may also capture  proportion of visit time spent on shifting-ground work.)
+\end{itemize}
+
+\newpage
+With regard to \textit{Process \& Safety},
+
+\begin{itemize}
+  \item \textbf{EndoChron Engagement Metrics}: Number of recordings, total speech duration, number of corrections, body-map zones annotated, \textit{Prepare}-view completions. Pushed from the participant's device and with consent (no telemetry is a design goal.)
+  \item \textbf{Adverse Event Reporting:} A dedicated phone line and email address will be provided for participants to report distress, intrusive worry, or other negative affect attributable to using the app. Reports will be triaged by the research team and referred to clinical support appropriately.
+\end{itemize}
+
+\subsubsection{Threats to Validity and Mitigations}
+
+Some threats to \textit{Internal Validity} may be:
+
+\begin{itemize}
+  \item \textit{Selection Bias.} Phendo users are not representative of all endometriosis patients. They are younger and more health-literate\cite{Urteaga2022Engagement}. This limits generalizability but does not threaten internal validity given their randomization in Phase II.
+  \item \textit{Hawthorne Effect.} Both arms receive equivalent attention and instruments. Provider-rated outcomes will be collected with blinding to arm where feasible (note that the provider sees the patient's prepared artifact, so full blinding is not possible.)
+  \item \textit{Assessment Bias.} As the developers of EndoChron, we will not be involved in outcome data collection, consistent with Friedman \& Wyatt's recommendation that developers should strive to not evaluate their own systems\cite{Friedman2006EvaluationMethods}.
+\end{itemize}
+
+We foresee no threats to \textit{External Validity} at this phase since the trial is confined to existing Phendo users, an inherently engaged population. Phase~III is designed to address this.
