@@ -1,10 +1,11 @@
-import type { PropsWithChildren } from "react";
+import { useEffect, type PropsWithChildren } from "react";
 import { PiMicrophoneDuotone } from "react-icons/pi";
 import { PiAsclepiusDuotone } from "react-icons/pi";
 import { PiPersonDuotone } from "react-icons/pi";
 import { PiGearDuotone } from "react-icons/pi";
 import { useLocation, useNavigate } from "react-router";
 import clsx from "clsx";
+import { useOnboarding } from "./Onboarding";
 
 interface ShellProps extends PropsWithChildren {
   disableDock?: boolean;
@@ -14,6 +15,13 @@ interface ShellProps extends PropsWithChildren {
 export const Shell = ({ children, disableDock, hideDock }: ShellProps) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { maybeStart } = useOnboarding();
+
+  // First entry into the app shell starts onboarding (once, gated by
+  // localStorage inside maybeStart).
+  useEffect(() => {
+    maybeStart();
+  }, [maybeStart]);
 
   return (
     <div className="flex flex-col h-full">
@@ -21,6 +29,7 @@ export const Shell = ({ children, disableDock, hideDock }: ShellProps) => {
 
       {!hideDock && (<div className="z-50 dock dock-md">
         <button
+          data-onboarding="record"
           disabled={disableDock}
           onClick={() => navigate("/record")}
           className={clsx(
@@ -32,6 +41,7 @@ export const Shell = ({ children, disableDock, hideDock }: ShellProps) => {
         </button>
 
         <button
+          data-onboarding="reflect"
           disabled={disableDock}
           onClick={() => navigate("/reflect/days")}
           className={clsx(
@@ -43,6 +53,7 @@ export const Shell = ({ children, disableDock, hideDock }: ShellProps) => {
         </button>
 
         <button
+          data-onboarding="prepare"
           disabled={disableDock}
           onClick={() => navigate("/prepare")}
           className={clsx(

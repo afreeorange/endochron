@@ -52,7 +52,7 @@ TODO: Add them here.
 
 - [x] View transitions
 - [x] Colors
-- [ ] Onboarding
+- [x] Onboarding
 
 ## License
 
