@@ -1,5 +1,21 @@
 # EndoChron
 
+## Development
+
+Deployed to [docker.nikhil.io](https://docker.nikhil.io). Bog-standard React + Tailwind app. Uses synthetic data (see `PROMPT.md` and `src/data/syntheticData.json`)
+
+```bash
+pnpm i
+pnpm dev
+```
+
+## Screenshots
+
+|                                                                                                                                                              |                                                                                                                                                              |                                                                                                                                                              |                                                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [![17_08](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_08.png)](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_08.png) | [![17_15](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_15.png)](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_15.png) | [![17_28](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_28.png)](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_28.png) | [![17_36](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_36.png)](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_36.png) |
+| [![17_45](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_45.png)](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_45.png) | [![17_48](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_48.png)](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_48.png) | [![17_51](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_51.png)](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/17_51.png) | [![18_07](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/18_07.png)](https://public.nikhil.io/grad.nikhil.io/Endochron-Screenshots/18_07.png) |
+
 ## Notes
 
 - Not just an app: to VCs this is "_a novel representational infrastructure that enables collaborative clinical cognition._"
