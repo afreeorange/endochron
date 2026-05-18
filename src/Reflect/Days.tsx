@@ -6,7 +6,7 @@ import { useState, Fragment, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useParams, useNavigate } from "react-router";
 
-import data from "../data/syntheticData";
+import data, { useDatasetVersion } from "../data/store";
 import {
   emotionMap,
   fadeAnim,
@@ -33,6 +33,7 @@ const moodKeys: Mood[] = ["GOOD", "MANAGEABLE", "BAD"];
 export const Daily = () => {
   const { date: dateParam } = useParams<{ date: string }>();
   const navigate = useNavigate();
+  useDatasetVersion();
   const dateKeys = Object.keys(data.days).reverse();
 
   const [selectedDate, setSelectedDate] = useState(
@@ -221,7 +222,11 @@ export const Daily = () => {
                   setDrafts((d) => ({ ...d, [selectedDate]: text }))
                 }
               />
-              <DaySections key={selectedDate} day={data.days[selectedDate]!} />
+              <DaySections
+                key={selectedDate}
+                day={data.days[selectedDate]!}
+                date={selectedDate}
+              />
             </div>
           )}
         </div>

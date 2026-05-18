@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import data from "../../data/syntheticData";
+import data from "../../data/store";
 import type { YearlyCategory } from "../Common";
 
 const allDayKeys = Object.keys(data.days);

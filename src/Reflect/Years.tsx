@@ -5,11 +5,12 @@ import { useMemo, useRef, useEffect, useState, useCallback } from "react";
 import { useNavigate, useParams } from "react-router";
 import { motion } from "motion/react";
 import clsx from "clsx";
-import data from "../data/syntheticData";
+import data, { useDatasetVersion } from "../data/store";
 import { Nav, YearlySelector, CategoryLegend, SEV_RANK } from "./Common";
 import type { YearlyCategory } from "./Common";
 
 export const Yearly = () => {
+  const version = useDatasetVersion();
   const dateKeys = Object.keys(data.days);
   const years = [...new Set(dateKeys.map((d) => dayjs(d).format("YYYY")))].sort(
     (a, b) => a.localeCompare(b),
@@ -172,7 +173,8 @@ export const Yearly = () => {
       if (hasNext) return `${full} ${full}-start`;
       return full;
     };
-  }, [category]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category, version]);
 
   return (
     <Shell>

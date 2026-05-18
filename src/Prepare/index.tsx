@@ -1,11 +1,12 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { PiArrowDownDuotone, PiPencilDuotone } from "react-icons/pi";
+import { PiArrowDownDuotone } from "react-icons/pi";
 import dayjs from "dayjs";
 import clsx from "clsx";
 import { motion, AnimatePresence } from "motion/react";
 import Shell from "../Shell";
-import data from "../data/syntheticData";
+import data, { useDatasetVersion, type EditCategory } from "../data/store";
 import { TranscriptBlock } from "../Reflect/Common";
+import { FactorEditor, type EditScope } from "../Reflect/FactorEditor";
 import type {
   PainLocation,
   OtherName,
@@ -192,12 +193,19 @@ const Pill = ({
   name,
   days,
   sev,
+  onClick,
 }: {
   name: string;
   days: number;
   sev: Severity;
+  onClick: () => void;
 }) => (
-  <motion.div className="w-fit join" variants={pillVariants}>
+  <motion.button
+    type="button"
+    className="w-fit join cursor-pointer"
+    variants={pillVariants}
+    onClick={onClick}
+  >
     <div className="badge badge-sm join-item">{name}</div>
     <div className="whitespace-nowrap badge badge-sm join-item">
       {days} {days === 1 ? "day" : "days"}
@@ -210,17 +218,21 @@ const Pill = ({
     >
       {sev}
     </div>
-  </motion.div>
+  </motion.button>
 );
 
 const PillGroup = ({
   label,
   entries,
+  onEdit,
+  onAdd,
 }: {
   label: string;
   entries: [string, ZoneEntry][];
+  onEdit: (name: string, sev: Severity) => void;
+  onAdd: () => void;
 }) => {
-  if (entries.length === 0) return null;
+  if (entries.length === 0 && !onAdd) return null;
   return (
     <div className="mb-2 last:mb-0">
       <div className="mb-1 font-semibold text-pink-500 text-xs">{label}</div>
@@ -232,8 +244,21 @@ const PillGroup = ({
         }}
       >
         {entries.map(([n, e]) => (
-          <Pill key={n} name={n} days={e.days.size} sev={e.sev} />
+          <Pill
+            key={n}
+            name={n}
+            days={e.days.size}
+            sev={e.sev}
+            onClick={() => onEdit(n, e.sev)}
+          />
         ))}
+        <button
+          type="button"
+          className="badge badge-sm badge-outline cursor-pointer"
+          onClick={onAdd}
+        >
+          + Add
+        </button>
       </motion.div>
     </div>
   );
@@ -250,10 +275,27 @@ const ZoneSummary = ({
   daysWindow: number;
   onClose: () => void;
 }) => {
+  const version = useDatasetVersion();
   const { pain, gi, other } = useMemo(
     () => entriesForZone(zone, daysWindow),
-    [zone, daysWindow],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [zone, daysWindow, version],
   );
+  const rangeDates = useMemo(() => {
+    const start = REF_DATE.subtract(daysWindow, "day").format("YYYY-MM-DD");
+    return Object.keys(data.days).filter((k) => k >= start && data.days[k]);
+  }, [daysWindow]);
+  const scope: EditScope = {
+    kind: "range",
+    dates: rangeDates,
+    rangeLabel,
+  };
+  const [target, setTarget] = useState<{
+    cat: EditCategory;
+    factorKey?: string;
+    factorLabel?: string;
+    currentValue?: string;
+  } | null>(null);
   const empty = pain.size + gi.size + other.size === 0;
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showScrollHint, setShowScrollHint] = useState(false);
@@ -291,14 +333,6 @@ const ZoneSummary = ({
               onClick={onClose}
               aria-label="Close summary"
             >
-              <PiPencilDuotone className="text-xl" />
-            </button>
-            <button
-              type="button"
-              className="btn btn-xs btn-circle"
-              onClick={onClose}
-              aria-label="Close summary"
-            >
               ✕
             </button>
           </div>
@@ -316,24 +350,73 @@ const ZoneSummary = ({
           </AnimatePresence>
         </div>
       </div>
-      {empty ? (
-        <p className="opacity-60 text-xs">No symptoms logged in this range.</p>
-      ) : (
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.06, delayChildren: 0.1 },
-            },
-          }}
-        >
-          <PillGroup label="Pain" entries={[...pain]} />
-          <PillGroup label="GI" entries={[...gi]} />
-          <PillGroup label="Other" entries={[...other]} />
-        </motion.div>
+      {empty && (
+        <p className="opacity-60 mb-2 text-xs">
+          No symptoms logged in this range. Add one below.
+        </p>
       )}
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: 0.06, delayChildren: 0.1 },
+          },
+        }}
+      >
+        <PillGroup
+          label="Pain"
+          entries={[...pain]}
+          onEdit={(name, sev) =>
+            setTarget({
+              cat: "Pain",
+              factorKey: name,
+              factorLabel: name,
+              currentValue: sev,
+            })
+          }
+          onAdd={() => setTarget({ cat: "Pain" })}
+        />
+        <PillGroup
+          label="GI"
+          entries={[...gi]}
+          onEdit={(name, sev) =>
+            setTarget({
+              cat: "GI",
+              factorKey: name,
+              factorLabel: name,
+              currentValue: sev,
+            })
+          }
+          onAdd={() => setTarget({ cat: "GI" })}
+        />
+        <PillGroup
+          label="Other"
+          entries={[...other]}
+          onEdit={(name, sev) =>
+            setTarget({
+              cat: "Other",
+              factorKey: name,
+              factorLabel: name,
+              currentValue: sev,
+            })
+          }
+          onAdd={() => setTarget({ cat: "Other" })}
+        />
+      </motion.div>
+      <AnimatePresence>
+        {target && (
+          <FactorEditor
+            cat={target.cat}
+            scope={scope}
+            factorKey={target.factorKey}
+            factorLabel={target.factorLabel}
+            currentValue={target.currentValue}
+            onClose={() => setTarget(null)}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
@@ -439,7 +522,12 @@ export const Prepare = () => {
   const [rangeIdx, setRangeIdx] = useState(0);
   const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
   const range = RANGES[rangeIdx];
-  const severities = useMemo(() => severitiesByZone(range.days), [range.days]);
+  const version = useDatasetVersion();
+  const severities = useMemo(
+    () => severitiesByZone(range.days),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [range.days, version],
+  );
 
   return (
     <Shell>

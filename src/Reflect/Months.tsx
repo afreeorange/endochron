@@ -5,7 +5,11 @@ import { useState, useMemo, useRef, useEffect, Fragment } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import clsx from "clsx";
 import { PiPencilDuotone } from "react-icons/pi";
-import data from "../data/syntheticData";
+import data, {
+  useDatasetVersion,
+  PERIOD_FLOW,
+  type EditCategory,
+} from "../data/store";
 import {
   Nav,
   YearlySelector,
@@ -16,6 +20,14 @@ import {
   CategoryLegend,
 } from "./Common";
 import type { YearlyCategory } from "./Common";
+import { FactorEditor, type EditScope } from "./FactorEditor";
+
+type AggTarget = {
+  cat: EditCategory;
+  factorKey?: string;
+  factorLabel?: string;
+  currentValue?: string;
+};
 
 const allDayKeys = Object.keys(data.days);
 const DOW = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -34,9 +46,17 @@ const SEV_RANK: Record<string, number> = {
 // ── MonthAggregatePills ───────────────────────────────────────────────────────
 
 function MonthAggregatePills({ month }: { month: string }) {
-  const days = allDayKeys
-    .filter((k) => k.startsWith(month) && data.days[k])
-    .map((k) => data.days[k]!);
+  useDatasetVersion();
+  const [target, setTarget] = useState<AggTarget | null>(null);
+  const dateKeys = allDayKeys.filter(
+    (k) => k.startsWith(month) && data.days[k],
+  );
+  const days = dateKeys.map((k) => data.days[k]!);
+  const scope: EditScope = {
+    kind: "range",
+    dates: dateKeys,
+    rangeLabel: dayjs(`${month}-01`).format("MMMM ’YY"),
+  };
 
   if (days.length === 0) return null;
 
@@ -114,16 +134,19 @@ function MonthAggregatePills({ month }: { month: string }) {
   };
 
   const section = "py-2 border-pink-200 border-b border-dotted";
-  const Heading = ({ label }: { label: string }) => (
+  const Heading = ({ label, onAdd }: { label: string; onAdd?: () => void }) => (
     <div className="flex items-center mb-1">
       <span className="font-semibold text-pink-500 text-sm grow">{label}</span>
-      <button
-        type="button"
-        aria-label={`Edit ${label}`}
-        className="btn btn-sm btn-circle"
-      >
-        <PiPencilDuotone className="text-xl" />
-      </button>
+      {onAdd && (
+        <button
+          type="button"
+          aria-label={`Add to ${label}`}
+          className="btn btn-sm btn-circle"
+          onClick={onAdd}
+        >
+          <PiPencilDuotone className="text-xl" />
+        </button>
+      )}
     </div>
   );
 
@@ -131,16 +154,27 @@ function MonthAggregatePills({ month }: { month: string }) {
     label,
     cls,
     n,
+    onClick,
   }: {
     label: string;
     cls: string;
     n: number;
-  }) => (
-    <div className="join">
-      <span className={clsx(p, cls)}>{label}</span>
-      <span className={clsx(cnt, cls)}>{n}</span>
-    </div>
-  );
+    onClick?: () => void;
+  }) => {
+    const inner = (
+      <>
+        <span className={clsx(p, cls)}>{label}</span>
+        <span className={clsx(cnt, cls)}>{n}</span>
+      </>
+    );
+    return onClick ? (
+      <button type="button" className="join cursor-pointer" onClick={onClick}>
+        {inner}
+      </button>
+    ) : (
+      <div className="join">{inner}</div>
+    );
+  };
 
   return (
     <motion.div
@@ -169,7 +203,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* Pain */}
       {Object.keys(painMap).length > 0 && (
         <motion.div variants={sectionItem} className={section}>
-          <Heading label="Pain" />
+          <Heading label="Pain" onAdd={() => setTarget({ cat: "Pain" })} />
           <div className="flex flex-wrap gap-1">
             {Object.entries(painMap)
               .sort(byFreq(painCount))
@@ -179,6 +213,14 @@ function MonthAggregatePills({ month }: { month: string }) {
                   label={loc}
                   cls={rankCls(i, arr.length, painCount[loc])}
                   n={painCount[loc]}
+                  onClick={() =>
+                    setTarget({
+                      cat: "Pain",
+                      factorKey: loc,
+                      factorLabel: loc,
+                      currentValue: painMap[loc],
+                    })
+                  }
                 />
               ))}
           </div>
@@ -188,7 +230,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* Mood */}
       {Object.keys(moodMap).length > 0 && (
         <motion.div variants={sectionItem} className={section}>
-          <Heading label="Mood" />
+          <Heading label="Mood" onAdd={() => setTarget({ cat: "Mood" })} />
           <div className="flex flex-wrap gap-1">
             {Object.entries(moodMap)
               .sort(byFreq(moodCount))
@@ -198,6 +240,14 @@ function MonthAggregatePills({ month }: { month: string }) {
                   label={name}
                   cls={rankCls(i, arr.length, moodCount[name])}
                   n={moodCount[name]}
+                  onClick={() =>
+                    setTarget({
+                      cat: "Mood",
+                      factorKey: name,
+                      factorLabel: name,
+                      currentValue: moodMap[name],
+                    })
+                  }
                 />
               ))}
           </div>
@@ -207,13 +257,24 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* Period/Bleeding */}
       {(periodFlowMap.flow || periodOther.size > 0) && (
         <motion.div variants={sectionItem} className={section}>
-          <Heading label="Period/Bleeding" />
+          <Heading
+            label="Period/Bleeding"
+            onAdd={() => setTarget({ cat: "Period" })}
+          />
           <div className="flex flex-wrap gap-1">
             {periodFlowMap.flow && (
               <CountPill
                 label={`${periodFlowMap.flow} flow`}
                 cls={`rating-${periodFlowMap.flow}`}
                 n={periodFlowCount}
+                onClick={() =>
+                  setTarget({
+                    cat: "Period",
+                    factorKey: PERIOD_FLOW,
+                    factorLabel: "Flow",
+                    currentValue: periodFlowMap.flow,
+                  })
+                }
               />
             )}
             {[...periodOther]
@@ -227,6 +288,13 @@ function MonthAggregatePills({ month }: { month: string }) {
                   label={o}
                   cls={rankCls(i, arr.length, periodOtherCount[o])}
                   n={periodOtherCount[o]}
+                  onClick={() =>
+                    setTarget({
+                      cat: "Period",
+                      factorKey: o,
+                      factorLabel: o,
+                    })
+                  }
                 />
               ))}
           </div>
@@ -236,7 +304,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* GI/Urinary */}
       {Object.keys(giMap).length > 0 && (
         <motion.div variants={sectionItem} className={section}>
-          <Heading label="GI/Urinary" />
+          <Heading label="GI/Urinary" onAdd={() => setTarget({ cat: "GI" })} />
           <div className="flex flex-wrap gap-1">
             {Object.entries(giMap)
               .sort(byFreq(giCount))
@@ -246,6 +314,14 @@ function MonthAggregatePills({ month }: { month: string }) {
                   label={name}
                   cls={rankCls(i, arr.length, giCount[name])}
                   n={giCount[name]}
+                  onClick={() =>
+                    setTarget({
+                      cat: "GI",
+                      factorKey: name,
+                      factorLabel: name,
+                      currentValue: giMap[name],
+                    })
+                  }
                 />
               ))}
           </div>
@@ -255,7 +331,10 @@ function MonthAggregatePills({ month }: { month: string }) {
       {/* Hard to Do */}
       {Object.keys(hardToDoCount).length > 0 && (
         <motion.div variants={sectionItem} className={section}>
-          <Heading label="Hard to Do" />
+          <Heading
+            label="Hard to Do"
+            onAdd={() => setTarget({ cat: "HardToDo" })}
+          />
           <div className="flex flex-wrap gap-1">
             {Object.entries(hardToDoCount)
               .sort(([, a], [, b]) => b - a)
@@ -265,6 +344,13 @@ function MonthAggregatePills({ month }: { month: string }) {
                   label={item}
                   cls={rankCls(i, arr.length, n)}
                   n={n}
+                  onClick={() =>
+                    setTarget({
+                      cat: "HardToDo",
+                      factorKey: item,
+                      factorLabel: item,
+                    })
+                  }
                 />
               ))}
           </div>
@@ -275,7 +361,7 @@ function MonthAggregatePills({ month }: { month: string }) {
       {(Object.keys(otherMap).length > 0 ||
         Object.keys(medCount).length > 0) && (
         <motion.div variants={sectionItem} className="py-2">
-          <Heading label="Other" />
+          <Heading label="Other" onAdd={() => setTarget({ cat: "Other" })} />
           <div className="flex flex-wrap gap-1">
             {(() => {
               const otherEntries = Object.entries(otherMap).sort(
@@ -300,6 +386,14 @@ function MonthAggregatePills({ month }: { month: string }) {
                         otherCount[name],
                       )}
                       n={otherCount[name]}
+                      onClick={() =>
+                        setTarget({
+                          cat: "Other",
+                          factorKey: name,
+                          factorLabel: name,
+                          currentValue: otherMap[name],
+                        })
+                      }
                     />
                   ))}
                   {medEntries.map(([med, n]) => (
@@ -308,14 +402,41 @@ function MonthAggregatePills({ month }: { month: string }) {
                       label={med}
                       cls={rankCls(combined.indexOf(med), combined.length, n)}
                       n={n}
+                      onClick={() =>
+                        setTarget({
+                          cat: "Medications",
+                          factorKey: med,
+                          factorLabel: med,
+                        })
+                      }
                     />
                   ))}
+                  <button
+                    type="button"
+                    className="badge badge-sm badge-outline cursor-pointer"
+                    onClick={() => setTarget({ cat: "Medications" })}
+                  >
+                    + Med
+                  </button>
                 </>
               );
             })()}
           </div>
         </motion.div>
       )}
+
+      <AnimatePresence>
+        {target && (
+          <FactorEditor
+            cat={target.cat}
+            scope={scope}
+            factorKey={target.factorKey}
+            factorLabel={target.factorLabel}
+            currentValue={target.currentValue}
+            onClose={() => setTarget(null)}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
