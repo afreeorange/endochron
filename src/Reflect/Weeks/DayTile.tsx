@@ -54,7 +54,9 @@ export const DayTile = ({
   const isVertical = view === "vertical";
 
   const dayLabel = (
-    <div className={clsx(isVertical ? "text-right shrink-0 w-7" : "text-center")}>
+    <div
+      className={clsx(isVertical ? "text-right shrink-0 w-7" : "text-center")}
+    >
       <div className="inline font-semibold text-sm">
         {dayjs(dateKey).format("ddd")}
       </div>
@@ -67,7 +69,12 @@ export const DayTile = ({
   const dayData = (
     <div className={clsx("overflow-hidden", !isVertical && "w-full")}>
       {day ? (
-        <DayPills day={day} category={category} margin="mx-0.5" isVertical={isVertical} />
+        <DayPills
+          day={day}
+          category={category}
+          margin="mx-0.5"
+          isVertical={isVertical}
+        />
       ) : (
         <div
           className={clsx(

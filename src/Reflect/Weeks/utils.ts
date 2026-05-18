@@ -41,11 +41,16 @@ export function weekDateRange(weekStart: string): string {
 
 export function weekSummaryKey(category: YearlyCategory) {
   switch (category) {
-    case "Pain":   return "pain" as const;
-    case "Mood":   return "mood" as const;
-    case "Period": return "period" as const;
-    case "GI":     return "gi" as const;
-    default:       return "summary" as const;
+    case "Pain":
+      return "pain" as const;
+    case "Mood":
+      return "mood" as const;
+    case "Period":
+      return "period" as const;
+    case "GI":
+      return "gi" as const;
+    default:
+      return "summary" as const;
   }
 }
 

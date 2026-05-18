@@ -91,8 +91,8 @@ export const ANTERIOR_MARKERS: MarkerPos[] = [
   { zone: "chest", x: 50, y: 25 },
   { zone: "gi", x: 50, y: 36 },
   { zone: "pelvis", x: 50, y: 48 },
-  { zone: "fingertips", x: 22, y: 53 },
-  { zone: "fingertips", x: 78, y: 53 },
+  { zone: "fingertips", x: 10, y: 53 },
+  { zone: "fingertips", x: 90, y: 53 },
   { zone: "toes", x: 41, y: 95 },
   { zone: "toes", x: 57, y: 95 },
 ];
