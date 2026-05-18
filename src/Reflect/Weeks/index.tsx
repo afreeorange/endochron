@@ -4,8 +4,9 @@ import { useParams, useNavigate, useSearchParams } from "react-router";
 import { useState, useMemo, useRef, useEffect, Fragment } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { PiAlignCenterVerticalDuotone } from "react-icons/pi";
-import { Nav, YearlySelector, CategoryLegend } from "../Common";
-import type { YearlyCategory } from "../Common";
+import { Nav } from "../Nav";
+import { YearlySelector, CategoryLegend } from "../categories";
+import type { YearlyCategory } from "../categories";
 import type { WeekView } from "./WeekRow";
 import {
   getMonthsWithData,

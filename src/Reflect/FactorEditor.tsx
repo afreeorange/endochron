@@ -30,6 +30,17 @@ export type EditScope =
   | { kind: "day"; date: string }
   | { kind: "range"; dates: string[]; rangeLabel: string };
 
+/**
+ * What a pill tap opens in the editor. Shared by every editable pill surface
+ * (day sections, month aggregate, prepare zones). Absent `factorKey` = add mode.
+ */
+export type FactorTarget = {
+  cat: EditCategory;
+  factorKey?: string;
+  factorLabel?: string;
+  currentValue?: string;
+};
+
 export interface FactorEditorProps {
   cat: EditCategory;
   scope: EditScope;

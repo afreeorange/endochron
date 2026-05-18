@@ -2,8 +2,8 @@ import clsx from "clsx";
 import { motion } from "motion/react";
 import { PiPencilDuotone } from "react-icons/pi";
 import data from "../../data/store";
-import { TranscriptBlock } from "../Common";
-import type { YearlyCategory } from "../Common";
+import { TranscriptBlock } from "../TranscriptBlock";
+import type { YearlyCategory } from "../categories";
 import { getDaysForWeek, weekDateRange, weekSummaryKey } from "./utils";
 import { DayTile } from "./DayTile";
 

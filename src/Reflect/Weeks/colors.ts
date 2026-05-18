@@ -1,6 +1,6 @@
 import type { DayEntry } from "../../data/dataTypes";
-import { C, CATEGORY_LEGEND } from "../Common";
-import type { YearlyCategory } from "../Common";
+import { C, CATEGORY_LEGEND } from "../categories";
+import type { YearlyCategory } from "../categories";
 
 export const COLOR_EMPTY = C.mild;
 

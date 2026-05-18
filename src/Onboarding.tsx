@@ -40,7 +40,7 @@ const STEPS: Step[] = [
     target: "reflect",
     icon: <PiAsclepiusDuotone className="text-pink-500 text-2xl" />,
     title: "Reflect",
-    body: "Look back over days, weeks, months, and years to see the shape of your trajectory.",
+    body: "Look back over days, weeks, months, and years to understand the shape of your experiences.",
   },
   {
     target: "prepare",
@@ -52,7 +52,7 @@ const STEPS: Step[] = [
     target: null,
     icon: <PiLockKeyDuotone className="text-pink-500 text-2xl" />,
     title: "Yours alone",
-    body: "Everything stays on this device as much as possible. We only send your anonymous transcripts for summarization to a server: no other personal data ever leaves your device.",
+    body: "Everything stays on this device as much as possible. We only send anonymized transcripts for summarization to a server: no other personal data ever leaves your device.",
   },
 ];
 

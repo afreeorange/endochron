@@ -7,15 +7,12 @@ import { AnimatePresence, motion } from "motion/react";
 import { useParams, useNavigate } from "react-router";
 
 import data, { useDatasetVersion } from "../data/store";
-import {
-  emotionMap,
-  fadeAnim,
-  Nav,
-  TranscriptBlock,
-  DaySections,
-} from "./Common";
-
-const REF_DATE = dayjs("2026-08-19");
+import { REF_DATE } from "../data/refDate";
+import { emotionMap } from "./categories";
+import { fadeAnim } from "./animations";
+import { Nav } from "./Nav";
+import { TranscriptBlock } from "./TranscriptBlock";
+import { DaySections } from "./DaySections";
 
 function relativeDay(date: string) {
   const d = dayjs(date);

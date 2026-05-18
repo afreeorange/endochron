@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import data from "../../data/store";
-import type { YearlyCategory } from "../Common";
+import type { YearlyCategory } from "../categories";
 
 const allDayKeys = Object.keys(data.days);
 

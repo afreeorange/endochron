@@ -6,8 +6,10 @@ import { useNavigate, useParams } from "react-router";
 import { motion } from "motion/react";
 import clsx from "clsx";
 import data, { useDatasetVersion } from "../data/store";
-import { Nav, YearlySelector, CategoryLegend, SEV_RANK } from "./Common";
-import type { YearlyCategory } from "./Common";
+import { Nav } from "./Nav";
+import { YearlySelector, CategoryLegend } from "./categories";
+import type { YearlyCategory } from "./categories";
+import { SEV_RANK } from "./ranking";
 
 export const Yearly = () => {
   const version = useDatasetVersion();
