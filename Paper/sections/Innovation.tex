@@ -1,0 +1,73 @@
+\section{Innovation}
+
+We suggest an intervention, \textit{EndoChron}, that addresses this gap by employing \textbf{unstructured voice as the primary input modality} of richer and authentic expression of lived experience\footnote{With the express understanding that transcription loses the import of, for example, sarcasm and/or volume.} to bridge health expression between the conversational and the computational in enigmatic and chronic conditions that emerges \textit{patient authored} and \textit{clinically useful} artifacts.
+
+Three secondary innovations follow: \circled{1} the use of an LLM to map free-form patient speech onto an established, citizen-science-derived clinical taxonomy (Phendo) rather than an investigator-defined ontology, \circled{2} the materialization of that taxonomy-mapped speech as an \textbf{editable multi-resolution timeline}, offered with initial, temporally contextual and condition-based LLM-based summaries that the patient entirely controls, and \circled{3} the mapping of longitudinal speech-derived data onto an anatomically organized visit-preparation artifact, \textbf{a body map}, that the patient explicitly curates for disclosure to a clinician.
+
+\subsection{Comparison with Prior Tools}
+
+Table~\ref{tab:prior-tools} situates EndoChron against the four most relevant classes of prior work, on four dimensions: input modality, the author of the representation, the temporal resolution supported, and whether the tool produces an artifact designed for the clinical visit.
+
+\begin{table}[htbp]
+  \centering
+  \scriptsize
+  \renewcommand{\arraystretch}{1.5}
+
+  \makebox[\textwidth][c]{%
+    \begin{tabular}{
+        >{\raggedright\arraybackslash}p{3.5cm}
+        >{\raggedright\arraybackslash}p{3.0cm}
+        >{\raggedright\arraybackslash}p{2.7cm}
+        >{\raggedright\arraybackslash}p{3.0cm}
+        >{\raggedright\arraybackslash}p{3.5cm}
+      }
+      \hline
+      \textbf{Tool class} & \textbf{Input modality}                        & \textbf{Authorship} & \textbf{Temporal resolution} & \textbf{Visit-prep artifact} \\
+      \hline
+
+      Phendo, Bearable, Visible, other self-tracking apps
+                          & Structured forms
+                          & System/Designer-authored from patient inputs
+                          & Primarily Day-level
+                          & None patient-curated                                                                                                               \\
+      \hline
+
+      Clinical timeline visualizations \cite{Ledesma2019HealthTimeline,Rind2013InteractiveEHR}
+                          & Structured EHR data
+                          & Clinician/analyst-authored
+                          & Visit-to-visit
+                          & For clinician, not patient                                                                                                         \\
+      \hline
+
+      Computational phenotyping from PGHD \cite{Urteaga2020Phenotypes,McKillop2019Thesis}
+                          & Self-tracked data from app
+                          & Algorithm-authored
+                          & Aggregated over study period
+                          & None (research output)                                                                                                             \\
+      \hline
+
+      Conversational AI for chronic disease
+                          & Voice / text
+                          & Mixed, AI summary of session
+                          & Session-level
+                          & Not visit-curated                                                                                                                  \\
+      \hline
+
+      \textbf{EndoChron (this work)}
+                          & \textbf{Unstructured Speech}
+                          & \textbf{Patient-authored, AI-assisted}
+                          & \textbf{Moment $\rightarrow$ Year}
+                          & \textbf{Body map + Narrative, Patient-Curated}                                                                                     \\
+      \hline
+    \end{tabular}%
+  }
+
+  \caption{EndoChron in relation to prior tool classes. ``Patient-authored'' means that the patient, not the system, is the final authority on what the representation says\cite{Pichon2025Betrayal}.}
+  \label{tab:prior-tools}
+\end{table}
+
+The novelty of EndoChron is not any single column of this table but rather a combination thereof. No prior tool we are aware of accepts unstructured speech, preserves patient authorship through every downstream representation, supports temporal resolutions from moment to year, and produces a visit-preparation artifact that the patient explicitly controls.
+
+\subsection{A Tractable Problem}
+
+Three recent, converging developments make this intervention possible at the time of this writing. \circled{1} On-device speech transcription via small LLMs (Whisper-class models) has reached production quality on consumer smartphones, enabling the privacy guarantee that patient audio never leaves the device\cite{Radford2023Whisper}. \circled{2} The Phendo program has produced a validated citizen-science taxonomy of endometriosis signs and symptoms\cite{McKillop2019Thesis} that can serve as a controlled vocabulary for the extraction step, replacing the need for investigator-defined ontologies. \circled{3} Qualitative research on patient--provider misalignments in endometriosis has matured to the point where the design requirements for a patient-authored intervention are well understood\cite{Pichon2021Divided,Pichon2025Betrayal}.

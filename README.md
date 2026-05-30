@@ -33,6 +33,7 @@ TODO: Add them here.
 
 ### Notes
 
+- Adaptive Summaries: each edit to a summary means a _different prompt_!
 - Not just an app: to VCs this is "_a novel representational infrastructure that enables collaborative clinical cognition._" (I am not serious here.)
 - SUMMARIZATION IS HARD, HARD, HARD.
 - "Why are you wasting everybody's time like this Nikki?" -- Dad
