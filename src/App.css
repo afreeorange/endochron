@@ -3,6 +3,11 @@
   themes: valentine;
 }
 
+:root {
+  --scrollbar-thumb: oklch(71.8% 0.202 349.761);
+  --scrollbar-thumb-hover: oklch(65.6% 0.241 354.308);
+}
+
 html,
 body,
 #root {
@@ -15,26 +20,24 @@ p {
   @apply text-pink-600;
 }
 
-/* Scrollbars — Firefox + Chrome/Edge (CSS Scrollbars spec) */
-* {
-  scrollbar-color: var(--color-pink-500) transparent;
-  scrollbar-width: thin;
-}
-
-/* WebKit (Safari) */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-pink-500);
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-pink-600);
+@supports selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+  *::-webkit-scrollbar {
+    max-width: 10px;
+    max-height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent !important;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb) !important;
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover) !important;
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar {

@@ -247,7 +247,7 @@ export const Yearly = () => {
                   {Array.from({ length: 12 }, (_, i) => (
                     <motion.div
                       key={i}
-                      className="hover:bg-pink-100 cursor-pointer"
+                      className="cursor-pointer"
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{
