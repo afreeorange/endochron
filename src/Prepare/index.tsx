@@ -67,7 +67,7 @@ export const Prepare = () => {
         </motion.div>
         <div className="flex flex-1 md:justify-center gap-4 px-4 py-4 min-h-0 overflow-auto">
           <BodyMap
-            src="/anterior.png"
+            src={`${import.meta.env.BASE_URL}anterior.png`}
             alt="Front view"
             markers={ANTERIOR_MARKERS}
             severities={severities}
@@ -75,7 +75,7 @@ export const Prepare = () => {
             delay={0.25}
           />
           <BodyMap
-            src="/posterior.png"
+            src={`${import.meta.env.BASE_URL}posterior.png`}
             alt="Back view"
             markers={POSTERIOR_MARKERS}
             severities={severities}
