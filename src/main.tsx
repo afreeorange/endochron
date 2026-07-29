@@ -6,7 +6,7 @@ import { OnboardingProvider } from "./Onboarding";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/endochron">
       <OnboardingProvider>
         <AnimatedRoutes />
       </OnboardingProvider>
